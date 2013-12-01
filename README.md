@@ -1,2 +1,1 @@
-lhuet.github.io
-===============
+Blog perso réalisé avec JBake
