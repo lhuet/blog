@@ -1,0 +1,19 @@
+= Yet another blog !
+Laurent HUET
+2013-12-01
+:jbake-type: post
+:jbake-tags: blog, asciidoctor, jbake
+:jbake-status: published
+:source-highlighter: prettify
+:id: yet_another_blog
+
+Cela faisait longtemps que je voulais créer ce blog. C'est maintenant chose faite !
+J'ai beaucoup entendu parler (en bien) d'http://asciidoctor.org[Asciidoctor] et la migration du http://melix.github.io/blog/[blog de Cédric Champeau] m'a décidé à franchir le pas en me montrant la voie à suivre.
+
+Ce blog est donc écrit en http://asciidoc.org/[AsciiDoc], généré en page statique par http://jbake.org[JBake] et hébergé sur http://pages.github.com/[GitHub pages].
+
+Les billets à venir porteront sur Java ... et le hardware ... une fois que j'aurais bien appréhender l'AsciiDoc.
+
+Stay tuned !
+
+En bas de page, vous pourrez constater que les publications de ce site sont sous licence http://creativecommons.org/licenses/by-nc-sa/2.0/en/[Creative Commons by-nc-sa].
