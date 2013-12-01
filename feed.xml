@@ -2,18 +2,18 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>JBake</title>
-    <link>http://jbake.org</link>
-    <atom:link href="http://jbake.org/feed.xml" rel="self" type="application/rss+xml" />
+    <link>http://lhuet.github.io/blog</link>
+    <atom:link href="http://lhuet.github.io/blog/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>dim., 1 déc. 2013 20:25:48 +0100</pubDate>
-    <lastBuildDate>dim., 1 déc. 2013 20:25:48 +0100</lastBuildDate>
+    <pubDate>dim., 1 déc. 2013 20:52:39 +0100</pubDate>
+    <lastBuildDate>dim., 1 déc. 2013 20:52:39 +0100</lastBuildDate>
 
     <item>
       <title>Fourth Post</title>
-      <link>http://jbake.org/blog/2013/fourth-post.html</link>
+      <link>http://lhuet.github.io/blog/2013/fourth-post.html</link>
       <pubDate>jeu., 17 oct. 2013 00:00:00 +0200</pubDate>
-      <guid isPermaLink="false">/blog/2013/fourth-post.html</guid>
+      <guid isPermaLink="false">/2013/fourth-post.html</guid>
       	<description>
 	&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
@@ -45,9 +45,9 @@ libero, ut vehicula lectus nunc ut lorem. Aliquam erat volutpat.&lt;/p&gt;
     </item>
     <item>
       <title>Third Post</title>
-      <link>http://jbake.org/blog/2013/third-post.html</link>
+      <link>http://lhuet.github.io/blog/2013/third-post.html</link>
       <pubDate>jeu., 26 sept. 2013 00:00:00 +0200</pubDate>
-      <guid isPermaLink="false">/blog/2013/third-post.html</guid>
+      <guid isPermaLink="false">/2013/third-post.html</guid>
       	<description>
 	&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
@@ -79,9 +79,9 @@ libero, ut vehicula lectus nunc ut lorem. Aliquam erat volutpat.&lt;/p&gt;
     </item>
     <item>
       <title>Second Post</title>
-      <link>http://jbake.org/blog/2013/second-post.html</link>
+      <link>http://lhuet.github.io/blog/2013/second-post.html</link>
       <pubDate>dim., 25 août 2013 00:00:00 +0200</pubDate>
-      <guid isPermaLink="false">/blog/2013/second-post.html</guid>
+      <guid isPermaLink="false">/2013/second-post.html</guid>
       	<description>
 	&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vel diam purus. Curabitur ut nisi lacus.&lt;/p&gt;
 
@@ -102,9 +102,9 @@ libero, ut vehicula lectus nunc ut lorem. Aliquam erat volutpat.&lt;/p&gt;
     </item>
     <item>
       <title>First Post</title>
-      <link>http://jbake.org/blog/2013/first-post.html</link>
+      <link>http://lhuet.github.io/blog/2013/first-post.html</link>
       <pubDate>mer., 24 juil. 2013 00:00:00 +0200</pubDate>
-      <guid isPermaLink="false">/blog/2013/first-post.html</guid>
+      <guid isPermaLink="false">/2013/first-post.html</guid>
       	<description>
 	
 &lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque vel diam purus. Curabitur ut nisi lacus.&lt;/p&gt;
