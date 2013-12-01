@@ -8,11 +8,11 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/">JBake</a>
+            <a class="navbar-brand" href="/blog">JBake</a>
           </div>
           <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-              <li class="active"><a href="/index.html">Home</a></li>
+              <li class="active"><a href="/blog/index.html">Home</a></li>
               <li><a href="about.html">About</a></li>
               <li><a href="${config.feed_file}">Feed</a></li>
               <li class="dropdown">
