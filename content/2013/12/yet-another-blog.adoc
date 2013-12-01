@@ -8,7 +8,7 @@ Laurent HUET
 :id: yet_another_blog
 
 Cela faisait longtemps que je voulais créer ce blog. C'est maintenant chose faite !
-J'ai beaucoup entendu parler (en bien) d'http://asciidoctor.org[Asciidoctor] et la migration du http://melix.github.io/blog/[blog de Cédric Champeau] m'a décidé à franchir le pas en me montrant la voie à suivre.
+J'ai beaucoup entendu parler (en bien) de http://asciidoctor.org[Asciidoctor] et la migration du http://melix.github.io/blog/[blog de Cédric Champeau] m'a décidé à franchir le pas en me montrant la voie à suivre.
 
 Ce blog est donc écrit en http://asciidoc.org/[AsciiDoc], généré en page statique par http://jbake.org[JBake] et hébergé sur http://pages.github.com/[GitHub pages].
 
