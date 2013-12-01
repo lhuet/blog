@@ -3,11 +3,11 @@
 	<#include "menu.ftl">
 
 	<div class="page-header">
-		<h1>Blog</h1>
+		<h1>Java dans le hard(ware)</h1>
 	</div>
 	<#list posts as post>
   		<#if (post.status == "published")>
-  			<a href="${post.uri}"><h1>${post.title}</h1></a>
+  			<a href="/blog${post.uri}"><h1>${post.title}</h1></a>
   			<p>${post.date?string("dd MMMM yyyy")}</p>
   			<p>${post.body}</p>
   		</#if>
@@ -15,6 +15,6 @@
 	
 	<hr />
 	
-	<p>Older posts are available in the <a href="/${config.archive_file}">archive</a>.</p>
+	<p>Older posts are available in the <a href="/blog/${config.archive_file}">archive</a>.</p>
 
 <#include "footer.ftl">
