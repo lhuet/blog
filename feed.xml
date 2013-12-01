@@ -6,14 +6,14 @@
     <atom:link href="http://lhuet.github.io/blog/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>dim., 1 déc. 2013 20:52:39 +0100</pubDate>
-    <lastBuildDate>dim., 1 déc. 2013 20:52:39 +0100</lastBuildDate>
+    <pubDate>dim., 1 déc. 2013 21:52:39 +0100</pubDate>
+    <lastBuildDate>dim., 1 déc. 2013 21:52:39 +0100</lastBuildDate>
 
     <item>
-      <title>Fourth Post</title>
-      <link>http://lhuet.github.io/blog/2013/fourth-post.html</link>
-      <pubDate>jeu., 17 oct. 2013 00:00:00 +0200</pubDate>
-      <guid isPermaLink="false">/2013/fourth-post.html</guid>
+      <title>Yet another blog</title>
+      <link>http://lhuet.github.io/blog/2013/third-post.html</link>
+      <pubDate>dim., 1 déc. 2013 00:00:00 +0100</pubDate>
+      <guid isPermaLink="false">/2013/third-post.html</guid>
       	<description>
 	&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
@@ -39,15 +39,26 @@ id auctor arcu enim eu augue. Donec ultrices turpis in mi imperdiet ac venenatis
 consequat imperdiet nunc quis bibendum. Nulla semper, erat quis ornare tristique, lectus massa posuere
 libero, ut vehicula lectus nunc ut lorem. Aliquam erat volutpat.&lt;/p&gt;
 &lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint java language-java&quot;&gt;&lt;code&gt;package org.jbake;
+
+public class Oven {
+	public static void main(String[] args) {
+		System.out.print(&quot;Baking!&quot;);
+  }
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 	</description>
     </item>
     <item>
-      <title>Third Post</title>
-      <link>http://lhuet.github.io/blog/2013/third-post.html</link>
-      <pubDate>jeu., 26 sept. 2013 00:00:00 +0200</pubDate>
-      <guid isPermaLink="false">/2013/third-post.html</guid>
+      <title>Fourth Post</title>
+      <link>http://lhuet.github.io/blog/2013/fourth-post.html</link>
+      <pubDate>jeu., 17 oct. 2013 00:00:00 +0200</pubDate>
+      <guid isPermaLink="false">/2013/fourth-post.html</guid>
       	<description>
 	&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
