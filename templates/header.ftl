@@ -9,7 +9,7 @@
     <meta name="keywords" content="">    
 
     <!-- Le styles -->
-    <link href="/blog/css/flatly/bootstrap.min.css" rel="stylesheet">
+    <link href="/blog/css/yeti/bootstrap.min.css" rel="stylesheet">
     <link href="/blog/css/asciidoctor.css" rel="stylesheet">
     <link href="/blog/css/base.css" rel="stylesheet">
     <!-- link href="/blog/css/bootstrap-theme.min.css" rel="stylesheet" -->
