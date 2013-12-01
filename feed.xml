@@ -6,8 +6,8 @@
     <atom:link href="http://lhuet.github.io/blog/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>dim., 1 déc. 2013 23:44:35 +0100</pubDate>
-    <lastBuildDate>dim., 1 déc. 2013 23:44:35 +0100</lastBuildDate>
+    <pubDate>lun., 2 déc. 2013 00:02:45 +0100</pubDate>
+    <lastBuildDate>lun., 2 déc. 2013 00:02:45 +0100</lastBuildDate>
 
     <item>
       <title>Yet another blog !</title>
@@ -19,7 +19,7 @@
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Cela faisait longtemps que je voulais créer ce blog. C&amp;#8217;est maintenant chose faite !
-J&amp;#8217;ai beaucoup entendu parler (en bien) d&amp;#8217;http://asciidoctor.org[Asciidoctor] et la migration du &lt;a href=&quot;http://melix.github.io/blog/&quot;&gt;blog de Cédric Champeau&lt;/a&gt; m&amp;#8217;a décidé à franchir le pas en me montrant la voie à suivre.&lt;/p&gt;
+J&amp;#8217;ai beaucoup entendu parler (en bien) de &lt;a href=&quot;http://asciidoctor.org&quot;&gt;Asciidoctor&lt;/a&gt; et la migration du &lt;a href=&quot;http://melix.github.io/blog/&quot;&gt;blog de Cédric Champeau&lt;/a&gt; m&amp;#8217;a décidé à franchir le pas en me montrant la voie à suivre.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Ce blog est donc écrit en &lt;a href=&quot;http://asciidoc.org/&quot;&gt;AsciiDoc&lt;/a&gt;, généré en page statique par &lt;a href=&quot;http://jbake.org&quot;&gt;JBake&lt;/a&gt; et hébergé sur &lt;a href=&quot;http://pages.github.com/&quot;&gt;GitHub pages&lt;/a&gt;.&lt;/p&gt;
