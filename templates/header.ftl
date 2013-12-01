@@ -9,10 +9,10 @@
     <meta name="keywords" content="">    
 
     <!-- Le styles -->
-    <link href="/blog/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/blog/css/flatly/bootstrap.min.css" rel="stylesheet">
     <link href="/blog/css/asciidoctor.css" rel="stylesheet">
     <link href="/blog/css/base.css" rel="stylesheet">
-    <link href="/blog/css/bootstrap-theme.min.css" rel="stylesheet">
+    <!-- link href="/blog/css/bootstrap-theme.min.css" rel="stylesheet" -->
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>

@@ -1,8 +1,8 @@
-title=Third Post
-date=2013-09-26
+title=Yet another blog
+date=2013-12-01
 type=post
 tags=blog, asciidoc
-status=published
+status=draft
 ~~~~~~
 = Third Post
 Jonathan Bullock
@@ -20,3 +20,14 @@ ligula vehicula et iaculis sem placerat. Fusce dictum, metus at volutpat lacinia
 id auctor arcu enim eu augue. Donec ultrices turpis in mi imperdiet ac venenatis sapien sodales. In 
 consequat imperdiet nunc quis bibendum. Nulla semper, erat quis ornare tristique, lectus massa posuere 
 libero, ut vehicula lectus nunc ut lorem. Aliquam erat volutpat.
+
+[source,java]
+----
+package org.jbake;
+
+public class Oven {
+	public static void main(String[] args) {
+		System.out.print("Baking!");
+  }
+}
+----
