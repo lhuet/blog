@@ -6,8 +6,8 @@
     <atom:link href="http://lhuet.github.io/blog/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>lun., 2 déc. 2013 00:17:31 +0100</pubDate>
-    <lastBuildDate>lun., 2 déc. 2013 00:17:31 +0100</lastBuildDate>
+    <pubDate>lun., 2 déc. 2013 22:36:46 +0100</pubDate>
+    <lastBuildDate>lun., 2 déc. 2013 22:36:46 +0100</lastBuildDate>
 
     <item>
       <title>Yet another blog !</title>
@@ -18,12 +18,35 @@
 	&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Cela faisait longtemps que je voulais créer ce blog. C&amp;#8217;est maintenant chose faite !
-J&amp;#8217;ai beaucoup entendu parler (en bien) de &lt;a href=&quot;http://asciidoctor.org&quot;&gt;Asciidoctor&lt;/a&gt; et la migration du &lt;a href=&quot;http://melix.github.io/blog/&quot;&gt;blog de Cédric Champeau&lt;/a&gt; m&amp;#8217;a décidé à franchir le pas en me montrant la voie à suivre.&lt;/p&gt;
+&lt;p&gt;Cela faisait longtemps que je voulais créer ce blog. C&amp;#8217;est maintenant chose faite !&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_h_bergement&quot;&gt;Hébergement&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Mon besoin principal (et oui, c&amp;#8217;est un besoin !) est de partager diverses expériences à travers quelques billets.
+Comme elles sont souvent liées à du code, rien de plus naturel que de mettre ces billets à coté de celui-ci sur GitHub !&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Ce blog est donc écrit en &lt;a href=&quot;http://asciidoc.org/&quot;&gt;AsciiDoc&lt;/a&gt;, généré en page statique par &lt;a href=&quot;http://jbake.org&quot;&gt;JBake&lt;/a&gt; et hébergé sur &lt;a href=&quot;http://pages.github.com/&quot;&gt;GitHub pages&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Coté hébergement, mon choix s&amp;#8217;est donc rapidement porté sur &lt;a href=&quot;http://pages.github.com/&quot;&gt;GitHub pages&lt;/a&gt; &amp;#8230; d&amp;#8217;autant plus que ce service est gratuit !&lt;/p&gt;
 &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_outils_de_publication&quot;&gt;Outils de publication&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;http://jekyllrb.com/&quot;&gt;Jekyll&lt;/a&gt; est le choix naturel suggéré par la documentation GitHub.
+N&apos;étant pas fan de Ruby ni des gems à installer, j&amp;#8217;ai longtemps hésité à franchir le pas.
+Entre temps, j&amp;#8217;ai beaucoup entendu parler (en bien) de &lt;a href=&quot;http://asciidoctor.org&quot;&gt;Asciidoctor&lt;/a&gt;, notamment sur sa mise en place sur des projets
+comme &lt;a href=&quot;http://groovy.codehaus.org/&quot;&gt;Groovy&lt;/a&gt;, &lt;a href=&quot;http://hibernate.org/&quot;&gt;Hibernate&lt;/a&gt;, ou &lt;a href=&quot;http://golo-lang.org/&quot;&gt;Golo&lt;/a&gt;.
+La migration du &lt;a href=&quot;http://melix.github.io/blog/&quot;&gt;blog de Cédric Champeau&lt;/a&gt; m&amp;#8217;a définitivement décidé à franchir le pas en me montrant la voie à suivre.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Ce blog est donc écrit en &lt;a href=&quot;http://asciidoc.org/&quot;&gt;AsciiDoc&lt;/a&gt; et les pages statiques générées par &lt;a href=&quot;http://jbake.org&quot;&gt;JBake&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_a_venir&quot;&gt;A venir&lt;/h3&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Les billets à venir porteront sur Java &amp;#8230; et le hardware &amp;#8230; une fois que j&amp;#8217;aurais bien appréhender l&amp;#8217;AsciiDoc.&lt;/p&gt;
 &lt;/div&gt;
@@ -32,7 +55,6 @@ J&amp;#8217;ai beaucoup entendu parler (en bien) de &lt;a href=&quot;http://asci
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;En bas de page, vous pourrez constater que les publications de ce site sont sous licence &lt;a href=&quot;http://creativecommons.org/licenses/by-nc-sa/2.0/en/&quot;&gt;Creative Commons by-nc-sa&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 	</description>
