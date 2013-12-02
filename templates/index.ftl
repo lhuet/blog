@@ -3,7 +3,10 @@
 	<#include "menu.ftl">
 
 	<div class="page-header">
-		<h1>Java dans le hard(ware)</h1>
+            <div class="row">
+                <div class="col-xs-4 col-md-2"><img src="/blog/img/cafe-leopard-h150.png"></div>
+                <div class="col-xs-12 col-md-8"><h1>Java dans le hard(ware)</h1></div>
+            </div>
 	</div>
 	<#list posts as post>
   		<#if (post.status == "published")>

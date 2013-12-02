@@ -12,8 +12,8 @@
           </div>
           <div class="collapse navbar-collapse">
             <ul class="nav navbar-nav">
-              <li class="active"><a href="/blog/index.html">Home</a></li>
-              <li><a href="about.html">A propos</a></li>
+              <li><a href="/blog/index.html">Home</a></li>
+              <li><a href="/blog/about.html">A propos</a></li>
               <li><a href="${config.feed_file}">Flux RSS</a></li>
             </ul>
           </div><!--/.nav-collapse -->
