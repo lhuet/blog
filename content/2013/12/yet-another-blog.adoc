@@ -30,4 +30,4 @@ Les billets à venir porteront sur Java ... et le hardware ... une fois que j'au
 Stay tuned !
 
 
-En bas de page, vous pourrez constater que les publications de ce site sont sous licence http://creativecommons.org/licenses/by-nc-sa/2.0/en/[Creative Commons by-nc-sa].
+En bas de page, vous pourrez constater que les publications de ce site sont sous licence http://creativecommons.org/licenses/by-nc-sa/4.0/[Creative Commons by-nc-sa].
