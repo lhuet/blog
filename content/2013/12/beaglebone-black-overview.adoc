@@ -97,7 +97,7 @@ La BBB aura l'IP 192.168.7.2. Le login root a un mot de passe vide par défaut. 
 image::/blog/img/bbb_ssh.png[Accès SSH sur Beaglebone Black, align="center"]
 
 Un environnement de développement JavaScript (Cloud9) est également mis à disposition avec une version (un peu ancienne) de node.js. 
-La librairie BoneScript fournie permet d'avoir une API "arduino like".
+La librairie https://github.com/jadonk/bonescript[BoneScript] fournie permet d'avoir une API "arduino like".
 Ce service est disponible sur l'URL http://192.168.7.1:3000 avec quelques exemples pour démarrer.
 
 image::/blog/img/bbb_cloud9.png[Cloud9 sur Beaglebone Black, align="center"]
@@ -105,4 +105,4 @@ image::/blog/img/bbb_cloud9.png[Cloud9 sur Beaglebone Black, align="center"]
 === Aller plus loin ... et changer d'OS
 
 Pour aller plus loin, vous aurez certainement envie de changer d'OS pour, par exemple, 
-installer Ubuntu et disposer d'un OS compatible avec le dernier build du https://jdk8.java.net/download.html[JDK8] (version "Hard Floating Point").
+installer http://elinux.org/BeagleBoardUbuntu[Ubuntu] et disposer d'un OS compatible avec le dernier build du https://jdk8.java.net/download.html[JDK8] (version "Hard Floating Point").
