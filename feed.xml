@@ -6,8 +6,8 @@
     <atom:link href="http://lhuet.github.io/blog/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>dim., 8 déc. 2013 13:30:30 +0100</pubDate>
-    <lastBuildDate>dim., 8 déc. 2013 13:30:30 +0100</lastBuildDate>
+    <pubDate>dim., 8 déc. 2013 13:35:56 +0100</pubDate>
+    <lastBuildDate>dim., 8 déc. 2013 13:35:56 +0100</lastBuildDate>
 
     <item>
       <title>Premier pas avec la BeagleBone Black (BBB)</title>
@@ -195,7 +195,7 @@ Ce service est disponible sur l&amp;#8217;URL &lt;a href=&quot;http://192.168.7.
 &lt;/div&gt;
 &lt;div class=&quot;imageblock&quot; style=&quot;text-align: center&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;img src=&quot;/blog/img/bbb_cloud9.png&quot; alt=&quot;Cloud9 sur Beaglebone Black&quot;&gt;
+&lt;img src=&quot;/blog/img/bbb_cloud9.jpg&quot; alt=&quot;Cloud9 sur Beaglebone Black&quot;&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
