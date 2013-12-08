@@ -100,7 +100,7 @@ Un environnement de développement JavaScript (Cloud9) est également mis à dis
 La librairie https://github.com/jadonk/bonescript[BoneScript] fournie permet d'avoir une API "arduino like".
 Ce service est disponible sur l'URL http://192.168.7.1:3000 avec quelques exemples pour démarrer.
 
-image::/blog/img/bbb_cloud9.png[Cloud9 sur Beaglebone Black, align="center"]
+image::/blog/img/bbb_cloud9.jpg[Cloud9 sur Beaglebone Black, align="center"]
 
 === Aller plus loin ... et changer d'OS
 
