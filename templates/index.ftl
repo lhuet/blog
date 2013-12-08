@@ -13,11 +13,12 @@
   			<a href="/blog${post.uri}"><h1>${post.title}</h1></a>
   			<p>${post.date?string("dd MMMM yyyy")}</p>
   			<p>${post.body}</p>
+                        <p><a href="/blog${post.uri}#disqus_thread">Commentaires</a></p>
   		</#if>
   	</#list>
 	
 	<hr />
 	
-	<p>Older posts are available in the <a href="/blog/${config.archive_file}">archive</a>.</p>
+	<p>Billets plus anciens disponibles sur la page <a href="/blog/${config.archive_file}">archive</a>.</p>
 
 <#include "footer.ftl">
