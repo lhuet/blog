@@ -53,21 +53,17 @@
         </div>
       </div>
       <div class="container">
-
+	
 	<div class="page-header">
-            <div class="row">
-                <div class="col-xs-4 col-md-2"><img src="/blog/img/cafe-leopard-h150.png"></div>
-                <div class="col-xs-12 col-md-8"><h1>Java dans le hard(ware)</h1></div>
-            </div>
+		<h1>Premier pas avec la BeagleBone Black (BBB)</h1>
 	</div>
-  			<a href="/blog/2013/12/beaglebone-black-overview.html"><h1>Premier pas avec la BeagleBone Black (BBB)</h1></a>
-  			<p>08 décembre 2013</p>
 
-                        <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://lhuet.github.io/blog/2013/12/beaglebone-black-overview.html" data-text="Premier pas avec la BeagleBone Black (BBB)" data-via="lhuet35" data-lang="fr">Tweeter</a>
-                        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-                        <div class="g-plusone" data-size="medium" data-href="http://lhuet.github.io/blog/2013/12/beaglebone-black-overview.html"></div>
+	<p><em>08 décembre 2013</em></p>
+        <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://lhuet.github.io/blog/2013/12/beaglebone-black-overview.html" data-via="lhuet35" data-text="Premier pas avec la BeagleBone Black (BBB)" data-lang="fr">Tweeter</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+        <div class="g-plusone" data-size="medium" data-href="http://lhuet.github.io/blog/2013/12/beaglebone-black-overview.html"></div>
 
-  			<p><div id="preamble">
+	<p><div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
 <p>Mon premier post technique sera sur la carte <a href="http://www.beagleboard.org/Products/BeagleBone%20Black">BeagleBone Black</a> (ma 3ème BeagleBone).
@@ -261,62 +257,20 @@ installer <a href="http://elinux.org/BeagleBoardUbuntu">Ubuntu</a> et disposer d
 </div>
 </div>
 </div></p>
-                        <p><a href="/blog/2013/12/beaglebone-black-overview.html#disqus_thread">Commentaires</a></p>
-  			<a href="/blog/2013/12/yet-another-blog.html"><h1>Yet another blog !</h1></a>
-  			<p>01 décembre 2013</p>
 
-                        <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://lhuet.github.io/blog/2013/12/yet-another-blog.html" data-text="Yet another blog !" data-via="lhuet35" data-lang="fr">Tweeter</a>
-                        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-                        <div class="g-plusone" data-size="medium" data-href="http://lhuet.github.io/blog/2013/12/yet-another-blog.html"></div>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'javadanslehardware'; 
+            var disqus_identifier = 'beaglebone_black';
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
 
-  			<p><div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p>Cela faisait longtemps que je voulais créer ce blog. C&#8217;est maintenant chose faite !</p>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_h_bergement">Hébergement</h3>
-<div class="paragraph">
-<p>Mon besoin principal (et oui, c&#8217;est un besoin !) est de partager diverses expériences à travers quelques billets.
-Comme elles sont souvent liées à du code, rien de plus naturel que de mettre ces billets à coté de celui-ci sur GitHub !</p>
-</div>
-<div class="paragraph">
-<p>Coté hébergement, mon choix s&#8217;est donc rapidement porté sur <a href="http://pages.github.com/">GitHub pages</a> &#8230; d&#8217;autant plus que ce service est gratuit !</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_outils_de_publication">Outils de publication</h3>
-<div class="paragraph">
-<p><a href="http://jekyllrb.com/">Jekyll</a> est le choix naturel suggéré par la documentation GitHub.
-N'étant pas fan de Ruby ni des gems à installer, j&#8217;ai longtemps hésité à franchir le pas.
-Entre temps, j&#8217;ai beaucoup entendu parler (en bien) de <a href="http://asciidoctor.org">Asciidoctor</a>, notamment sur sa mise en place sur des projets
-comme <a href="http://groovy.codehaus.org/">Groovy</a>, <a href="http://hibernate.org/">Hibernate</a>, ou <a href="http://golo-lang.org/">Golo</a>.
-La migration du <a href="http://melix.github.io/blog/">blog de Cédric Champeau</a> m&#8217;a définitivement décidé à franchir le pas en me montrant la voie à suivre.</p>
-</div>
-<div class="paragraph">
-<p>Ce blog est donc écrit en <a href="http://asciidoc.org/">AsciiDoc</a> et les pages statiques générées par <a href="http://jbake.org">JBake</a>.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_a_venir">A venir</h3>
-<div class="paragraph">
-<p>Les billets à venir porteront sur Java &#8230; et le hardware &#8230; une fois que j&#8217;aurais bien appréhender l&#8217;AsciiDoc.</p>
-</div>
-<div class="paragraph">
-<p>Stay tuned !</p>
-</div>
-<div class="paragraph">
-<p>En bas de page, vous pourrez constater que les publications de ce site sont sous licence <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">Creative Commons by-nc-sa</a>.</p>
-</div>
-</div></p>
-                        <p><a href="/blog/2013/12/yet-another-blog.html#disqus_thread">Commentaires</a></p>
+	<hr>
 	
-	<hr />
-	
-	<p>Billets plus anciens disponibles sur la page <a href="/blog/archive.html">archive</a>.</p>
-
 		</div>
 		<div id="push"></div>
     </div>

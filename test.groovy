@@ -1,0 +1,5 @@
+#!/usr/bin/env groovy
+println("Hello world")
+for (a in this.args) {
+  println("Argument: " + a)
+}

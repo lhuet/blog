@@ -6,9 +6,211 @@
     <atom:link href="http://lhuet.github.io/blog/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>mar., 3 déc. 2013 15:11:43 +0100</pubDate>
-    <lastBuildDate>mar., 3 déc. 2013 15:11:43 +0100</lastBuildDate>
+    <pubDate>dim., 8 déc. 2013 13:30:30 +0100</pubDate>
+    <lastBuildDate>dim., 8 déc. 2013 13:30:30 +0100</lastBuildDate>
 
+    <item>
+      <title>Premier pas avec la BeagleBone Black (BBB)</title>
+      <link>http://lhuet.github.io/blog/2013/12/beaglebone-black-overview.html</link>
+      <pubDate>dim., 8 déc. 2013 00:00:00 +0100</pubDate>
+      <guid isPermaLink="false">/2013/12/beaglebone-black-overview.html</guid>
+      	<description>
+	&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Mon premier post technique sera sur la carte &lt;a href=&quot;http://www.beagleboard.org/Products/BeagleBone%20Black&quot;&gt;BeagleBone Black&lt;/a&gt; (ma 3ème BeagleBone).
+Pas de Java pour le moment, mais ça va venir &amp;#8230; Je préfère commencer par le Hard !&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_pr_sentation_de_la_beaglebone_black&quot;&gt;Présentation de la BeagleBone Black&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Il s&amp;#8217;agit d&amp;#8217;une carte à base de processeur ARMv7 avec un coût relativement modique (~45$) et une consommation électrique faible (de l&amp;#8217;ordre du Watt).
+Cette carte est parfois appelée &lt;em&gt;BeagleBone Next-gen&lt;/em&gt;
+car elle a été précédée par une première version très proche physiquement : &lt;a href=&quot;http://www.beagleboard.org/Products/BeagleBone&quot;&gt;la BeagleBone&lt;/a&gt;.
+Open source &quot;sur toute la ligne&quot; (hardware et software), vous pouvez retrouvez les plans complets sur &lt;a href=&quot;https://github.com/CircuitCo/BeagleBone-Black&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Son rapport &quot;coût/connectivité&quot; est assez intéressant. Ceci en fait un choix pertinent pour des installations de type domotique, robotique, &amp;#8230;
+(possibilité de gérer de nombreux capteurs).&lt;br&gt;
+Avant d&amp;#8217;aller plus loin, la voici en image :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot; style=&quot;text-align: center&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/blog/img/CONN_REVA5A.jpg&quot; alt=&quot;Beaglebone Black&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_caract_ristiques_techniques&quot;&gt;Caractéristiques techniques&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_cot_hardware&quot;&gt;Coté hardware&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;On retrouve :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;CPU ARM Cortex-A8 @1GHz&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;512 Mo RAM DDR3&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;2 Go eMMC (stockage interne)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Ethernet / 1xUSB / µHDMI / MicroSD / 2 ports d&amp;#8217;extension 2x23 pins&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Les ports d&amp;#8217;extension méritent un détour. C&amp;#8217;est d&amp;#8217;ailleurs un atout majeur de cette carte :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;65 GPIO (entrée/sortie numérique)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;8 PWM (&quot;Pulse Width Modulation&quot; ~ sorties analogiques pour caricaturer)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;7 entrées analogiques&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;5 UART (ports série)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Bus divers (3 I2C, 1 SPI, 1 CAN)&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Il y a d&amp;#8217;autres possibilités pour une utilisation plus avancée (PRU, Timers, &amp;#8230;) sur lesquels je ne vais pas aller plus loin (pour le moment).
+Pour avoir plus de détails, vous pouvez consulter la dernière version
+de la &lt;a href=&quot;https://github.com/CircuitCo/BeagleBone-Black/blob/master/BBB_SRM.pdf?raw=true&quot;&gt;documentation de référence&lt;/a&gt; disponible sur le projet &lt;a href=&quot;https://github.com/CircuitCo/BeagleBone-Black&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_cot_software&quot;&gt;Coté software&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Il ne s&amp;#8217;agit pas d&amp;#8217;une carte avec micro-controlleur (ARM Cortex-M, Atmel sur Arduino, &amp;#8230;) mais d&amp;#8217;une carte avec un micro-processeur.
+Cela signifie que cette carte fonctionne avec un OS.
+Même si cet environnement est restreint, vous êtes très proche de ce que vous pourriez avoir sur n&amp;#8217;importe quel système avec OS.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Les OS connus pour fonctionner sont (liste non exhaustive) :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Linux (Angstöm, Debian, Ubuntu, &amp;#8230;)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Android&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;QNX&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;FreeBSD&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_quelles_diff_rences_avec_la_raspberrypi&quot;&gt;Quelles différences avec la RaspberryPi ?&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Les différences majeures portent sur:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;le CPU : de génération différente (ARMv7 vs ARMv6), la beaglebone est un cran au dessus (non négligeable pour exécuter du Java !).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;la connectique : Cf. la liste ci-dessus, il n&amp;#8217;y a pas photo ! La beaglebone est beaucoup plus complète.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;le GPU : Capable de décoder des vidéos HD, la RaspberryPi est par contre meilleure dans ce domaine.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Pour le reste, il y a eu plein d&amp;#8217;articles comparatifs sur le web.
+Celui sur le site &lt;a href=&quot;http://makezine.com/magazine/how-to-choose-the-right-platform-raspberry-pi-or-beaglebone-black/&quot;&gt;makezine.com&lt;/a&gt; me paraît pas trop mal.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Pour résumer, la beaglebone est plus puissante que la Raspberry Pi sauf pour une utilisation multimédia.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_par_o_commencer&quot;&gt;Par où commencer ?&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_d_marrage&quot;&gt;Démarrage&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Le démarrage est extrêmement simple.
+En effet, la beaglebone est livrée avec une distribution Linux pré-installée (distribution &lt;a href=&quot;http://www.angstrom-distribution.org/&quot;&gt;Angstöm&lt;/a&gt; orientée embarqué).
+Pas besoin de préparer une carte SD comme avec la Raspberry Pi. Tout ce qu&amp;#8217;il y a à faire, c&amp;#8217;est de brancher l&amp;#8217;alimentation !
+Ecran/Clavier/Souris sont optionnels si vous utilisez une connexion réseau.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;_alimentation_via_usb_5v&quot;&gt;Alimentation via USB / 5V&lt;/h4&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;La BBB a besoin d&amp;#8217;une alimentation en 5V. Pour faciliter le démarrage, vous n&apos;êtes pas obligé d&amp;#8217;avoir une alimentation externe.
+Vous pouvez utiliser le cable USB fourni pour le brancher directement sur votre PC en utilisant le connecteur mini-USB coté BBB.
+Dans ce cas, un disque partagé sera mis à disposition (USB Mass Storage) sur lequel vous trouverez la documentation et les éventuels drivers requis.
+Si vous êtes, comme moi, sous Linux, vous n&amp;#8217;aurez besoin d&amp;#8217;aucun driver pout disposer de l&amp;#8217;interface réseau &quot;USB to LAN&quot;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot; style=&quot;text-align: center&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/blog/img/bbb_usb_pc.jpg&quot; alt=&quot;Accès SSH sur Beaglebone Black&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;_services_disponibles&quot;&gt;Services disponibles&lt;/h4&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Si vous utilisez un cable ethernet, la BBB utilisera votre DHCP pour obtenir une adresse IP.
+Si vous utilisez le cable USB fourni, vous aurez une interface réseau sur votre PC mise à disposition par la carte sur l&amp;#8217;IP 192.168.7.1.
+La BBB aura l&amp;#8217;IP 192.168.7.2. Le login root a un mot de passe vide par défaut. Vous pouvez donc vous connecter par SSH très facilement.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot; style=&quot;text-align: center&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/blog/img/bbb_ssh.png&quot; alt=&quot;Accès SSH sur Beaglebone Black&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Un environnement de développement JavaScript (Cloud9) est également mis à disposition avec une version (un peu ancienne) de node.js.
+La librairie &lt;a href=&quot;https://github.com/jadonk/bonescript&quot;&gt;BoneScript&lt;/a&gt; fournie permet d&amp;#8217;avoir une API &quot;arduino like&quot;.
+Ce service est disponible sur l&amp;#8217;URL &lt;a href=&quot;http://192.168.7.1:3000&quot;&gt;http://192.168.7.1:3000&lt;/a&gt; avec quelques exemples pour démarrer.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot; style=&quot;text-align: center&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/blog/img/bbb_cloud9.png&quot; alt=&quot;Cloud9 sur Beaglebone Black&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_aller_plus_loin_et_changer_d_os&quot;&gt;Aller plus loin &amp;#8230; et changer d&amp;#8217;OS&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Pour aller plus loin, vous aurez certainement envie de changer d&amp;#8217;OS pour, par exemple,
+installer &lt;a href=&quot;http://elinux.org/BeagleBoardUbuntu&quot;&gt;Ubuntu&lt;/a&gt; et disposer d&amp;#8217;un OS compatible avec le dernier build du &lt;a href=&quot;https://jdk8.java.net/download.html&quot;&gt;JDK8&lt;/a&gt; (version &quot;Hard Floating Point&quot;).&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+	</description>
+    </item>
     <item>
       <title>Yet another blog !</title>
       <link>http://lhuet.github.io/blog/2013/12/yet-another-blog.html</link>
