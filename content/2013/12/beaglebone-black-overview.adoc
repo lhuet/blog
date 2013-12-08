@@ -1,0 +1,108 @@
+= Premier pas avec la BeagleBone Black (BBB)
+Laurent HUET
+2013-12-08
+:jbake-type: post
+:jbake-tags: beaglebone
+:jbake-status: published
+:source-highlighter: prettify
+:id: beaglebone_black
+
+Mon premier post technique sera sur la carte http://www.beagleboard.org/Products/BeagleBone%20Black[BeagleBone Black] (ma 3ème BeagleBone).
+Pas de Java pour le moment, mais ça va venir ... Je préfère commencer par le Hard !
+
+== Présentation de la BeagleBone Black
+Il s'agit d'une carte à base de processeur ARMv7 avec un coût relativement modique (~45$) et une consommation électrique faible (de l'ordre du Watt).
+Cette carte est parfois appelée _BeagleBone Next-gen_ 
+car elle a été précédée par une première version très proche physiquement : http://www.beagleboard.org/Products/BeagleBone[la BeagleBone].
+Open source "sur toute la ligne" (hardware et software), vous pouvez retrouvez les plans complets sur https://github.com/CircuitCo/BeagleBone-Black[GitHub].
+
+Son rapport "coût/connectivité" est assez intéressant. Ceci en fait un choix pertinent pour des installations de type domotique, robotique, ...
+(possibilité de gérer de nombreux capteurs). +
+Avant d'aller plus loin, la voici en image :
+
+// image::/blog/img/beaglebone_black.png[Beaglebone Black, align="center"]
+image::/blog/img/CONN_REVA5A.jpg[Beaglebone Black, align="center"]
+
+== Caractéristiques techniques
+
+=== Coté hardware
+On retrouve :
+
+* CPU ARM Cortex-A8 @1GHz
+* 512 Mo RAM DDR3 
+* 2 Go eMMC (stockage interne)
+* Ethernet / 1xUSB / µHDMI / MicroSD / 2 ports d'extension 2x23 pins
+
+Les ports d'extension méritent un détour. C'est d'ailleurs un atout majeur de cette carte :
+
+* 65 GPIO (entrée/sortie numérique)
+* 8 PWM ("Pulse Width Modulation" ~ sorties analogiques pour caricaturer)
+* 7 entrées analogiques
+* 5 UART (ports série)
+* Bus divers (3 I2C, 1 SPI, 1 CAN)
+
+Il y a d'autres possibilités pour une utilisation plus avancée (PRU, Timers, ...) sur lesquels je ne vais pas aller plus loin (pour le moment).
+Pour avoir plus de détails, vous pouvez consulter la dernière version 
+de la https://github.com/CircuitCo/BeagleBone-Black/blob/master/BBB_SRM.pdf?raw=true[documentation de référence] disponible sur le projet https://github.com/CircuitCo/BeagleBone-Black[GitHub].
+
+=== Coté software
+Il ne s'agit pas d'une carte avec micro-controlleur (ARM Cortex-M, Atmel sur Arduino, ...) mais d'une carte avec un micro-processeur.
+Cela signifie que cette carte fonctionne avec un OS. 
+Même si cet environnement est restreint, vous êtes très proche de ce que vous pourriez avoir sur n'importe quel système avec OS.
+
+Les OS connus pour fonctionner sont (liste non exhaustive) :
+
+* Linux (Angstöm, Debian, Ubuntu, ...)
+* Android
+* QNX
+* FreeBSD
+
+=== Quelles différences avec la RaspberryPi ?
+
+Les différences majeures portent sur:
+
+* le CPU : de génération différente (ARMv7 vs ARMv6), la beaglebone est un cran au dessus (non négligeable pour exécuter du Java !).
+* la connectique : Cf. la liste ci-dessus, il n'y a pas photo ! La beaglebone est beaucoup plus complète.
+* le GPU : Capable de décoder des vidéos HD, la RaspberryPi est par contre meilleure dans ce domaine.
+
+Pour le reste, il y a eu plein d'articles comparatifs sur le web. 
+Celui sur le site http://makezine.com/magazine/how-to-choose-the-right-platform-raspberry-pi-or-beaglebone-black/[makezine.com] me paraît pas trop mal.
+
+Pour résumer, la beaglebone est plus puissante que la Raspberry Pi sauf pour une utilisation multimédia.
+
+== Par où commencer ?
+
+=== Démarrage
+
+Le démarrage est extrêmement simple. 
+En effet, la beaglebone est livrée avec une distribution Linux pré-installée (distribution http://www.angstrom-distribution.org/[Angstöm] orientée embarqué).
+Pas besoin de préparer une carte SD comme avec la Raspberry Pi. Tout ce qu'il y a à faire, c'est de brancher l'alimentation ! 
+Ecran/Clavier/Souris sont optionnels si vous utilisez une connexion réseau.
+
+==== Alimentation via USB / 5V
+
+La BBB a besoin d'une alimentation en 5V. Pour faciliter le démarrage, vous n'êtes pas obligé d'avoir une alimentation externe.
+Vous pouvez utiliser le cable USB fourni pour le brancher directement sur votre PC en utilisant le connecteur mini-USB coté BBB.
+Dans ce cas, un disque partagé sera mis à disposition (USB Mass Storage) sur lequel vous trouverez la documentation et les éventuels drivers requis.
+Si vous êtes, comme moi, sous Linux, vous n'aurez besoin d'aucun driver pout disposer de l'interface réseau "USB to LAN".
+
+image::/blog/img/bbb_usb_pc.jpg[Accès SSH sur Beaglebone Black, align="center"]
+
+==== Services disponibles
+
+Si vous utilisez un cable ethernet, la BBB utilisera votre DHCP pour obtenir une adresse IP. 
+Si vous utilisez le cable USB fourni, vous aurez une interface réseau sur votre PC mise à disposition par la carte sur l'IP 192.168.7.1. 
+La BBB aura l'IP 192.168.7.2. Le login root a un mot de passe vide par défaut. Vous pouvez donc vous connecter par SSH très facilement.
+
+image::/blog/img/bbb_ssh.png[Accès SSH sur Beaglebone Black, align="center"]
+
+Un environnement de développement JavaScript (Cloud9) est également mis à disposition avec une version (un peu ancienne) de node.js. 
+La librairie BoneScript fournie permet d'avoir une API "arduino like".
+Ce service est disponible sur l'URL http://192.168.7.1:3000 avec quelques exemples pour démarrer.
+
+image::/blog/img/bbb_cloud9.png[Cloud9 sur Beaglebone Black, align="center"]
+
+=== Aller plus loin ... et changer d'OS
+
+Pour aller plus loin, vous aurez certainement envie de changer d'OS pour, par exemple, 
+installer Ubuntu et disposer d'un OS compatible avec le dernier build du https://jdk8.java.net/download.html[JDK8] (version "Hard Floating Point").
