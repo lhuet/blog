@@ -1,0 +1,71 @@
+= Java 7 et 8 sur BeagleBone Black (BBB)
+Laurent HUET
+2013-12-14
+:jbake-type: post
+:jbake-tags: beaglebone, jdk7, jdk8, ubuntu, performances
+:jbake-status: published
+:source-highlighter: prettify
+:id: jdk7_jdk8_bbb
+
+Mon second post est une réponse détaillée à une question posée par https://twitter.com/CodeStory/status/404649263134941185[@CodeStory] sur twitter.
+140 caractères était largement insuffisant ! Ma réponse va également un peu plus loin puisque je compare les performances du JDK7 et du JDK8.
+
+== Quel JDK pour BeagleBone Black ?
+La première question qu'on peut se poser est : *Quelle version de JDK utiliser ?* +
+
+Sur le site d'Oracle, on trouve 2 versions différentes pour le JDK 7:
+
+* "Linux ARM v6/v7 Hard Float ABI"
+* "Linux ARM v6/v7 Soft Float ABI"
+
+Aucun JDK8 n'est proposé sur le site d'Oracle (pas encore de version finale). On trouve une "Early Access Release" sur https://jdk8.java.net/download.html[jdk8.java.net] sous le nom :
+
+* "Linux ARMv6/7 VFP, HardFP ABI"
+
+Ces JDK peuvent être utilisés sur BBB (ARM v7) et sur Raspberry Pi (ARM v6) ... mais pas sous n'importe quelle version d'OS.
+
+=== Hard Float vs Soft Float
+"Hard Float" et "Soft Float" sont des termes utilisés pour des jeux d'instruction spécifiques des processeurs ARM. Historiquement, le JDK d'Oracle n'était disponible qu'en version "Soft Float".
+Quelques éléments de réponses se trouvent également dans les slides de mon quickie de Devoxx France 2013 sur http://parleys.com/play/5156c4d6e4b0c779d7881405[parleys]. +
+Pour faire court, les JDK en version HFP (Hard Float) ne peuvent être utilisés que sur des OS compatible HFP.
+
+=== Quel OS utiliser ?
+La carte BBB est livrée avec une distribution Angström ... qui est compilée en "Soft Float". Seul le JDK 7 "Soft Float" peut donc être utilisé avec cet OS. Aucune version "Soft Float" du JDK 8 n'est disponible à ma connaissance.
+
+Pour utiliser les JDK 7 et 8 en version HFP, il faut un Linux compatible. C'est le cas d'Ubuntu. Vous pouvez vous inspirez du http://learn.adafruit.com/beaglebone-black-installing-operating-systems/overview[tutoriel d'Adafruit] pour installer une nouvelle version d'OS sur la BBB ou, comme je l'ai fait, booter sur une microSD externe contenant Ubuntu.
+
+== Tests de performances
+
+J'ai repris les mêmes types de tests que pour mon http://parleys.com/play/5156c4d6e4b0c779d7881405[quickie de Devoxx France 2013], à savoir, des tests http://www.dacapobench.org/[dacapo] (avrora, fop et xalan).
+
+++++
+<canvas id="myChart" width="400" height="400"></canvas>
+<script src="/blog/js/Chart.min.js"></script>
+<script>
+var ctx = document.getElementById("myChart").getContext("2d");
+var data = {
+	labels : ["JDK7 SFP","JDK7 HFP","JDK8 HFP"],
+	datasets : [
+		{
+            /* Avrora */
+			fillColor : "rgba(220,220,220,0.5)",
+			strokeColor : "rgba(220,220,220,1)",
+			data : [51291,53966,55046]
+		},
+		{
+            /* fop */
+			fillColor : "rgba(151,187,205,0.5)",
+			strokeColor : "rgba(151,187,205,1)",
+			data : [23183,22494,23941]
+		},
+		{
+            /* xalan */
+			fillColor : "rgba(78, 90, 180,0.5)",
+			strokeColor : "rgb(78, 90, 180)",
+			data : [64394,65928,68821]
+		}        
+	]
+}
+new Chart(ctx).Bar(data);
+</script>
+++++
