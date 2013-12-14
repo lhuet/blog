@@ -1,3 +1,4 @@
+<#assign pagetitle = "Java dans le hard(ware)">
 <#include "header.ftl">
 	
 	<#include "menu.ftl">
