@@ -1,1 +1,1 @@
-Blog perso réalisé avec JBake
+Blog perso réalisé avec JBake -> http://lhuet.github.io/blog
