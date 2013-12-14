@@ -1,4 +1,4 @@
-= Premier pas avec la BeagleBone Black (BBB)
+= Premiers pas avec la BeagleBone Black (BBB)
 Laurent HUET
 2013-12-08
 :jbake-type: post
