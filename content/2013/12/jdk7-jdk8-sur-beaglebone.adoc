@@ -37,7 +37,7 @@ Pour utiliser les JDK 7 et 8 en version HFP, il faut un Linux compatible. C'est 
 
 == Tests de performances
 
-J'ai repris les mêmes types de tests que pour mon http://parleys.com/play/5156c4d6e4b0c779d7881405[quickie de Devoxx France 2013], à savoir, des tests http://www.dacapobench.org/[dacapo] (avrora, fop et xalan). Les scores sont ramenés sur une base 100 ayant pour référence les résultats sur JDK7 sur Rapsberry Pi de mon Quickie.
+J'ai repris les mêmes types de tests que pour mon http://parleys.com/play/5156c4d6e4b0c779d7881405[quickie de Devoxx France 2013], à savoir, des tests http://www.dacapobench.org/[dacapo] (avrora, fop et xalan). Les scores sont ramenés sur une base 100 ayant pour référence les résultats sur JDK7 sur Rapsberry Pi de mon Quickie. J'ai consigné les valeurs brutes dans un http://lhuet.github.io/blog/perfs_jdk7_jdk8_bbb.ods[fichier LibreOffice].
 
 [NOTE]
 Ces tests ont seulement pour objectif de comparer grossièrement les JDK ... et n'ont fait l'objet d'aucune méthodologie, analyse statistique, ... Pour avoir des résultats indiscutables, il faudrait des tests réalisés par des spécialistes de JVM, ce que je ne suis pas !
