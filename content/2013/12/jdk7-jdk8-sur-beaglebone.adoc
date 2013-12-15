@@ -212,3 +212,5 @@ window.onresize = function() {
 ++++
 
 En conclusion, les performances ne sont pas fondamentalement différentes. Si vous êtes sur l'OS de base sur la Beaglebone, vous n'avez donc pas besoin d'en changer ... sauf si vous voulez tester les nouveautés du JDK8.
+
+Autre enseingement : Si vous faites tourner du code Java sur une Raspberry Pi, vous auriez avantage à passer sur Beaglebone Black !
