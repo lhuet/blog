@@ -6,8 +6,8 @@
     <atom:link href="http://lhuet.github.io/blog/feed.xml" rel="self" type="application/rss+xml" />
     <description>Java dans le hard(ware)</description>
     <language>en-gb</language>
-    <pubDate>dim., 15 déc. 2013 23:45:42 +0100</pubDate>
-    <lastBuildDate>dim., 15 déc. 2013 23:45:42 +0100</lastBuildDate>
+    <pubDate>dim., 15 déc. 2013 23:51:49 +0100</pubDate>
+    <lastBuildDate>dim., 15 déc. 2013 23:51:49 +0100</lastBuildDate>
 
     <item>
       <title>Java 7 et 8 sur BeagleBone Black (BBB)</title>
@@ -261,6 +261,9 @@ window.onresize = function() {
 &lt;/script&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;En conclusion, les performances ne sont pas fondamentalement différentes. Si vous êtes sur l&amp;#8217;OS de base sur la Beaglebone, vous n&amp;#8217;avez donc pas besoin d&amp;#8217;en changer &amp;#8230; sauf si vous voulez tester les nouveautés du JDK8.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Autre enseingement : Si vous faites tourner du code Java sur une Raspberry Pi, vous auriez avantage à passer sur Beaglebone Black !&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
