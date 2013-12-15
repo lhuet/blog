@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Java dans le hard(ware) - Java 7 et 8 sur BeagleBone Black (BBB)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keywords" content="">    
+
+    <!-- Le styles -->
+    <link href="/blog/css/yeti/bootstrap.min.css" rel="stylesheet">
+    <link href="/blog/css/asciidoctor.css" rel="stylesheet">
+    <link href="/blog/css/base.css" rel="stylesheet">
+    <!-- link href="/blog/css/bootstrap-theme.min.css" rel="stylesheet" -->
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.1.0/css/font-awesome.min.css">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" href="favicon.ico">
+  </head>
+  <body>
+    <div id="wrap">
+	
+      <!-- Fixed navbar -->
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/blog">Java dans le hard(ware)</a>
+          </div>
+          <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="/blog/index.html">Home</a></li>
+              <li><a href="/blog/about.html">A propos</a></li>
+              <li><a href="feed.xml">Flux RSS</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+      <div class="container">
+	
+	<div class="page-header">
+		<h1>Java 7 et 8 sur BeagleBone Black (BBB)</h1>
+	</div>
+
+	<p><em>14 décembre 2013</em></p>
+        <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://lhuet.github.io/blog/2013/12/jdk7-jdk8-sur-beaglebone.html" data-via="lhuet35" data-text="Java 7 et 8 sur BeagleBone Black (BBB)" data-lang="fr">Tweeter</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+        <div class="g-plusone" data-size="medium" data-href="http://lhuet.github.io/blog/2013/12/jdk7-jdk8-sur-beaglebone.html"></div>
+
+	<p><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Mon second post est une réponse détaillée à une question posée par <a href="https://twitter.com/CodeStory/status/404649263134941185">@CodeStory</a> sur twitter.
+140 caractères étaient largement insuffisants ! Ma réponse va également un peu plus loin puisque je compare les performances du JDK7 et du JDK8.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_quel_jdk_pour_beaglebone_black">Quel JDK pour BeagleBone Black ?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>La première question qu&#8217;on peut se poser est : <strong>Quelle version de JDK utiliser ?</strong><br></p>
+</div>
+<div class="paragraph">
+<p>Sur le site d&#8217;Oracle, on trouve 2 versions différentes pour le JDK 7:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>"Linux ARM v6/v7 Hard Float ABI"</p>
+</li>
+<li>
+<p>"Linux ARM v6/v7 Soft Float ABI"</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Aucun JDK8 n&#8217;est proposé sur le site d&#8217;Oracle (pas encore de version finale). On trouve une "Early Access Release" sur <a href="https://jdk8.java.net/download.html">jdk8.java.net</a> sous le nom :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>"Linux ARMv6/7 VFP, HardFP ABI"</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Ces JDK peuvent être utilisés sur BBB (ARM v7) et sur Raspberry Pi (ARM v6) &#8230; mais pas sous n&#8217;importe quelle version d&#8217;OS.</p>
+</div>
+<div class="sect2">
+<h3 id="_hard_float_vs_soft_float">Hard Float vs Soft Float</h3>
+<div class="paragraph">
+<p>"Hard Float" et "Soft Float" sont des termes utilisés pour des jeux d&#8217;instruction spécifiques des processeurs ARM. Historiquement, le JDK d&#8217;Oracle n'était disponible qu&#8217;en version "Soft Float".
+Quelques éléments de réponses se trouvent également dans les slides de mon quickie de Devoxx France 2013 sur <a href="http://parleys.com/play/5156c4d6e4b0c779d7881405">parleys</a>.<br>
+Pour faire court, les JDK en version HFP (Hard Float) ne peuvent être utilisés que sur des OS compatible HFP.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_quel_os_utiliser">Quel OS utiliser ?</h3>
+<div class="paragraph">
+<p>La carte BBB est livrée avec une distribution Angström &#8230; qui est compilée en "Soft Float". Seul le JDK 7 "Soft Float" peut donc être utilisé avec cet OS. Aucune version "Soft Float" du JDK 8 n&#8217;est disponible à ma connaissance.</p>
+</div>
+<div class="paragraph">
+<p>Pour utiliser les JDK 7 et 8 en version HFP, il faut un Linux compatible. C&#8217;est le cas d&#8217;Ubuntu. Vous pouvez vous inspirez du <a href="http://learn.adafruit.com/beaglebone-black-installing-operating-systems/overview">tutoriel d&#8217;Adafruit</a> pour installer une nouvelle version d&#8217;OS sur la BBB ou, comme je l&#8217;ai fait, booter sur une microSD externe contenant Ubuntu.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_tests_de_performances">Tests de performances</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>J&#8217;ai repris les mêmes types de tests que pour mon <a href="http://parleys.com/play/5156c4d6e4b0c779d7881405">quickie de Devoxx France 2013</a>, à savoir, des tests <a href="http://www.dacapobench.org/">dacapo</a> (avrora, fop et xalan). Les scores sont ramenés sur une base 100 ayant pour référence les résultats sur JDK7 sur Rapsberry Pi de mon Quickie. J&#8217;ai consigné les valeurs brutes dans un <a href="http://lhuet.github.io/blog/perfs_jdk7_jdk8_bbb.ods">fichier LibreOffice</a>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+Ces tests ont seulement pour objectif de comparer grossièrement les JDK &#8230; et n&#8217;ont fait l&#8217;objet d&#8217;aucune méthodologie, analyse statistique, &#8230; Pour avoir des résultats indiscutables, il faudrait des tests réalisés par des spécialistes de JVM, ce que je ne suis pas !
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Voici donc 2 graphes avec/sans référence à la Raspberry Pi.</p>
+</div>
+<style type="text/css">
+.legend {
+    /* width: 13em; */
+    /* border: 1px solid black; */
+}
+
+.legend .title {
+    display: block;
+    margin: 0.2em;
+    border-style: solid;
+    border-width: 0 0 0 1em;
+    padding: 0 0.3em;
+}
+#perfWithRPiLegend, #perfWithoutRPiLegend {
+    /* display: inline-block;
+    position: absolute; */
+    margin-top: 20px;
+}
+#perfsWithRPi, #perfsWithoutRPi {
+    margin-top:20px;
+}
+</style>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="row">
+                    <div class="col-md-8">
+                        <canvas id="perfsWithoutRPi"></canvas>
+                    </div>
+                    <div class="col-md-4">
+                        <div id="perfWithoutRPiLegend"></div>
+                    </div>
+                </div>
+                <div class="panel-footer text-center">JDK 7/8 SFP/HFP Beaglebone Black</div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="row">
+                    <div class="col-md-8">
+                        <canvas id="perfsWithRPi"></canvas>
+                    </div>
+                    <div class="col-md-4">
+                        <div id="perfWithRPiLegend"></div>
+                    </div>
+                </div>
+                <div class="panel-footer text-center">JDK 7/8 SFP/HFP BBB et Raspberry Pi</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="/blog/js/Chart.min.js"></script>
+<script>
+/* <a href="https://github.com/bebraw/Chart.js.legend">https://github.com/bebraw/Chart.js.legend</a> */
+function legend(parent, data) {
+    parent.className = 'legend';
+    var datas = data.hasOwnProperty('datasets') ? data.datasets : data;
+
+    datas.forEach(function(d) {
+        var title = document.createElement('span');
+        title.className = 'title';
+        title.style.borderColor = d.hasOwnProperty('strokeColor') ? d.strokeColor : d.color;
+        title.style.borderStyle = 'solid';
+        parent.appendChild(title);
+
+        var text = document.createTextNode(d.title);
+        title.appendChild(text);
+    });
+}
+</script>
+<script>
+var data = {
+	labels : ["Avrora","Fop","Xalan"],
+	datasets : [
+		{
+			fillColor : "rgba(0, 69, 134, 0.8)",
+			strokeColor : "rgba(0, 69, 134,1)",
+			data : [100,100,100],
+            title : "JDK7 Soft Float - RPi"
+		},
+		{
+			fillColor : "rgba(255, 66, 14, 0.8)",
+			strokeColor : "rgba(255, 66, 14,1)",
+			data : [21.76,41.23,30.35],
+            title : "JDK7 Soft Float - BBB"
+		},
+		{
+			fillColor : "rgba(255, 210, 31, 0.8)",
+			strokeColor : "rgba(255, 210, 31,1)",
+			data : [22.9,40,31.07],
+            title : "JDK7 Hard Float - BBB"
+		},
+		{
+			fillColor : "rgba(87, 157, 28, 0.8)",
+			strokeColor : "rgba(87, 157, 28, 1)",
+			data : [23.55,42.58,31.49],
+            title : "JDK8 Hard Float - BBB"
+		}
+	]
+}
+var data2 = {
+	labels : ["Avrora","Fop","Xalan"],
+	datasets : [
+		{
+			fillColor : "rgba(255, 66, 14, 0.8)",
+			strokeColor : "rgba(255, 66, 14,1)",
+			data : [21.76,41.23,30.35],
+            title : "JDK7 Soft Float - BBB"
+		},
+		{
+			fillColor : "rgba(255, 210, 31, 0.8)",
+			strokeColor : "rgba(255, 210, 31,1)",
+			data : [22.9,40,31.07],
+            title : "JDK7 Hard Float - BBB"
+		},
+		{
+			fillColor : "rgba(87, 157, 28, 0.8)",
+			strokeColor : "rgba(87, 157, 28, 1)",
+			data : [23.55,42.58,31.49],
+            title : "JDK8 Hard Float - BBB"
+		}
+	]
+}
+var options = {
+    scaleOverride: true,
+    scaleSteps : 5,
+    scaleStepWidth: 20,
+    scaleStartValue: 0
+}
+var options2 = {
+    scaleOverride: true,
+    scaleSteps : 5,
+    scaleStepWidth: 10,
+    scaleStartValue: 0
+}
+
+function draw() {
+    var perfsWithRPi = document.getElementById("perfsWithRPi");
+    perfsWithRPi.width = perfsWithRPi.parentNode.clientWidth - 30;
+    perfsWithRPi.height=350;
+    console.log(perfsWithRPi.width);
+    var ctx = perfsWithRPi.getContext("2d");
+    new Chart(ctx).Bar(data, options);
+
+    var perfsWithoutRPi = document.getElementById("perfsWithoutRPi");
+    perfsWithoutRPi.width = perfsWithoutRPi.parentNode.clientWidth - 30;
+    perfsWithoutRPi.height=350;
+    var ctx2 = perfsWithoutRPi.getContext("2d");
+    new Chart(ctx2).Bar(data2, options2);
+}
+draw();
+legend(document.getElementById("perfWithRPiLegend"), data);
+legend(document.getElementById("perfWithoutRPiLegend"), data2);
+
+window.onresize = function() {
+    /* Canvas à redessiner, responsive oblige ! */
+    draw();
+};
+</script>
+<div class="paragraph">
+<p>En conclusion, les performances ne sont pas fondamentalement différentes. Si vous êtes sur l&#8217;OS de base sur la Beaglebone, vous n&#8217;avez donc pas besoin d&#8217;en changer &#8230; sauf si vous voulez tester les nouveautés du JDK8.</p>
+</div>
+</div>
+</div></p>
+
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'javadanslehardware'; 
+            var disqus_identifier = 'jdk7_jdk8_bbb';
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+
+	<hr>
+	
+		</div>
+		<div id="push"></div>
+    </div>
+    
+    <div id="footer">
+      <div class="container">
+        <p class="text-muted credit">L'ensemble des posts de ce blog sont publiés sous licence <em>Creative Commons by-nc-sa</em>. <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png"/></a></p>
+        <p class="text-muted credit">&copy; 2013 | Mixed with <a href="http://twitter.github.com/bootstrap/">Bootstrap v3.0.2</a> | Baked with <a href="http://jbake.org">JBake v2.2.0</a></p>
+      </div>
+    </div>
+    
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- script src="/blog/js/jquery-1.10.2.min.js"></script -->
+    <!-- script src="/blog/js/bootstrap.min.js"></script -->
+    <script src="/blog/js/run_prettify.js"></script>
+
+    <script type="text/javascript">
+        window.___gcfg = {lang: 'fr'};
+
+        (function() {
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+            po.src = 'https://apis.google.com/js/platform.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-46154958-1', 'lhuet.github.io');
+      ga('send', 'pageview');
+
+    </script>
+    
+  </body>
+</html>
