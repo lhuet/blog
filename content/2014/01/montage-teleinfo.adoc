@@ -21,7 +21,7 @@ Le signal teleinfo des compteurs EDF doit être activé (configuration interne d
 
 Le bornier client du compteur EDF se situe sur sa partie basse comme le montre le schéma suivant :
 
-image::/blog/img/teleinfo_compteur.png[Bornier compteur EDF teleinfo, align="center"]
+image::/blog/img/teleinfo_compteur.jpg[Bornier compteur EDF teleinfo, align="center"]
 
 Les bornes I1 et I2 fournissent le signal convoité. Vous pouvez utiliser du simple cable téléphonique et, dans des conditions optimales, la longueur de ce cable peut aller jusqu'à 500m (donnée des spécifications).
 
