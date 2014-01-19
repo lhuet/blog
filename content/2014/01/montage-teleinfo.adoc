@@ -37,7 +37,7 @@ Attention à prendre la référence exacte de l'optocoupleur car les latences (d
 
 Comme le montre le schéma suivant, le montage est assez basique :
 
-image::/blog/img/teleinfo_schema.png[Schéma montage Teleinfo, align="center"]
+image::/blog/img/teleinfo_schema.jpg[Schéma montage Teleinfo, align="center"]
 
 Vous pouvez tester ce montage sur une carte d'essai (breadboard) avant de passer à la soudure. Pour cela, utilisez un logiciel capable de lire un port série (screen ou minicom par exemple). Les caractéristiques de la communication sont "1200 7E1", ie. 1200 bauds, 7 bits de données, parité paire, 1 bit stop.
 
