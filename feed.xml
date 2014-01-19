@@ -6,8 +6,8 @@
     <atom:link href="http://lhuet.github.io/blog/feed.xml" rel="self" type="application/rss+xml" />
     <description>Java dans le hard(ware)</description>
     <language>en-gb</language>
-    <pubDate>dim., 19 janv. 2014 17:56:09 +0100</pubDate>
-    <lastBuildDate>dim., 19 janv. 2014 17:56:09 +0100</lastBuildDate>
+    <pubDate>dim., 19 janv. 2014 18:03:42 +0100</pubDate>
+    <lastBuildDate>dim., 19 janv. 2014 18:03:42 +0100</lastBuildDate>
 
     <item>
       <title>Montage teleinfo pour Raspberry Pi / BeagleBone</title>
@@ -44,7 +44,7 @@
 &lt;/div&gt;
 &lt;div class=&quot;imageblock&quot; style=&quot;text-align: center&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;img src=&quot;/blog/img/teleinfo_compteur.png&quot; alt=&quot;Bornier compteur EDF teleinfo&quot;&gt;
+&lt;img src=&quot;/blog/img/teleinfo_compteur.jpg&quot; alt=&quot;Bornier compteur EDF teleinfo&quot;&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
