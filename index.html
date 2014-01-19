@@ -60,6 +60,115 @@
                 <div class="col-xs-12 col-md-8"><h1>Java dans le hard(ware)</h1></div>
             </div>
 	</div>
+  			<a href="/blog/2014/01/montage-teleinfo.html"><h1>Montage teleinfo pour Raspberry Pi / BeagleBone</h1></a>
+  			<p>19 janvier 2014</p>
+
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://lhuet.github.io/blog/2014/01/montage-teleinfo.html" data-text="Montage teleinfo pour Raspberry Pi / BeagleBone" data-via="lhuet35" data-lang="fr">Tweeter</a>
+                        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+                        <div class="g-plusone" data-size="medium" data-href="http://lhuet.github.io/blog/2014/01/montage-teleinfo.html"></div>
+
+  			<p><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Cela fait quelques mois que j&#8217;ai testé et mis en place un montage simple pour brancher mon compteur EDF sur Beaglebone et Raspberry Pi. Je vous restitue donc tout ce qu&#8217;il faut pour reproduire celui-ci chez vous. L&#8217;inspiration de ce montage provient du forum <a href="http://www.chaleurterre.com/forum/viewtopic.php?p=51607#51607">chaleurterre.com</a>. J&#8217;ai finalisé ce montage avec l&#8217;aide de zzdomi du forum <a href="http://www.touteladomotique.com/forum/viewtopic.php?f=30&amp;t=1513&amp;start=576">touteladomotique.com</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_principe">Principe</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Le compteur EDF fourni un signal appelé téléinfo pouvant être transformé en signal série TTL compatible avec les cartes Raspberry Pi ou BeagleBone. Les spécifications du signal teleinfo et de son protocole sont disponibles sur le <a href="http://www.erdfdistribution.fr/medias/DTR_Racc_Comptage/ERDF-NOI-CPT_02E.pdf">site d&#8217;ERDF en PDF</a>.</p>
+</div>
+<div class="paragraph">
+<p>L&#8217;objet du montage de ce post est de réaliser cette transformation pour obtenir un signal compatible avec les UART des cartes récentes de type Raspberry Pi / BeagleBone / &#8230; (niveaux en 3.3V).</p>
+</div>
+<div class="paragraph">
+<p>Le signal teleinfo des compteurs EDF doit être activé (configuration interne du compteur). Si ce signal n&#8217;est pas activé, il faut demander à EDF de venir chez vous le configurer. En effet, la configuration est réalisée sur la partie haute du compteur &#8230; qui vous est interdite d&#8217;accès (plombage). Ayant un compteur configuré dès son installation, je ne pourrais pas vous guider plus sur la démarche à suivre.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_bornier_client_compteur_edf">Bornier client compteur EDF</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Le bornier client du compteur EDF se situe sur sa partie basse comme le montre le schéma suivant :</p>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="/blog/img/teleinfo_compteur.png" alt="Bornier compteur EDF teleinfo">
+</div>
+</div>
+<div class="paragraph">
+<p>Les bornes I1 et I2 fournissent le signal convoité. Vous pouvez utiliser du simple cable téléphonique et, dans des conditions optimales, la longueur de ce cable peut aller jusqu'à 500m (donnée des spécifications).</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_montage_teleinfo_uart_ttl">Montage teleinfo &#8594; UART TTL</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Le montage utilise uniquement uniquement 3 composants :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>1 optocoupleur <a href="http://www.vishay.com/docs/83675/sfh620a.pdf">SFH620A</a></p>
+</li>
+<li>
+<p>1 résistance 1.2k</p>
+</li>
+<li>
+<p>1 résistance 3.3k</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Attention à prendre la référence exacte de l&#8217;optocoupleur car les latences (de basculement) de celui-ci sont importantes. Inutile donc de chercher des équivalences avec le même montage.</p>
+</div>
+<div class="paragraph">
+<p>Comme le montre le schéma suivant, le montage est assez basique :</p>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="/blog/img/teleinfo_schema.png" alt="Schéma montage Teleinfo">
+</div>
+</div>
+<div class="paragraph">
+<p>Vous pouvez tester ce montage sur une carte d&#8217;essai (breadboard) avant de passer à la soudure. Pour cela, utilisez un logiciel capable de lire un port série (screen ou minicom par exemple). Les caractéristiques de la communication sont "1200 7E1", ie. 1200 bauds, 7 bits de données, parité paire, 1 bit stop.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_cablage_sur_raspberry_pi_beaglebone_black">Cablage sur Raspberry Pi / Beaglebone Black</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Le schéma Fritzing suivant montre le cablage pour la Raspberry Pi :</p>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="/blog/img/teleinfo_rpi.jpg" alt="Cablage RPi Teleinfo">
+</div>
+</div>
+<div class="paragraph">
+<p>La même chose avec la Beaglebone Black :</p>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="/blog/img/teleinfo_bbb.jpg" alt="Cablage Beaglebone Black Teleinfo">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_pour_aller_plus_loin">Pour aller plus loin</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Après la partie hardware, il faut passer à la partie software. Vous pouvez utiliser les programmes <a href="https://github.com/lhuet/teleinfo/tree/master/python/home/pi/teleinfo/python">Python</a> ou <a href="https://github.com/lhuet/tarifbleu-node">JavaScript</a> (node.js) que j&#8217;ai écrit par exemple.</p>
+</div>
+</div>
+</div></p>
+                        <p><a href="/blog/2014/01/montage-teleinfo.html#disqus_thread">Commentaires</a></p>
   			<a href="/blog/2013/12/jdk7-jdk8-sur-beaglebone.html"><h1>Java 7 et 8 sur BeagleBone Black (BBB)</h1></a>
   			<p>14 décembre 2013</p>
 

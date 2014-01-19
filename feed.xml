@@ -6,9 +6,118 @@
     <atom:link href="http://lhuet.github.io/blog/feed.xml" rel="self" type="application/rss+xml" />
     <description>Java dans le hard(ware)</description>
     <language>en-gb</language>
-    <pubDate>dim., 15 déc. 2013 23:51:49 +0100</pubDate>
-    <lastBuildDate>dim., 15 déc. 2013 23:51:49 +0100</lastBuildDate>
+    <pubDate>dim., 19 janv. 2014 17:46:23 +0100</pubDate>
+    <lastBuildDate>dim., 19 janv. 2014 17:46:23 +0100</lastBuildDate>
 
+    <item>
+      <title>Montage teleinfo pour Raspberry Pi / BeagleBone</title>
+      <link>http://lhuet.github.io/blog/2014/01/montage-teleinfo.html</link>
+      <pubDate>dim., 19 janv. 2014 00:00:00 +0100</pubDate>
+      <guid isPermaLink="false">/2014/01/montage-teleinfo.html</guid>
+      	<description>
+	&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Cela fait quelques mois que j&amp;#8217;ai testé et mis en place un montage simple pour brancher mon compteur EDF sur Beaglebone et Raspberry Pi. Je vous restitue donc tout ce qu&amp;#8217;il faut pour reproduire celui-ci chez vous. L&amp;#8217;inspiration de ce montage provient du forum &lt;a href=&quot;http://www.chaleurterre.com/forum/viewtopic.php?p=51607#51607&quot;&gt;chaleurterre.com&lt;/a&gt;. J&amp;#8217;ai finalisé ce montage avec l&amp;#8217;aide de zzdomi du forum &lt;a href=&quot;http://www.touteladomotique.com/forum/viewtopic.php?f=30&amp;amp;t=1513&amp;amp;start=576&quot;&gt;touteladomotique.com&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_principe&quot;&gt;Principe&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Le compteur EDF fourni un signal appelé téléinfo pouvant être transformé en signal série TTL compatible avec les cartes Raspberry Pi ou BeagleBone. Les spécifications du signal teleinfo et de son protocole sont disponibles sur le &lt;a href=&quot;http://www.erdfdistribution.fr/medias/DTR_Racc_Comptage/ERDF-NOI-CPT_02E.pdf&quot;&gt;site d&amp;#8217;ERDF en PDF&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;L&amp;#8217;objet du montage de ce post est de réaliser cette transformation pour obtenir un signal compatible avec les UART des cartes récentes de type Raspberry Pi / BeagleBone / &amp;#8230; (niveaux en 3.3V).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Le signal teleinfo des compteurs EDF doit être activé (configuration interne du compteur). Si ce signal n&amp;#8217;est pas activé, il faut demander à EDF de venir chez vous le configurer. En effet, la configuration est réalisée sur la partie haute du compteur &amp;#8230; qui vous est interdite d&amp;#8217;accès (plombage). Ayant un compteur configuré dès son installation, je ne pourrais pas vous guider plus sur la démarche à suivre.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_bornier_client_compteur_edf&quot;&gt;Bornier client compteur EDF&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Le bornier client du compteur EDF se situe sur sa partie basse comme le montre le schéma suivant :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot; style=&quot;text-align: center&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/blog/img/teleinfo_compteur.png&quot; alt=&quot;Bornier compteur EDF teleinfo&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Les bornes I1 et I2 fournissent le signal convoité. Vous pouvez utiliser du simple cable téléphonique et, dans des conditions optimales, la longueur de ce cable peut aller jusqu&apos;à 500m (donnée des spécifications).&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_montage_teleinfo_uart_ttl&quot;&gt;Montage teleinfo &amp;#8594; UART TTL&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Le montage utilise uniquement uniquement 3 composants :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;1 optocoupleur &lt;a href=&quot;http://www.vishay.com/docs/83675/sfh620a.pdf&quot;&gt;SFH620A&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;1 résistance 1.2k&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;1 résistance 3.3k&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Attention à prendre la référence exacte de l&amp;#8217;optocoupleur car les latences (de basculement) de celui-ci sont importantes. Inutile donc de chercher des équivalences avec le même montage.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Comme le montre le schéma suivant, le montage est assez basique :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot; style=&quot;text-align: center&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/blog/img/teleinfo_schema.png&quot; alt=&quot;Schéma montage Teleinfo&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Vous pouvez tester ce montage sur une carte d&amp;#8217;essai (breadboard) avant de passer à la soudure. Pour cela, utilisez un logiciel capable de lire un port série (screen ou minicom par exemple). Les caractéristiques de la communication sont &quot;1200 7E1&quot;, ie. 1200 bauds, 7 bits de données, parité paire, 1 bit stop.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_cablage_sur_raspberry_pi_beaglebone_black&quot;&gt;Cablage sur Raspberry Pi / Beaglebone Black&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Le schéma Fritzing suivant montre le cablage pour la Raspberry Pi :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot; style=&quot;text-align: center&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/blog/img/teleinfo_rpi.jpg&quot; alt=&quot;Cablage RPi Teleinfo&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;La même chose avec la Beaglebone Black :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot; style=&quot;text-align: center&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/blog/img/teleinfo_bbb.jpg&quot; alt=&quot;Cablage Beaglebone Black Teleinfo&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_pour_aller_plus_loin&quot;&gt;Pour aller plus loin&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Après la partie hardware, il faut passer à la partie software. Vous pouvez utiliser les programmes &lt;a href=&quot;https://github.com/lhuet/teleinfo/tree/master/python/home/pi/teleinfo/python&quot;&gt;Python&lt;/a&gt; ou &lt;a href=&quot;https://github.com/lhuet/tarifbleu-node&quot;&gt;JavaScript&lt;/a&gt; (node.js) que j&amp;#8217;ai écrit par exemple.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+	</description>
+    </item>
     <item>
       <title>Java 7 et 8 sur BeagleBone Black (BBB)</title>
       <link>http://lhuet.github.io/blog/2013/12/jdk7-jdk8-sur-beaglebone.html</link>
