@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Java dans le hard(ware) - Teleinfo - Préparation d&#8217;une Raspberry Pi</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keywords" content="">    
+
+    <!-- Le styles -->
+    <link href="/blog/css/yeti/bootstrap.min.css" rel="stylesheet">
+    <link href="/blog/css/asciidoctor.css" rel="stylesheet">
+    <link href="/blog/css/base.css" rel="stylesheet">
+    <!-- link href="/blog/css/bootstrap-theme.min.css" rel="stylesheet" -->
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.1.0/css/font-awesome.min.css">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" href="favicon.ico">
+  </head>
+  <body>
+    <div id="wrap">
+	
+      <!-- Fixed navbar -->
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/blog">Java dans le hard(ware)</a>
+          </div>
+          <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="/blog/index.html">Home</a></li>
+              <li><a href="/blog/about.html">A propos</a></li>
+              <li><a href="feed.xml">Flux RSS</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+      <div class="container">
+	
+	<div class="page-header">
+		<h1>Teleinfo - Préparation d&#8217;une Raspberry Pi</h1>
+	</div>
+
+	<p><em>26 janvier 2014</em></p>
+        <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://lhuet.github.io/blog/2014/01/teleinfo-raspberrypi.html" data-via="lhuet35" data-text="Teleinfo - Préparation d&#8217;une Raspberry Pi" data-lang="fr">Tweeter</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+        <div class="g-plusone" data-size="medium" data-href="http://lhuet.github.io/blog/2014/01/teleinfo-raspberrypi.html"></div>
+
+	<p><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Vous avez lu attentivement mon post précédent sur le <a href="http://lhuet.github.io/blog/2014/01/montage-teleinfo.html">montage teleinfo</a>, récupéré l&#8217;optocoupleur qui va bien et sorti votre Raspberry Pi du placard. Maintenant, vous être prêt à passer à la partie soft.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_pr_paration_de_l_0s">Préparation de l&#8217;0S</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_la_carte_sd">La carte SD</h3>
+<div class="paragraph">
+<p>Le point de départ est la distribution <a href="http://www.raspberrypi.org/downloads">raspbian officielle</a> que vous devez télécharger. Pour flasher une carte SD, je vous suggère de suivre les instructions sur le site <a href="http://elinux.org/RPi_Easy_SD_Card_Setup">elinux.org</a>.</p>
+</div>
+<div class="paragraph">
+<p>Si vous êtes sous linux, vous pouvez utiliser une commande du genre :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>dd bs=4M if=./2013-09-25-wheezy-raspbian.img of=/dev/sdb</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Attention, dans mon cas, <code>/dev/sdb</code> correspond à ma carte SD. Ne pas copier/coller cette ligne "à l&#8217;aveugle" &#8230; Si <code>/dev/sdb</code> correspond chez vous à un disque dur, vous risquez d&#8217;avoir quelques sueurs froides !</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_d_sactivation_de_la_console_s_rie">Désactivation de la console série</h3>
+<div class="paragraph">
+<p>La Raspberry Pi ne dispose que d&#8217;un seul port série. Celui-ci est utilisé par défaut pour avoir une console. Il faut donc libérer le port série pour le montage téléinfo.</p>
+</div>
+<div class="paragraph">
+<p>Désactiver de la console série au boot en modifiant le fichier <code>/boot/cmdline.txt</code></p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>dwc_otg.lpm_enable=0 console=ttyAMA0,115200 kgdboc=ttyAMA0,115200 console=tty1 root=/dev/mmcblk0p2 rootfstype=ext4 elevator=deadline rootwait</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>à remplacer par :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>dwc_otg.lpm_enable=0 root=/dev/mmcblk0p2 rootfstype=ext4 elevator=deadline rootwait</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Désactiver la console <code>getty</code> en modifiant le fichier <code>/etv/inittab</code>. Il suffit de commenter la dernière ligne du fichier (ajout d&#8217;un <code>#</code>):</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>#T0:23:respawn:/sbin/getty -L ttyAMA0 115200 vt100</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_logguer_les_donn_es_dans_une_base_a_href_http_www_mongodb_org_mongodb_a">Logguer les données dans une base <a href="http://www.mongodb.org/">MongoDB</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Cette partie corresond à l&#8217;installation et la configuration d&#8217;un programme <a href="http://nodejs.org/">nodejs</a> pour logguer les infos dans une base MongoDB. Dans mon cas, j&#8217;utilise une formule d&#8217;hébergement gratuite avec 512 Mo chez <a href="https://mongolab.com/">MongoLab</a>. Vous pouvez choisir n&#8217;importe quel fournisseur à ce niveau (<a href="http://www.mongohq.com/">MongoHQ</a> offre le même type de formule par exemple).</p>
+</div>
+<div class="sect2">
+<h3 id="_installation_de_nodejs">Installation de nodejs</h3>
+<div class="paragraph">
+<p>Il y a quelques temps, il était difficile de trouver une version nodejs pour processeur ARM. Il fallait donc compiler les sources sur Raspberry Pi (~45 mn de temps de compilation) ou, pour les plus avertis, en "Cross Compiling" (moins de 2mn sur mon core i7). Désormais, une version officielle est disponible mais pas toujours dans la dernière version. Il faut donc fouiller dans les répertoires <a href="http://nodejs.org/dist/">http://nodejs.org/dist/</a>. La dernière version à ce jour est la <a href="http://nodejs.org/dist/v0.10.24/node-v0.10.24-linux-arm-pi.tar.gz">v0.10.24</a>.</p>
+</div>
+<div class="paragraph">
+<p>L&#8217;installation consiste uniquement à décompresser l&#8217;archive :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>tar -xzvf node-v0.10.24-linux-arm-pi.tar.gz</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Si vous installez nodejs dans le répertoire <code>/opt</code>, vous pouvez ajouter les lignes suivantes au fichier <code>/etc/profile</code> pour positionner les variables d&#8217;environnement pour node :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint bash language-bash"><code>NODE_JS_HOME="/opt/node"
+PATH="$PATH:$NODE_JS_HOME/bin"
+NODE_PATH="$NODE_JS_HOME/lib/node_modules"</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_application_nodejs">Application nodejs</h3>
+<div class="paragraph">
+<p>Vous pouvez commencer en utilisant mon application (en cours de développement) en clonant le repo git associé :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>git clone https://github.com/lhuet/teleinfo-app.git</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Pour obtenir les dépendances node, utilisez la commande classique node :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>npm install -g</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Le programme va chercher les éléments de configuration dans des variables d&#8217;environnement que vous pouvez positionner avec la commandes suivantes :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint bash language-bash"><code>export MONGO_LOGIN="LOGIN_MONGOLAB"
+export MONGO_PASSWORD="PASSWORD_MONGOLAB"
+export MONGO_HOST="HOST_MONGOLAB"
+export MONGO_PORT="PORT_MONGOLAB"
+export MONGO_DATABASE="BASE_MONGOLAB"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Pour lancer l&#8217;application manuellement, vous devez positionner ces variables d&#8217;environnement et utiliser la commande :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>node teleinfo-app.js</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_script_de_d_marrage">Script de démarrage</h3>
+<div class="paragraph">
+<p>Lancer manuellement son application suffit en phase de développement. Pour être certain que le script se lance au démarrage de votre Raspberry Pi, vous devez faire un script du genre :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint bash language-bash"><code>#!/bin/sh
+#/etc/init.d/node-teleinfo
+
+export PATH=$PATH:/opt/node/bin
+export NODE_PATH=$NODE_PATH:/opt/node/lib/node_modules
+export MONGO_LOGIN="LOGIN_MONGOLAB"
+export MONGO_PASSWORD="PASSWORD_MONGOLAB"
+export MONGO_HOST="HOST_MONGOLAB"
+export MONGO_PORT="PORT_MONGOLAB"
+export MONGO_DATABASE="BASE_MONGOLAB"
+
+case "$1" in
+  start)
+  exec forever --sourceDir=/home/pi/teleinfo-app -p /tmp teleinfo-app.js
+&amp;
+  ;;
+stop)
+  exec forever stop --sourceDir=/home/pi/teleinfo-app teleinfo-app.js
+  ;;
+*)
+  echo "Usage: /etc/init.d/node-teleinfo {start|stop}"
+  exit 1
+  ;;
+esac
+
+exit 0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>La commande suivante permet de configurer votre système pour que le script se lance au démarrage :</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>sudo update-rc.d node-teleinfo defaults</pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_pour_la_suite">Pour la suite &#8230;</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Maintenant que les données sont stockées, il va falloir les restituer ! Je n&#8217;ai pas encore beaucoup avancer sur cette partie. J&#8217;ai commencé à intégrer express pour avoir des infos "live" (puissance instantanée, intensité instantanée et index) . Il reste toute la partie exploitation des données.</p>
+</div>
+<div class="paragraph">
+<p>J&#8217;ai oublié de le préciser, mais j&#8217;accepte les pull-requests ;-)</p>
+</div>
+<div class="paragraph">
+<p>A suivre donc.</p>
+</div>
+</div>
+</div></p>
+
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'javadanslehardware'; 
+            var disqus_identifier = 'raspberrypi_teleinfo';
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+
+	<hr>
+	
+		</div>
+		<div id="push"></div>
+    </div>
+    
+    <div id="footer">
+      <div class="container">
+        <p class="text-muted credit">L'ensemble des posts de ce blog sont publiés sous licence <em>Creative Commons by-nc-sa</em>. <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png"/></a></p>
+        <p class="text-muted credit">&copy; 2013 | Mixed with <a href="http://twitter.github.com/bootstrap/">Bootstrap v3.0.2</a> | Baked with <a href="http://jbake.org">JBake v2.2.0</a></p>
+      </div>
+    </div>
+    
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- script src="/blog/js/jquery-1.10.2.min.js"></script -->
+    <!-- script src="/blog/js/bootstrap.min.js"></script -->
+    <script src="/blog/js/run_prettify.js"></script>
+
+    <script type="text/javascript">
+        window.___gcfg = {lang: 'fr'};
+
+        (function() {
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+            po.src = 'https://apis.google.com/js/platform.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-46154958-1', 'lhuet.github.io');
+      ga('send', 'pageview');
+
+    </script>
+    
+  </body>
+</html>

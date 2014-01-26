@@ -6,9 +6,205 @@
     <atom:link href="http://lhuet.github.io/blog/feed.xml" rel="self" type="application/rss+xml" />
     <description>Java dans le hard(ware)</description>
     <language>en-gb</language>
-    <pubDate>dim., 19 janv. 2014 18:03:42 +0100</pubDate>
-    <lastBuildDate>dim., 19 janv. 2014 18:03:42 +0100</lastBuildDate>
+    <pubDate>dim., 26 janv. 2014 15:37:52 +0100</pubDate>
+    <lastBuildDate>dim., 26 janv. 2014 15:37:52 +0100</lastBuildDate>
 
+    <item>
+      <title>Teleinfo - Préparation d&amp;#8217;une Raspberry Pi</title>
+      <link>http://lhuet.github.io/blog/2014/01/teleinfo-raspberrypi.html</link>
+      <pubDate>dim., 26 janv. 2014 00:00:00 +0100</pubDate>
+      <guid isPermaLink="false">/2014/01/teleinfo-raspberrypi.html</guid>
+      	<description>
+	&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Vous avez lu attentivement mon post précédent sur le &lt;a href=&quot;http://lhuet.github.io/blog/2014/01/montage-teleinfo.html&quot;&gt;montage teleinfo&lt;/a&gt;, récupéré l&amp;#8217;optocoupleur qui va bien et sorti votre Raspberry Pi du placard. Maintenant, vous être prêt à passer à la partie soft.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_pr_paration_de_l_0s&quot;&gt;Préparation de l&amp;#8217;0S&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_la_carte_sd&quot;&gt;La carte SD&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Le point de départ est la distribution &lt;a href=&quot;http://www.raspberrypi.org/downloads&quot;&gt;raspbian officielle&lt;/a&gt; que vous devez télécharger. Pour flasher une carte SD, je vous suggère de suivre les instructions sur le site &lt;a href=&quot;http://elinux.org/RPi_Easy_SD_Card_Setup&quot;&gt;elinux.org&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Si vous êtes sous linux, vous pouvez utiliser une commande du genre :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;literalblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;dd bs=4M if=./2013-09-25-wheezy-raspbian.img of=/dev/sdb&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Attention, dans mon cas, &lt;code&gt;/dev/sdb&lt;/code&gt; correspond à ma carte SD. Ne pas copier/coller cette ligne &quot;à l&amp;#8217;aveugle&quot; &amp;#8230; Si &lt;code&gt;/dev/sdb&lt;/code&gt; correspond chez vous à un disque dur, vous risquez d&amp;#8217;avoir quelques sueurs froides !&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_d_sactivation_de_la_console_s_rie&quot;&gt;Désactivation de la console série&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;La Raspberry Pi ne dispose que d&amp;#8217;un seul port série. Celui-ci est utilisé par défaut pour avoir une console. Il faut donc libérer le port série pour le montage téléinfo.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Désactiver de la console série au boot en modifiant le fichier &lt;code&gt;/boot/cmdline.txt&lt;/code&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;literalblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;dwc_otg.lpm_enable=0 console=ttyAMA0,115200 kgdboc=ttyAMA0,115200 console=tty1 root=/dev/mmcblk0p2 rootfstype=ext4 elevator=deadline rootwait&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;à remplacer par :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;literalblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;dwc_otg.lpm_enable=0 root=/dev/mmcblk0p2 rootfstype=ext4 elevator=deadline rootwait&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Désactiver la console &lt;code&gt;getty&lt;/code&gt; en modifiant le fichier &lt;code&gt;/etv/inittab&lt;/code&gt;. Il suffit de commenter la dernière ligne du fichier (ajout d&amp;#8217;un &lt;code&gt;#&lt;/code&gt;):&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;literalblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;#T0:23:respawn:/sbin/getty -L ttyAMA0 115200 vt100&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_logguer_les_donn_es_dans_une_base_a_href_http_www_mongodb_org_mongodb_a&quot;&gt;Logguer les données dans une base &lt;a href=&quot;http://www.mongodb.org/&quot;&gt;MongoDB&lt;/a&gt;&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Cette partie corresond à l&amp;#8217;installation et la configuration d&amp;#8217;un programme &lt;a href=&quot;http://nodejs.org/&quot;&gt;nodejs&lt;/a&gt; pour logguer les infos dans une base MongoDB. Dans mon cas, j&amp;#8217;utilise une formule d&amp;#8217;hébergement gratuite avec 512 Mo chez &lt;a href=&quot;https://mongolab.com/&quot;&gt;MongoLab&lt;/a&gt;. Vous pouvez choisir n&amp;#8217;importe quel fournisseur à ce niveau (&lt;a href=&quot;http://www.mongohq.com/&quot;&gt;MongoHQ&lt;/a&gt; offre le même type de formule par exemple).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_installation_de_nodejs&quot;&gt;Installation de nodejs&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Il y a quelques temps, il était difficile de trouver une version nodejs pour processeur ARM. Il fallait donc compiler les sources sur Raspberry Pi (~45 mn de temps de compilation) ou, pour les plus avertis, en &quot;Cross Compiling&quot; (moins de 2mn sur mon core i7). Désormais, une version officielle est disponible mais pas toujours dans la dernière version. Il faut donc fouiller dans les répertoires &lt;a href=&quot;http://nodejs.org/dist/&quot;&gt;http://nodejs.org/dist/&lt;/a&gt;. La dernière version à ce jour est la &lt;a href=&quot;http://nodejs.org/dist/v0.10.24/node-v0.10.24-linux-arm-pi.tar.gz&quot;&gt;v0.10.24&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;L&amp;#8217;installation consiste uniquement à décompresser l&amp;#8217;archive :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;literalblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;tar -xzvf node-v0.10.24-linux-arm-pi.tar.gz&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Si vous installez nodejs dans le répertoire &lt;code&gt;/opt&lt;/code&gt;, vous pouvez ajouter les lignes suivantes au fichier &lt;code&gt;/etc/profile&lt;/code&gt; pour positionner les variables d&amp;#8217;environnement pour node :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint bash language-bash&quot;&gt;&lt;code&gt;NODE_JS_HOME=&quot;/opt/node&quot;
+PATH=&quot;$PATH:$NODE_JS_HOME/bin&quot;
+NODE_PATH=&quot;$NODE_JS_HOME/lib/node_modules&quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_application_nodejs&quot;&gt;Application nodejs&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Vous pouvez commencer en utilisant mon application (en cours de développement) en clonant le repo git associé :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;literalblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;git clone https://github.com/lhuet/teleinfo-app.git&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Pour obtenir les dépendances node, utilisez la commande classique node :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;literalblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;npm install -g&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Le programme va chercher les éléments de configuration dans des variables d&amp;#8217;environnement que vous pouvez positionner avec la commandes suivantes :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint bash language-bash&quot;&gt;&lt;code&gt;export MONGO_LOGIN=&quot;LOGIN_MONGOLAB&quot;
+export MONGO_PASSWORD=&quot;PASSWORD_MONGOLAB&quot;
+export MONGO_HOST=&quot;HOST_MONGOLAB&quot;
+export MONGO_PORT=&quot;PORT_MONGOLAB&quot;
+export MONGO_DATABASE=&quot;BASE_MONGOLAB&quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Pour lancer l&amp;#8217;application manuellement, vous devez positionner ces variables d&amp;#8217;environnement et utiliser la commande :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;literalblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;node teleinfo-app.js&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_script_de_d_marrage&quot;&gt;Script de démarrage&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Lancer manuellement son application suffit en phase de développement. Pour être certain que le script se lance au démarrage de votre Raspberry Pi, vous devez faire un script du genre :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint bash language-bash&quot;&gt;&lt;code&gt;#!/bin/sh
+#/etc/init.d/node-teleinfo
+
+export PATH=$PATH:/opt/node/bin
+export NODE_PATH=$NODE_PATH:/opt/node/lib/node_modules
+export MONGO_LOGIN=&quot;LOGIN_MONGOLAB&quot;
+export MONGO_PASSWORD=&quot;PASSWORD_MONGOLAB&quot;
+export MONGO_HOST=&quot;HOST_MONGOLAB&quot;
+export MONGO_PORT=&quot;PORT_MONGOLAB&quot;
+export MONGO_DATABASE=&quot;BASE_MONGOLAB&quot;
+
+case &quot;$1&quot; in
+  start)
+  exec forever --sourceDir=/home/pi/teleinfo-app -p /tmp teleinfo-app.js
+&amp;amp;
+  ;;
+stop)
+  exec forever stop --sourceDir=/home/pi/teleinfo-app teleinfo-app.js
+  ;;
+*)
+  echo &quot;Usage: /etc/init.d/node-teleinfo {start|stop}&quot;
+  exit 1
+  ;;
+esac
+
+exit 0&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;La commande suivante permet de configurer votre système pour que le script se lance au démarrage :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;literalblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre&gt;sudo update-rc.d node-teleinfo defaults&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_pour_la_suite&quot;&gt;Pour la suite &amp;#8230;&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Maintenant que les données sont stockées, il va falloir les restituer ! Je n&amp;#8217;ai pas encore beaucoup avancer sur cette partie. J&amp;#8217;ai commencé à intégrer express pour avoir des infos &quot;live&quot; (puissance instantanée, intensité instantanée et index) . Il reste toute la partie exploitation des données.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;J&amp;#8217;ai oublié de le préciser, mais j&amp;#8217;accepte les pull-requests ;-)&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;A suivre donc.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+	</description>
+    </item>
     <item>
       <title>Montage teleinfo pour Raspberry Pi / BeagleBone</title>
       <link>http://lhuet.github.io/blog/2014/01/montage-teleinfo.html</link>
