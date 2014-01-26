@@ -123,7 +123,7 @@ La commande suivante permet de configurer votre système pour que le script se l
 
 == Pour la suite ...
 
-Maintenant que les données sont stockées, il va falloir les restituer ! Je n'ai pas encore beaucoup avancer sur cette partie. J'ai commencé à intégrer express pour avoir des infos "live" (puissance instantanée, intensité instantanée et index) . Il reste toute la partie exploitation des données.
+Maintenant que les données sont stockées, il va falloir les restituer ! Je n'ai pas encore beaucoup avancé sur cette partie. J'ai commencé à intégrer express pour avoir des infos "live" (puissance instantanée, intensité instantanée et index) . Il reste toute la partie exploitation des données.
 
 J'ai oublié de le préciser, mais j'accepte les pull-requests ;-)
 
