@@ -6,8 +6,8 @@
     <atom:link href="http://lhuet.github.io/blog/feed.xml" rel="self" type="application/rss+xml" />
     <description>Java dans le hard(ware)</description>
     <language>en-gb</language>
-    <pubDate>dim., 26 janv. 2014 15:37:52 +0100</pubDate>
-    <lastBuildDate>dim., 26 janv. 2014 15:37:52 +0100</lastBuildDate>
+    <pubDate>dim., 26 janv. 2014 19:11:01 +0100</pubDate>
+    <lastBuildDate>dim., 26 janv. 2014 19:11:01 +0100</lastBuildDate>
 
     <item>
       <title>Teleinfo - Préparation d&amp;#8217;une Raspberry Pi</title>
@@ -193,7 +193,7 @@ exit 0&lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&quot;_pour_la_suite&quot;&gt;Pour la suite &amp;#8230;&lt;/h2&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Maintenant que les données sont stockées, il va falloir les restituer ! Je n&amp;#8217;ai pas encore beaucoup avancer sur cette partie. J&amp;#8217;ai commencé à intégrer express pour avoir des infos &quot;live&quot; (puissance instantanée, intensité instantanée et index) . Il reste toute la partie exploitation des données.&lt;/p&gt;
+&lt;p&gt;Maintenant que les données sont stockées, il va falloir les restituer ! Je n&amp;#8217;ai pas encore beaucoup avancé sur cette partie. J&amp;#8217;ai commencé à intégrer express pour avoir des infos &quot;live&quot; (puissance instantanée, intensité instantanée et index) . Il reste toute la partie exploitation des données.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;J&amp;#8217;ai oublié de le préciser, mais j&amp;#8217;accepte les pull-requests ;-)&lt;/p&gt;
