@@ -6,8 +6,8 @@
     <atom:link href="http://lhuet.github.io/blog/feed.xml" rel="self" type="application/rss+xml" />
     <description>Java dans le hard(ware)</description>
     <language>en-gb</language>
-    <pubDate>dim., 26 janv. 2014 19:11:01 +0100</pubDate>
-    <lastBuildDate>dim., 26 janv. 2014 19:11:01 +0100</lastBuildDate>
+    <pubDate>dim., 2 févr. 2014 10:34:40 +0100</pubDate>
+    <lastBuildDate>dim., 2 févr. 2014 10:34:40 +0100</lastBuildDate>
 
     <item>
       <title>Teleinfo - Préparation d&amp;#8217;une Raspberry Pi</title>
@@ -64,7 +64,7 @@
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Désactiver la console &lt;code&gt;getty&lt;/code&gt; en modifiant le fichier &lt;code&gt;/etv/inittab&lt;/code&gt;. Il suffit de commenter la dernière ligne du fichier (ajout d&amp;#8217;un &lt;code&gt;#&lt;/code&gt;):&lt;/p&gt;
+&lt;p&gt;Désactiver la console &lt;code&gt;getty&lt;/code&gt; en modifiant le fichier &lt;code&gt;/etc/inittab&lt;/code&gt;. Il suffit de commenter la dernière ligne du fichier (ajout d&amp;#8217;un &lt;code&gt;#&lt;/code&gt;):&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;literalblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
