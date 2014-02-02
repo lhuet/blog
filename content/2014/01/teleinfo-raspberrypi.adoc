@@ -35,7 +35,7 @@ dwc_otg.lpm_enable=0 console=ttyAMA0,115200 kgdboc=ttyAMA0,115200 console=tty1 r
 dwc_otg.lpm_enable=0 root=/dev/mmcblk0p2 rootfstype=ext4 elevator=deadline rootwait
 ....
 
-Désactiver la console +getty+ en modifiant le fichier +/etv/inittab+. Il suffit de commenter la dernière ligne du fichier (ajout d'un +#+):
+Désactiver la console +getty+ en modifiant le fichier +/etc/inittab+. Il suffit de commenter la dernière ligne du fichier (ajout d'un +#+):
 
  #T0:23:respawn:/sbin/getty -L ttyAMA0 115200 vt100
 
