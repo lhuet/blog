@@ -2,3 +2,6 @@
 /nbproject/
 /output/
 *~
+
+build
+.gradle
