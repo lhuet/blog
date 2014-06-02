@@ -1,0 +1,27 @@
+buildscript {
+  repositories {
+      mavenLocal()
+      mavenCentral()   
+      jcenter()
+  }
+
+  dependencies { 
+    classpath 'me.champeau.gradle:jbake-gradle-plugin:0.1'
+    classpath 'org.asciidoctor:asciidoctor-java-integration:0.1.4'
+    classpath 'org.freemarker:freemarker:2.3.19'
+  }
+}
+
+apply plugin: 'jbake'
+
+jbake {
+   input = file('src/jbake')
+   output = file('build/jbake')
+   clearCache = true
+   configuration['render.tag'] = 'true'
+}
+
+task publish(type: GradleBuild) {
+    buildFile = 'publish.gradle'
+    tasks = ['publishGhPages']
+}
