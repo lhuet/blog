@@ -6,14 +6,14 @@
     <atom:link href="http://lhuet.github.io/blog/feed.xml" rel="self" type="application/rss+xml" />
     <description>Java dans le hard(ware)</description>
     <language>en-gb</language>
-    <pubDate>dim., 2 févr. 2014 10:34:40 +0100</pubDate>
-    <lastBuildDate>dim., 2 févr. 2014 10:34:40 +0100</lastBuildDate>
+    <pubDate>mar., 3 juin 2014 00:08:19 +0200</pubDate>
+    <lastBuildDate>mar., 3 juin 2014 00:08:19 +0200</lastBuildDate>
 
     <item>
       <title>Teleinfo - Préparation d&amp;#8217;une Raspberry Pi</title>
-      <link>http://lhuet.github.io/blog/2014/01/teleinfo-raspberrypi.html</link>
+      <link>http://lhuet.github.io/blog2014/01/teleinfo-raspberrypi.html</link>
       <pubDate>dim., 26 janv. 2014 00:00:00 +0100</pubDate>
-      <guid isPermaLink="false">/2014/01/teleinfo-raspberrypi.html</guid>
+      <guid isPermaLink="false">2014/01/teleinfo-raspberrypi.html</guid>
       	<description>
 	&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
@@ -207,9 +207,9 @@ exit 0&lt;/code&gt;&lt;/pre&gt;
     </item>
     <item>
       <title>Montage teleinfo pour Raspberry Pi / BeagleBone</title>
-      <link>http://lhuet.github.io/blog/2014/01/montage-teleinfo.html</link>
+      <link>http://lhuet.github.io/blog2014/01/montage-teleinfo.html</link>
       <pubDate>dim., 19 janv. 2014 00:00:00 +0100</pubDate>
-      <guid isPermaLink="false">/2014/01/montage-teleinfo.html</guid>
+      <guid isPermaLink="false">2014/01/montage-teleinfo.html</guid>
       	<description>
 	&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
@@ -316,9 +316,9 @@ exit 0&lt;/code&gt;&lt;/pre&gt;
     </item>
     <item>
       <title>Java 7 et 8 sur BeagleBone Black (BBB)</title>
-      <link>http://lhuet.github.io/blog/2013/12/jdk7-jdk8-sur-beaglebone.html</link>
+      <link>http://lhuet.github.io/blog2013/12/jdk7-jdk8-sur-beaglebone.html</link>
       <pubDate>sam., 14 déc. 2013 00:00:00 +0100</pubDate>
-      <guid isPermaLink="false">/2013/12/jdk7-jdk8-sur-beaglebone.html</guid>
+      <guid isPermaLink="false">2013/12/jdk7-jdk8-sur-beaglebone.html</guid>
       	<description>
 	&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
@@ -389,7 +389,7 @@ Pour faire court, les JDK en version HFP (Hard Float) ne peuvent être utilisés
 &lt;table&gt;
 &lt;tr&gt;
 &lt;td class=&quot;icon&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;Note&lt;/div&gt;
+&lt;i class=&quot;icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
 &lt;/td&gt;
 &lt;td class=&quot;content&quot;&gt;
 Ces tests ont seulement pour objectif de comparer grossièrement les JDK &amp;#8230; et n&amp;#8217;ont fait l&amp;#8217;objet d&amp;#8217;aucune méthodologie, analyse statistique, &amp;#8230; Pour avoir des résultats indiscutables, il faudrait des tests réalisés par des spécialistes de JVM, ce que je ne suis pas !
@@ -576,9 +576,9 @@ window.onresize = function() {
     </item>
     <item>
       <title>Premiers pas avec la BeagleBone Black (BBB)</title>
-      <link>http://lhuet.github.io/blog/2013/12/beaglebone-black-overview.html</link>
+      <link>http://lhuet.github.io/blog2013/12/beaglebone-black-overview.html</link>
       <pubDate>dim., 8 déc. 2013 00:00:00 +0100</pubDate>
-      <guid isPermaLink="false">/2013/12/beaglebone-black-overview.html</guid>
+      <guid isPermaLink="false">2013/12/beaglebone-black-overview.html</guid>
       	<description>
 	&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
@@ -778,9 +778,9 @@ installer &lt;a href=&quot;http://elinux.org/BeagleBoardUbuntu&quot;&gt;Ubuntu&l
     </item>
     <item>
       <title>Yet another blog !</title>
-      <link>http://lhuet.github.io/blog/2013/12/yet-another-blog.html</link>
+      <link>http://lhuet.github.io/blog2013/12/yet-another-blog.html</link>
       <pubDate>dim., 1 déc. 2013 00:00:00 +0100</pubDate>
-      <guid isPermaLink="false">/2013/12/yet-another-blog.html</guid>
+      <guid isPermaLink="false">2013/12/yet-another-blog.html</guid>
       	<description>
 	&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
