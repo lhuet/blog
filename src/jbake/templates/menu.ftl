@@ -14,7 +14,7 @@
             <ul class="nav navbar-nav">
               <li><a href="/blog/index.html">Home</a></li>
               <li><a href="/blog/about.html">A propos</a></li>
-              <li><a href="${config.feed_file}">Flux RSS</a></li>
+              <li><a href="/blog/${config.feed_file}">Flux RSS</a></li>
             </ul>
           </div><!--/.nav-collapse -->
         </div>
