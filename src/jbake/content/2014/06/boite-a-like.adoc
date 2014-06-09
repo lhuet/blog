@@ -1,0 +1,133 @@
+= '"Boite à Like" / "LikeBox"' du BreizhCamp
+Laurent HUET
+2014-06-09
+:jbake-type: post
+:jbake-tags: raspberrypi breizhcamp
+:jbake-status: draft
+:source-highlighter: prettify
+:id: boite_a_like_breizhcamp
+
+L'édition 2014 du http://www.breizhcamp.org[BreizhCamp] a été l'occasion pour la team d'innover en mettant en place un boitier de vote pour récupérer le feedback des participants à la sortie de chaque conférence.
+L'idée n'était pas si originale que cela puisque nous avons découvert en cours de réalisation que Devoxx France allait également avoir ce type de boitier.
+Bien évidemment, le notre était beaucoup mieux :-p
+
+image::/blog/boitier_vote/boitier_final.jpeg[Boite à 'Like', align="center"]
+
+Dans cet article, je me focalise sur la partie technique à l'intérieur du boitier.
+http://blog.loof.fr/[Nicolas] donne un autre point de vue sur la partie organisationnelle / habillage du hardware / marketing / whatever ...
+
+== De l'idée au prototype
+
+L'idée de départ était de voir ce qu'on pouvait mettre en place pour que les participants puissent s'exprimer autrement qu'en mettant une croix sur une feuille A3 (solution utilisée pour l'édition 2013).
+Intéressé par le hardware, c'est naturellement par ce coté que j'ai commencé.
+Le premier prototype fait sur un coin de table était à base d'arduino :
+++++
+<div align="center">
+<iframe width="640" height="480" src="//www.youtube.com/embed/y5-cCQxtZTw" frameborder="0" allowfullscreen></iframe>
+</div>
+++++
+Le code n'était pas d'une finesse extrême, mais c'était un prototype fonctionnel !
+Pour ceux que ça intéresse, vous pouvez le retrouver http://lhuet.github.io/blog/boitier_vote/boitiervote.ino[ici].
+
+Au delà de l'aspect technique, ce prototype a été une base de discussion avec la team sur les fonctionnalités à mettre en oeuvre :
+
+* Nombre de boutons (2, 3, +) ?
+* Ecran texte ou Ecran graphique ?
+* Forme/Type de bouton ?
+* Intégration de l'ensemble
+* ...
+
+== Choix techniques
+
+Globalement, les choix techniques du coeur du boitier ont été guidés par les compétences de l'équipe, le matériel dejà disponible et le coût.
+Le leitmotiv de l'équipe a été de faire *simple* et *robuste*.
+
+=== Côté hardware
+La partie hardware est constitué de 3 élements principaux :
+
+* Les boutons de vote (interaction avec les utilisateurs ... donc aspect fondamental du boitier)
+* L'écran de visualisation
+* La carte contenant pour faire tourner la partie software
+
+Pour les boutons de vote, le bouton type "champignon" nous est paru essentiel.
+Cela a été le choix le plus difficile à faire compte tenu du nombre de boutons disponibles sur le marché et de la diversité des tarifs.
+Pour les côtés robuste et visuel, nous avons retenu des boutons métaliques industriels et passé commande chez http://fr.farnell.com/itw-switches/76-9450-439088r/commutateur-rouge-domed/dp/241520?MER=en-me-pd-r2-alte-swi[Farnell].
+
+image::/blog/boitier_vote/green_switch.jpg[Bouton 'Domed', align = "center"]
+
+Pour les écrans, j'ai fait quelques tests avec divers écrans LCD Texte 2/4 lignes, LCD graphique entre 2 et 3".
+Au final, nous avons retenu l'écran LCD Texte sur 4 lignes avec un fond bleu pour des questions de lisibilité et de simplicité.
+Une version avec bus I2C a été choisie dans un souci de simplicité de cablage.
+
+image::/blog/boitier_vote/ecrans.jpg[Test d'écrans, align="center"]
+
+Pour la carte principale, le choix a été rapide : Raspberri Pi.
+Nous n'étions pas nombreux à avoir de l'expérience sur Arduino et nous avions plusieurs Raspberry Pi (pas d'achat à prévoir de ce coté).
+L'arduino aurait été une solution plus robuste mais la Raspberry Pi apportait d'autres possibilités (sortie HDMI pour gérer un autre affichage, connectivité réseau intégré, ...).
+
+Allez hop, les commandes ont été passées et nous étions prêt pour notre soirée montage avec la matière première :
+
+image::/blog/boitier_vote/boitier_final.jpeg[Pièces avant montage, align="center"]
+
+https://twitter.com/alexlg[Alexandre] nous a préparé pour l'occasion un joli schéma http://fritzing.org/[Fritzing] :
+
+image::/blog/boitier_vote/wiring.jpg[Schéma Fritzing, align="center"]
+
+Alexandre a même optimisé / conçu le cablage pour avoir une mise en oeuvre la plus simple :
+
+* pas de condensateur anti-rebond (gestion coté soft)
+* boutons en mode 'pull up' (plus de pins GND disponibles que de 3.3 V)
+
+=== Côté software
+
+Les sources sont disponibles sur Github dans https://github.com/BreizhJUG/breizhcamp-vote[repo dédié].
+Dans le contexte du BreizhCamp, le développement a été guidé par la simplicité de mise en oeuvre et par la robustesse.
+En terme de spécifications, cela peux se traduire par :
+
+* je branche -> ça marche
+* je m'endors sur le bouton -> pas grave, un seul vote est pris en compte
+* tolérant aux pannes réseau (réseau filaire que la team a mis en place)
+* support des changements de programme de dernière minute
+* boitiers autonome et envoi des votes régulièrement à un serveur si c'est possible
+
+Il y a 2 parties software :
+
+* https://github.com/BreizhJUG/breizhcamp-vote/tree/master/client[la partie cliente] sur le boitier de vote
+* https://github.com/BreizhJUG/breizhcamp-vote/tree/master/server[la partie serveur] qui aggrège les données de l'ensemble des boitiers de vote (nous en avions 5).
+
+Pour faire simple et léger (en particulier sur le Raspberry Pi), http://nodejs.org/[Node.js] a été choisi.
+En plus de la légèreté, la diversité de ses modules, notamment pour l'interfaçage Hardware, a contribué à ce choix.
+Les principaux modules utilisés sont :
+
+* https://github.com/fivdi/onoff[onoff] pour gérer les boutons (GPIO)
+* https://github.com/wilberforce/lcd-pcf8574[lcd-pcf8574] pour gérer l'écran LCD 4 lignes
+* https://github.com/mapbox/node-sqlite3[sqlite3] pour stocker localement les données de vote dans une base de données fichier SQLite3.
+* https://github.com/danwrong/restler[restler] pour l'implémentation du client REST sur les boitiers
+* https://www.npmjs.org/package/express[express] pour la partie serveur
+
+Les modules cités vous auront déjà donnés la puce à l'oreille. La communication entre les boitiers et le serveur se fait uniquement sur HTTP (simple API REST).
+
+La restitution est réalisée avec une simple https://github.com/BreizhJUG/breizhcamp-vote/blob/master/server/static/index.html[page Web] sur laquelle on n'est pas peu fier de retrouver sa session ;-) :
+
+image::/blog/boitier_vote/top5.jpg[Top 5 des talks, align="center"]
+
+== Conclusion
+
+Tout n'a pas été aussi rose, nous avions un peu sous-estimé le temps de mise en oeuvre, notamment des copies de cartes SD.
+En effet, copier une carte SD de 8Go peut parfois prendre plus de 40mn.
+Ceci étant, une fois les boitiers en place et les rares bugs corrigés (dont un souci de performances sur un module node ... coté serveur), tout à fonctionné à merveille !
+
+image::/blog/boitier_vote/boitier_final_bzhcmp2.jpg[Boitier en fonctionnement, align="center"]
+
+Au final, ce système a permis de prendre en compte près de *2500 votes* !
+
+Je tiens à conclure pour souligner que ceci résulte d'un véritable travail d'équipe :
+
+* Infrastructure réseau (5 routeurs configurés dans chaque salle sur lesquels les boitiers étaient reliés au réseau)
+* Montage de l'ensemble des boitiers en une soirée par toute l'équipe
+* Développement https://github.com/BreizhJUG/breizhcamp-vote/graphs/contributors[du code à 4] (je me compte dedans même si j'ai plus été "product owner" que développeur)
+* Préparation de l'intégration (plaques plexi, pieds, ...) par Nicolas et son fils Julien
+* Montage de 3 TV en HDMI sur 3 des boitiers
+* Configuration système de l'ensemble des éléments (boitiers et serveur)
+
+Prochaine étape : Diffusion du projet sur le portfolio du http://www.labfab.fr/[LabFab] prêt à promouvoir notre 'Boite à Like' en vue d'une réutilisation sur d'autres évènements.
