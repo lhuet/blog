@@ -73,7 +73,7 @@ https://twitter.com/alexlg[Alexandre] nous a préparé pour l'occasion un joli s
 
 image::/blog/boitier_vote/wiring.jpg[Schéma Fritzing, align="center"]
 
-Alexandre a même optimisé / conçu le cablage pour avoir une mise en oeuvre la plus simple :
+Alexandre a même optimisé / conçu le cablage pour avoir une mise en oeuvre la plus simple possible :
 
 * pas de condensateur anti-rebond (gestion coté soft)
 * boutons en mode 'pull up' (plus de pins GND disponibles que de 3.3 V)
@@ -82,18 +82,18 @@ Alexandre a même optimisé / conçu le cablage pour avoir une mise en oeuvre la
 
 Les sources sont disponibles sur Github dans https://github.com/BreizhJUG/breizhcamp-vote[repo dédié].
 Dans le contexte du BreizhCamp, le développement a été guidé par la simplicité de mise en oeuvre et par la robustesse.
-En terme de spécifications, cela peux se traduire par :
+En termes de spécifications, cela peut se traduire par :
 
 * je branche -> ça marche
 * je m'endors sur le bouton -> pas grave, un seul vote est pris en compte
 * tolérant aux pannes réseau (réseau filaire que la team a mis en place)
 * support des changements de programme de dernière minute
-* boitiers autonome et envoi des votes régulièrement à un serveur si c'est possible
+* boitiers autonomes et envoi des votes régulièrement à un serveur si c'est possible
 
 Il y a 2 parties software :
 
 * https://github.com/BreizhJUG/breizhcamp-vote/tree/master/client[la partie cliente] sur le boitier de vote
-* https://github.com/BreizhJUG/breizhcamp-vote/tree/master/server[la partie serveur] qui aggrège les données de l'ensemble des boitiers de vote (nous en avions 5).
+* https://github.com/BreizhJUG/breizhcamp-vote/tree/master/server[la partie serveur] qui aggrège les données de l'ensemble des boitiers de vote (nous en avions 5) et les expose sous forme d'API REST.
 
 Pour faire simple et léger (en particulier sur le Raspberry Pi), http://nodejs.org/[Node.js] a été choisi.
 En plus de la légèreté, la diversité de ses modules, notamment pour l'interfaçage Hardware, a contribué à ce choix.
