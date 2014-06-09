@@ -67,7 +67,7 @@ L'arduino aurait été une solution plus robuste mais la Raspberry Pi apportait 
 
 Allez hop, les commandes ont été passées et nous étions prêt pour notre soirée montage avec la matière première :
 
-image::/blog/boitier_vote/boitier_final.jpeg[Pièces avant montage, align="center"]
+image::/blog/boitier_vote/pieces.jpeg[Pièces avant montage, align="center"]
 
 https://twitter.com/alexlg[Alexandre] nous a préparé pour l'occasion un joli schéma http://fritzing.org/[Fritzing] :
 
