@@ -14,7 +14,7 @@ Bien évidemment, le notre était beaucoup mieux :-p
 image::/blog/boitier_vote/boitier_final.jpeg['LikeBox', align="center"]
 
 Dans cet article, je me focalise sur la partie technique à l'intérieur du boitier.
-http://blog.loof.fr/[Nicolas] donne un autre point de vue sur la partie organisationnelle / habillage du hardware / marketing / whatever ...
+http://blog.loof.fr/2014/06/votre-avis-nous-interesse-aka-likebox.html[Nicolas] donne un autre point de vue sur la partie organisationnelle / habillage du hardware / marketing / whatever ...
 
 == De l'idée au prototype
 
