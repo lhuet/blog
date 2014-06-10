@@ -1,4 +1,4 @@
-= '"LikeBox"' du BreizhCamp
+= "LikeBox" du BreizhCamp
 Laurent HUET
 2014-06-09
 :jbake-type: post
