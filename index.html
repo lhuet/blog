@@ -60,6 +60,274 @@
                 <div class="col-xs-12 col-md-8"><h1>Java dans le hard(ware)</h1></div>
             </div>
 	</div>
+  			<a href="/blog/2014/06/likebox.html"><h1><em>"LikeBox"</em> du BreizhCamp</h1></a>
+  			<p>09 juin 2014</p>
+
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://lhuet.github.io/blog/2014/06/likebox.html" data-text="<em>"LikeBox"</em> du BreizhCamp" data-via="lhuet35" data-lang="fr">Tweeter</a>
+                        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+                        <div class="g-plusone" data-size="medium" data-href="http://lhuet.github.io/blog/2014/06/likebox.html"></div>
+
+  			<p><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>L'édition 2014 du <a href="http://www.breizhcamp.org">BreizhCamp</a> a été l&#8217;occasion pour la team d&#8217;innover en mettant en place un boitier de vote pour récupérer le feedback des participants à la sortie de chaque conférence.
+L&#8217;idée n'était pas si originale que cela puisque nous avons découvert en cours de réalisation que Devoxx France allait également avoir ce type de boitier.
+Bien évidemment, le notre était beaucoup mieux :-p</p>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="/blog/boitier_vote/boitier_final.jpeg" alt="LikeBox">
+</div>
+</div>
+<div class="paragraph">
+<p>Dans cet article, je me focalise sur la partie technique à l&#8217;intérieur du boitier.
+<a href="http://blog.loof.fr/2014/06/votre-avis-nous-interesse-aka-likebox.html">Nicolas</a> donne un autre point de vue sur la partie organisationnelle / habillage du hardware / marketing / whatever &#8230;</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_de_l_id_e_au_prototype">De l&#8217;idée au prototype</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>L&#8217;idée de départ était de voir ce qu&#8217;on pouvait mettre en place pour que les participants puissent s&#8217;exprimer autrement qu&#8217;en mettant une croix sur une feuille A3 (solution utilisée pour l'édition 2013).
+Intéressé par le hardware, c&#8217;est naturellement par ce coté que j&#8217;ai commencé.
+Le premier prototype fait sur un coin de table était à base d&#8217;arduino :</p>
+</div>
+<div align="center">
+<iframe width="640" height="480" src="//www.youtube.com/embed/y5-cCQxtZTw" frameborder="0" allowfullscreen></iframe>
+</div>
+<div class="paragraph">
+<p>Le code n'était pas d&#8217;une finesse extrême, mais c'était un prototype fonctionnel !
+Pour ceux que ça intéresse, vous pouvez le retrouver <a href="http://lhuet.github.io/blog/boitier_vote/boitiervote.ino">ici</a>.</p>
+</div>
+<div class="paragraph">
+<p>Au delà de l&#8217;aspect technique, ce prototype a été une base de discussion avec la team sur les fonctionnalités à mettre en oeuvre :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Nombre de boutons (2, 3, +) ?</p>
+</li>
+<li>
+<p>Ecran texte ou Ecran graphique ?</p>
+</li>
+<li>
+<p>Forme/Type de bouton ?</p>
+</li>
+<li>
+<p>Intégration de l&#8217;ensemble</p>
+</li>
+<li>
+<p>&#8230;</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_choix_techniques">Choix techniques</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Globalement, les choix techniques du coeur du boitier ont été guidés par les compétences de l'équipe, le matériel dejà disponible et le coût.
+Le leitmotiv de l'équipe a été de faire <strong>simple</strong> et <strong>robuste</strong>.</p>
+</div>
+<div class="sect2">
+<h3 id="_c_t_hardware">Côté hardware</h3>
+<div class="paragraph">
+<p>La partie hardware est constitué de 3 élements principaux :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Les boutons de vote (interaction avec les utilisateurs &#8230; donc aspect fondamental du boitier)</p>
+</li>
+<li>
+<p>L'écran de visualisation</p>
+</li>
+<li>
+<p>La carte contenant pour faire tourner la partie software</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Pour les boutons de vote, le bouton type "champignon" nous est paru essentiel.
+Cela a été le choix le plus difficile à faire compte tenu du nombre de boutons disponibles sur le marché et de la diversité des tarifs.
+Pour les côtés robuste et visuel, nous avons retenu des boutons métaliques industriels et passé commande chez <a href="http://fr.farnell.com/itw-switches/76-9450-439088r/commutateur-rouge-domed/dp/241520?MER=en-me-pd-r2-alte-swi">Farnell</a>.</p>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="/blog/boitier_vote/green_switch.jpg" alt="Bouton 'Domed'">
+</div>
+</div>
+<div class="paragraph">
+<p>Pour les écrans, j&#8217;ai fait quelques tests avec divers écrans LCD Texte 2/4 lignes, LCD graphique entre 2 et 3".
+Au final, nous avons retenu l'écran LCD Texte sur 4 lignes avec un fond bleu pour des questions de lisibilité et de simplicité.
+Une version avec bus I2C a été choisie dans un souci de simplicité de cablage.</p>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="/blog/boitier_vote/ecrans.jpg" alt="Test d'écrans">
+</div>
+</div>
+<div class="paragraph">
+<p>Pour la carte principale, le choix a été rapide : Raspberri Pi.
+Nous n'étions pas nombreux à avoir de l&#8217;expérience sur Arduino et nous avions plusieurs Raspberry Pi (pas d&#8217;achat à prévoir de ce coté).
+L&#8217;arduino aurait été une solution plus robuste mais la Raspberry Pi apportait d&#8217;autres possibilités (sortie HDMI pour gérer un autre affichage, connectivité réseau intégré, &#8230;).</p>
+</div>
+<div class="paragraph">
+<p>Allez hop, les commandes ont été passées et nous étions prêt pour notre soirée montage avec la matière première :</p>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="/blog/boitier_vote/pieces.jpg" alt="Pièces avant montage">
+</div>
+</div>
+<div class="paragraph">
+<p><a href="https://twitter.com/alexlg">Alexandre</a> nous a préparé pour l&#8217;occasion un joli schéma <a href="http://fritzing.org/">Fritzing</a> :</p>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="/blog/boitier_vote/wiring.jpg" alt="Schéma Fritzing">
+</div>
+</div>
+<div class="paragraph">
+<p>Alexandre a même optimisé / conçu le cablage pour avoir une mise en oeuvre la plus simple possible :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>pas de condensateur anti-rebond (gestion coté soft)</p>
+</li>
+<li>
+<p>boutons en mode <em>pull up</em> (plus de pins GND disponibles que de 3.3 V)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_c_t_software">Côté software</h3>
+<div class="paragraph">
+<p>Les sources sont disponibles sur Github dans <a href="https://github.com/BreizhJUG/breizhcamp-vote">repo dédié</a>.
+Dans le contexte du BreizhCamp, le développement a été guidé par la simplicité de mise en oeuvre et par la robustesse.
+En termes de spécifications, cela peut se traduire par :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>je branche &#8594; ça marche</p>
+</li>
+<li>
+<p>je m&#8217;endors sur le bouton &#8594; pas grave, un seul vote est pris en compte</p>
+</li>
+<li>
+<p>tolérant aux pannes réseau (réseau filaire que la team a mis en place)</p>
+</li>
+<li>
+<p>support des changements de programme de dernière minute</p>
+</li>
+<li>
+<p>boitiers autonomes et envoi des votes régulièrement à un serveur si c&#8217;est possible</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Il y a 2 parties software :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/BreizhJUG/breizhcamp-vote/tree/master/client">la partie cliente</a> sur le boitier de vote</p>
+</li>
+<li>
+<p><a href="https://github.com/BreizhJUG/breizhcamp-vote/tree/master/server">la partie serveur</a> qui aggrège les données de l&#8217;ensemble des boitiers de vote (nous en avions 5) et les expose sous forme d&#8217;API REST.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Pour faire simple et léger (en particulier sur le Raspberry Pi), <a href="http://nodejs.org/">Node.js</a> a été choisi.
+En plus de la légèreté, la diversité de ses modules, notamment pour l&#8217;interfaçage Hardware, a contribué à ce choix.
+Les principaux modules utilisés sont :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/fivdi/onoff">onoff</a> pour gérer les boutons (GPIO)</p>
+</li>
+<li>
+<p><a href="https://github.com/wilberforce/lcd-pcf8574">lcd-pcf8574</a> pour gérer l'écran LCD 4 lignes</p>
+</li>
+<li>
+<p><a href="https://github.com/mapbox/node-sqlite3">sqlite3</a> pour stocker localement les données de vote dans une base de données fichier SQLite3.</p>
+</li>
+<li>
+<p><a href="https://github.com/danwrong/restler">restler</a> pour l&#8217;implémentation du client REST sur les boitiers</p>
+</li>
+<li>
+<p><a href="https://www.npmjs.org/package/express">express</a> pour la partie serveur</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Les modules cités vous auront déjà donnés la puce à l&#8217;oreille. La communication entre les boitiers et le serveur se fait uniquement sur HTTP (simple API REST).</p>
+</div>
+<div class="paragraph">
+<p>La restitution est réalisée avec une simple <a href="https://github.com/BreizhJUG/breizhcamp-vote/blob/master/server/static/index.html">page Web</a> sur laquelle on n&#8217;est pas peu fier de retrouver sa session ;-) :</p>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="/blog/boitier_vote/top5.jpg" alt="Top 5 des talks">
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_conclusion">Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Tout n&#8217;a pas été aussi rose, nous avions un peu sous-estimé le temps de mise en oeuvre, notamment des copies de cartes SD.
+En effet, copier une carte SD de 8Go peut parfois prendre plus de 40mn.
+Ceci étant, une fois les boitiers en place et les rares bugs corrigés (dont un souci de performances sur un module node &#8230; coté serveur), tout à fonctionné à merveille !</p>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="/blog/boitier_vote/boitier_final_bzhcmp2.jpg" alt="Boitier en fonctionnement">
+</div>
+</div>
+<div class="paragraph">
+<p>Au final, ce système a permis de prendre en compte près de <strong>2500 votes</strong> !</p>
+</div>
+<div class="paragraph">
+<p>Je tiens à conclure pour souligner que ceci résulte d&#8217;un véritable travail d'équipe :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Infrastructure réseau (5 routeurs configurés dans chaque salle sur lesquels les boitiers étaient reliés au réseau)</p>
+</li>
+<li>
+<p>Montage de l&#8217;ensemble des boitiers en une soirée par toute l'équipe</p>
+</li>
+<li>
+<p>Développement <a href="https://github.com/BreizhJUG/breizhcamp-vote/graphs/contributors">du code à 4</a> (je me compte dedans même si j&#8217;ai plus été "product owner" que développeur)</p>
+</li>
+<li>
+<p>Préparation de l&#8217;intégration (plaques plexi, pieds, &#8230;) par Nicolas et son fils Julien</p>
+</li>
+<li>
+<p>Montage de 3 TV en HDMI sur 3 des boitiers</p>
+</li>
+<li>
+<p>Configuration système de l&#8217;ensemble des éléments (boitiers et serveur)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Prochaine étape : Diffusion du projet sur le portfolio du <a href="http://www.labfab.fr/">LabFab</a> prêt à promouvoir notre <em>LikeBox</em> en vue d&#8217;une réutilisation sur d&#8217;autres évènements.</p>
+</div>
+</div>
+</div></p>
+                        <p><a href="/blog/2014/06/likebox.html#disqus_thread">Commentaires</a></p>
   			<a href="/blog/2014/01/teleinfo-raspberrypi.html"><h1>Teleinfo - Préparation d&#8217;une Raspberry Pi</h1></a>
   			<p>26 janvier 2014</p>
 

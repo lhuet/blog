@@ -6,9 +6,277 @@
     <atom:link href="http://lhuet.github.io/blog/feed.xml" rel="self" type="application/rss+xml" />
     <description>Java dans le hard(ware)</description>
     <language>en-gb</language>
-    <pubDate>lun., 9 juin 2014 18:22:15 +0200</pubDate>
-    <lastBuildDate>lun., 9 juin 2014 18:22:15 +0200</lastBuildDate>
+    <pubDate>mar., 10 juin 2014 17:22:42 +0200</pubDate>
+    <lastBuildDate>mar., 10 juin 2014 17:22:42 +0200</lastBuildDate>
 
+    <item>
+      <title>&lt;em&gt;&quot;LikeBox&quot;&lt;/em&gt; du BreizhCamp</title>
+      <link>http://lhuet.github.io/blog/2014/06/likebox.html</link>
+      <pubDate>lun., 9 juin 2014 00:00:00 +0200</pubDate>
+      <guid isPermaLink="false">http://lhuet.github.io/blog/2014/06/likebox.html</guid>
+      	<description>
+	&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;L&apos;édition 2014 du &lt;a href=&quot;http://www.breizhcamp.org&quot;&gt;BreizhCamp&lt;/a&gt; a été l&amp;#8217;occasion pour la team d&amp;#8217;innover en mettant en place un boitier de vote pour récupérer le feedback des participants à la sortie de chaque conférence.
+L&amp;#8217;idée n&apos;était pas si originale que cela puisque nous avons découvert en cours de réalisation que Devoxx France allait également avoir ce type de boitier.
+Bien évidemment, le notre était beaucoup mieux :-p&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot; style=&quot;text-align: center&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/blog/boitier_vote/boitier_final.jpeg&quot; alt=&quot;LikeBox&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Dans cet article, je me focalise sur la partie technique à l&amp;#8217;intérieur du boitier.
+&lt;a href=&quot;http://blog.loof.fr/2014/06/votre-avis-nous-interesse-aka-likebox.html&quot;&gt;Nicolas&lt;/a&gt; donne un autre point de vue sur la partie organisationnelle / habillage du hardware / marketing / whatever &amp;#8230;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_de_l_id_e_au_prototype&quot;&gt;De l&amp;#8217;idée au prototype&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;L&amp;#8217;idée de départ était de voir ce qu&amp;#8217;on pouvait mettre en place pour que les participants puissent s&amp;#8217;exprimer autrement qu&amp;#8217;en mettant une croix sur une feuille A3 (solution utilisée pour l&apos;édition 2013).
+Intéressé par le hardware, c&amp;#8217;est naturellement par ce coté que j&amp;#8217;ai commencé.
+Le premier prototype fait sur un coin de table était à base d&amp;#8217;arduino :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div align=&quot;center&quot;&gt;
+&lt;iframe width=&quot;640&quot; height=&quot;480&quot; src=&quot;//www.youtube.com/embed/y5-cCQxtZTw&quot; frameborder=&quot;0&quot; allowfullscreen&gt;&lt;/iframe&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Le code n&apos;était pas d&amp;#8217;une finesse extrême, mais c&apos;était un prototype fonctionnel !
+Pour ceux que ça intéresse, vous pouvez le retrouver &lt;a href=&quot;http://lhuet.github.io/blog/boitier_vote/boitiervote.ino&quot;&gt;ici&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Au delà de l&amp;#8217;aspect technique, ce prototype a été une base de discussion avec la team sur les fonctionnalités à mettre en oeuvre :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Nombre de boutons (2, 3, +) ?&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Ecran texte ou Ecran graphique ?&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Forme/Type de bouton ?&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Intégration de l&amp;#8217;ensemble&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&amp;#8230;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_choix_techniques&quot;&gt;Choix techniques&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Globalement, les choix techniques du coeur du boitier ont été guidés par les compétences de l&apos;équipe, le matériel dejà disponible et le coût.
+Le leitmotiv de l&apos;équipe a été de faire &lt;strong&gt;simple&lt;/strong&gt; et &lt;strong&gt;robuste&lt;/strong&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_c_t_hardware&quot;&gt;Côté hardware&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;La partie hardware est constitué de 3 élements principaux :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Les boutons de vote (interaction avec les utilisateurs &amp;#8230; donc aspect fondamental du boitier)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;L&apos;écran de visualisation&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;La carte contenant pour faire tourner la partie software&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Pour les boutons de vote, le bouton type &quot;champignon&quot; nous est paru essentiel.
+Cela a été le choix le plus difficile à faire compte tenu du nombre de boutons disponibles sur le marché et de la diversité des tarifs.
+Pour les côtés robuste et visuel, nous avons retenu des boutons métaliques industriels et passé commande chez &lt;a href=&quot;http://fr.farnell.com/itw-switches/76-9450-439088r/commutateur-rouge-domed/dp/241520?MER=en-me-pd-r2-alte-swi&quot;&gt;Farnell&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot; style=&quot;text-align: center&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/blog/boitier_vote/green_switch.jpg&quot; alt=&quot;Bouton &apos;Domed&apos;&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Pour les écrans, j&amp;#8217;ai fait quelques tests avec divers écrans LCD Texte 2/4 lignes, LCD graphique entre 2 et 3&quot;.
+Au final, nous avons retenu l&apos;écran LCD Texte sur 4 lignes avec un fond bleu pour des questions de lisibilité et de simplicité.
+Une version avec bus I2C a été choisie dans un souci de simplicité de cablage.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot; style=&quot;text-align: center&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/blog/boitier_vote/ecrans.jpg&quot; alt=&quot;Test d&apos;écrans&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Pour la carte principale, le choix a été rapide : Raspberri Pi.
+Nous n&apos;étions pas nombreux à avoir de l&amp;#8217;expérience sur Arduino et nous avions plusieurs Raspberry Pi (pas d&amp;#8217;achat à prévoir de ce coté).
+L&amp;#8217;arduino aurait été une solution plus robuste mais la Raspberry Pi apportait d&amp;#8217;autres possibilités (sortie HDMI pour gérer un autre affichage, connectivité réseau intégré, &amp;#8230;).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Allez hop, les commandes ont été passées et nous étions prêt pour notre soirée montage avec la matière première :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot; style=&quot;text-align: center&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/blog/boitier_vote/pieces.jpg&quot; alt=&quot;Pièces avant montage&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;https://twitter.com/alexlg&quot;&gt;Alexandre&lt;/a&gt; nous a préparé pour l&amp;#8217;occasion un joli schéma &lt;a href=&quot;http://fritzing.org/&quot;&gt;Fritzing&lt;/a&gt; :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot; style=&quot;text-align: center&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/blog/boitier_vote/wiring.jpg&quot; alt=&quot;Schéma Fritzing&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Alexandre a même optimisé / conçu le cablage pour avoir une mise en oeuvre la plus simple possible :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;pas de condensateur anti-rebond (gestion coté soft)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;boutons en mode &lt;em&gt;pull up&lt;/em&gt; (plus de pins GND disponibles que de 3.3 V)&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_c_t_software&quot;&gt;Côté software&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Les sources sont disponibles sur Github dans &lt;a href=&quot;https://github.com/BreizhJUG/breizhcamp-vote&quot;&gt;repo dédié&lt;/a&gt;.
+Dans le contexte du BreizhCamp, le développement a été guidé par la simplicité de mise en oeuvre et par la robustesse.
+En termes de spécifications, cela peut se traduire par :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;je branche &amp;#8594; ça marche&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;je m&amp;#8217;endors sur le bouton &amp;#8594; pas grave, un seul vote est pris en compte&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;tolérant aux pannes réseau (réseau filaire que la team a mis en place)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;support des changements de programme de dernière minute&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;boitiers autonomes et envoi des votes régulièrement à un serveur si c&amp;#8217;est possible&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Il y a 2 parties software :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/BreizhJUG/breizhcamp-vote/tree/master/client&quot;&gt;la partie cliente&lt;/a&gt; sur le boitier de vote&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/BreizhJUG/breizhcamp-vote/tree/master/server&quot;&gt;la partie serveur&lt;/a&gt; qui aggrège les données de l&amp;#8217;ensemble des boitiers de vote (nous en avions 5) et les expose sous forme d&amp;#8217;API REST.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Pour faire simple et léger (en particulier sur le Raspberry Pi), &lt;a href=&quot;http://nodejs.org/&quot;&gt;Node.js&lt;/a&gt; a été choisi.
+En plus de la légèreté, la diversité de ses modules, notamment pour l&amp;#8217;interfaçage Hardware, a contribué à ce choix.
+Les principaux modules utilisés sont :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/fivdi/onoff&quot;&gt;onoff&lt;/a&gt; pour gérer les boutons (GPIO)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/wilberforce/lcd-pcf8574&quot;&gt;lcd-pcf8574&lt;/a&gt; pour gérer l&apos;écran LCD 4 lignes&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/mapbox/node-sqlite3&quot;&gt;sqlite3&lt;/a&gt; pour stocker localement les données de vote dans une base de données fichier SQLite3.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/danwrong/restler&quot;&gt;restler&lt;/a&gt; pour l&amp;#8217;implémentation du client REST sur les boitiers&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://www.npmjs.org/package/express&quot;&gt;express&lt;/a&gt; pour la partie serveur&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Les modules cités vous auront déjà donnés la puce à l&amp;#8217;oreille. La communication entre les boitiers et le serveur se fait uniquement sur HTTP (simple API REST).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;La restitution est réalisée avec une simple &lt;a href=&quot;https://github.com/BreizhJUG/breizhcamp-vote/blob/master/server/static/index.html&quot;&gt;page Web&lt;/a&gt; sur laquelle on n&amp;#8217;est pas peu fier de retrouver sa session ;-) :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot; style=&quot;text-align: center&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/blog/boitier_vote/top5.jpg&quot; alt=&quot;Top 5 des talks&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Tout n&amp;#8217;a pas été aussi rose, nous avions un peu sous-estimé le temps de mise en oeuvre, notamment des copies de cartes SD.
+En effet, copier une carte SD de 8Go peut parfois prendre plus de 40mn.
+Ceci étant, une fois les boitiers en place et les rares bugs corrigés (dont un souci de performances sur un module node &amp;#8230; coté serveur), tout à fonctionné à merveille !&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot; style=&quot;text-align: center&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/blog/boitier_vote/boitier_final_bzhcmp2.jpg&quot; alt=&quot;Boitier en fonctionnement&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Au final, ce système a permis de prendre en compte près de &lt;strong&gt;2500 votes&lt;/strong&gt; !&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Je tiens à conclure pour souligner que ceci résulte d&amp;#8217;un véritable travail d&apos;équipe :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Infrastructure réseau (5 routeurs configurés dans chaque salle sur lesquels les boitiers étaient reliés au réseau)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Montage de l&amp;#8217;ensemble des boitiers en une soirée par toute l&apos;équipe&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Développement &lt;a href=&quot;https://github.com/BreizhJUG/breizhcamp-vote/graphs/contributors&quot;&gt;du code à 4&lt;/a&gt; (je me compte dedans même si j&amp;#8217;ai plus été &quot;product owner&quot; que développeur)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Préparation de l&amp;#8217;intégration (plaques plexi, pieds, &amp;#8230;) par Nicolas et son fils Julien&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Montage de 3 TV en HDMI sur 3 des boitiers&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Configuration système de l&amp;#8217;ensemble des éléments (boitiers et serveur)&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Prochaine étape : Diffusion du projet sur le portfolio du &lt;a href=&quot;http://www.labfab.fr/&quot;&gt;LabFab&lt;/a&gt; prêt à promouvoir notre &lt;em&gt;LikeBox&lt;/em&gt; en vue d&amp;#8217;une réutilisation sur d&amp;#8217;autres évènements.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+	</description>
+    </item>
     <item>
       <title>Teleinfo - Préparation d&amp;#8217;une Raspberry Pi</title>
       <link>http://lhuet.github.io/blog/2014/01/teleinfo-raspberrypi.html</link>
