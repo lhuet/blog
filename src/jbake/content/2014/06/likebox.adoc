@@ -1,17 +1,17 @@
-= '"Boite à Like" / "LikeBox"' du BreizhCamp
+= '"LikeBox"' du BreizhCamp
 Laurent HUET
 2014-06-09
 :jbake-type: post
 :jbake-tags: raspberrypi breizhcamp
 :jbake-status: draft
 :source-highlighter: prettify
-:id: boite_a_like_breizhcamp
+:id: likebox_breizhcamp
 
 L'édition 2014 du http://www.breizhcamp.org[BreizhCamp] a été l'occasion pour la team d'innover en mettant en place un boitier de vote pour récupérer le feedback des participants à la sortie de chaque conférence.
 L'idée n'était pas si originale que cela puisque nous avons découvert en cours de réalisation que Devoxx France allait également avoir ce type de boitier.
 Bien évidemment, le notre était beaucoup mieux :-p
 
-image::/blog/boitier_vote/boitier_final.jpeg[Boite à 'Like', align="center"]
+image::/blog/boitier_vote/boitier_final.jpeg['LikeBox', align="center"]
 
 Dans cet article, je me focalise sur la partie technique à l'intérieur du boitier.
 http://blog.loof.fr/[Nicolas] donne un autre point de vue sur la partie organisationnelle / habillage du hardware / marketing / whatever ...
@@ -130,4 +130,4 @@ Je tiens à conclure pour souligner que ceci résulte d'un véritable travail d'
 * Montage de 3 TV en HDMI sur 3 des boitiers
 * Configuration système de l'ensemble des éléments (boitiers et serveur)
 
-Prochaine étape : Diffusion du projet sur le portfolio du http://www.labfab.fr/[LabFab] prêt à promouvoir notre 'Boite à Like' en vue d'une réutilisation sur d'autres évènements.
+Prochaine étape : Diffusion du projet sur le portfolio du http://www.labfab.fr/[LabFab] prêt à promouvoir notre 'LikeBox' en vue d'une réutilisation sur d'autres évènements.
