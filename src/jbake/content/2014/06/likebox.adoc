@@ -3,7 +3,7 @@ Laurent HUET
 2014-06-09
 :jbake-type: post
 :jbake-tags: raspberrypi breizhcamp
-:jbake-status: draft
+:jbake-status: published
 :source-highlighter: prettify
 :id: likebox_breizhcamp
 
