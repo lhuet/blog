@@ -6,9 +6,54 @@
     <atom:link href="http://lhuet.github.io/blog/feed.xml" rel="self" type="application/rss+xml" />
     <description>Java dans le hard(ware)</description>
     <language>en-gb</language>
-    <pubDate>mar., 10 juin 2014 19:35:43 +0200</pubDate>
-    <lastBuildDate>mar., 10 juin 2014 19:35:43 +0200</lastBuildDate>
+    <pubDate>lun., 23 juin 2014 22:48:41 +0200</pubDate>
+    <lastBuildDate>lun., 23 juin 2014 22:48:41 +0200</lastBuildDate>
 
+    <item>
+      <title>Groovy, Gradle and vert.x on Beaglebone with GVM</title>
+      <link>http://lhuet.github.io/blog/2014/06/gvm-on-beaglebone.html</link>
+      <pubDate>lun., 23 juin 2014 00:00:00 +0200</pubDate>
+      <guid isPermaLink="false">http://lhuet.github.io/blog/2014/06/gvm-on-beaglebone.html</guid>
+      	<description>
+	&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;http://gvmtool.net/&quot;&gt;GVM - the Groovy enVironment Manager&lt;/a&gt; is a great tool for managing multiple versions of Groovy, Grails, Gradle, &amp;#8230;
+If you want to use Groovy, vert.x and Gradle on Beaglebone like me, you have to check/install GVM dependencies.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Generally, Debian distrib. is used with Beaglebone and Raspberry Pi.
+GVM is a bash tool and depends only on curl and unzip.
+Unfortunately, unzip is not installed by default. You may have an error while running GVM.
+You&amp;#8217;ll have to install these dependencies with a command like&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint bash language-bash&quot;&gt;&lt;code&gt;sudo apt-get install curl unzip&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;You can now install GVM easily&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint bash language-bash&quot;&gt;&lt;code&gt;curl -s get.gvmtool.net | bash&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Then latest version of Groovy, Gradle and vert.x can be installed&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint bash language-bash&quot;&gt;&lt;code&gt;gvm install groovy
+gvm install vertx
+gvm install gradle&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+	</description>
+    </item>
     <item>
       <title>&quot;LikeBox&quot; du BreizhCamp</title>
       <link>http://lhuet.github.io/blog/2014/06/likebox.html</link>

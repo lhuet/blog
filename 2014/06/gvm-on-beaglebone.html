@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Java dans le hard(ware)</title>
+    <title>Java dans le hard(ware) - Groovy, Gradle and vert.x on Beaglebone with GVM</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -30,7 +30,7 @@
   </head>
   <body>
     <div id="wrap">
-
+	
       <!-- Fixed navbar -->
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container">
@@ -55,33 +55,64 @@
       <div class="container">
 	
 	<div class="page-header">
-		<h1>Blog Archive</h1>
+		<h1>Groovy, Gradle and vert.x on Beaglebone with GVM</h1>
 	</div>
-	
-	<!--<ul>-->
-			<h4>juin 2014</h4>
-			<ul>
-		
-		<li>23 - <a href="/blog/2014/06/gvm-on-beaglebone.html">Groovy, Gradle and vert.x on Beaglebone with GVM</a></li>
-		
-		<li>09 - <a href="/blog/2014/06/likebox.html">"LikeBox" du BreizhCamp</a></li>
-				</ul>
-				<h4>janvier 2014</h4>
-				<ul>
-		
-		<li>26 - <a href="/blog/2014/01/teleinfo-raspberrypi.html">Teleinfo - Préparation d&#8217;une Raspberry Pi</a></li>
-		
-		<li>19 - <a href="/blog/2014/01/montage-teleinfo.html">Montage teleinfo pour Raspberry Pi / BeagleBone</a></li>
-				</ul>
-				<h4>décembre 2013</h4>
-				<ul>
-		
-		<li>14 - <a href="/blog/2013/12/jdk7-jdk8-sur-beaglebone.html">Java 7 et 8 sur BeagleBone Black (BBB)</a></li>
-		
-		<li>08 - <a href="/blog/2013/12/beaglebone-black-overview.html">Premiers pas avec la BeagleBone Black (BBB)</a></li>
-		
-		<li>01 - <a href="/blog/2013/12/yet-another-blog.html">Yet another blog !</a></li>
-	</ul>
+
+	<p><em>23 juin 2014</em></p>
+        <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://lhuet.github.io/blog/2014/06/gvm-on-beaglebone.html" data-via="lhuet35" data-text="Groovy, Gradle and vert.x on Beaglebone with GVM" data-lang="fr">Tweeter</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+        <div class="g-plusone" data-size="medium" data-href="http://lhuet.github.io/blog/2014/06/gvm-on-beaglebone.html"></div>
+
+	<p><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="http://gvmtool.net/">GVM - the Groovy enVironment Manager</a> is a great tool for managing multiple versions of Groovy, Grails, Gradle, &#8230;
+If you want to use Groovy, vert.x and Gradle on Beaglebone like me, you have to check/install GVM dependencies.</p>
+</div>
+<div class="paragraph">
+<p>Generally, Debian distrib. is used with Beaglebone and Raspberry Pi.
+GVM is a bash tool and depends only on curl and unzip.
+Unfortunately, unzip is not installed by default. You may have an error while running GVM.
+You&#8217;ll have to install these dependencies with a command like</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint bash language-bash"><code>sudo apt-get install curl unzip</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can now install GVM easily</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint bash language-bash"><code>curl -s get.gvmtool.net | bash</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then latest version of Groovy, Gradle and vert.x can be installed</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint bash language-bash"><code>gvm install groovy
+gvm install vertx
+gvm install gradle</code></pre>
+</div>
+</div>
+</div>
+</div></p>
+
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'javadanslehardware'; 
+            var disqus_identifier = 'gvm_on_arm';
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+
+	<hr>
 	
 		</div>
 		<div id="push"></div>
