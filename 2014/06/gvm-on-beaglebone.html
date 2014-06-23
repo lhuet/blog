@@ -71,7 +71,28 @@ If you want to use Groovy, vert.x and Gradle on Beaglebone like me, you have to 
 </div>
 <div class="paragraph">
 <p>Generally, Debian distrib. is used with Beaglebone and Raspberry Pi.
-GVM is a bash tool and depends only on curl and unzip.
+You can use the latest JDK from <a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-arm-downloads-2187472.html">Oracle</a>.
+While the JDK tar.gz file is uncompressed, you can add the following lines on my <code>~/.profile</code> file</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint bash language-bash"><code>PATH="$PATH:$HOME/jdk1.8.0/bin"
+JAVA_HOME="$HOME/jdk1.8.0/bin"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>To check the JDK installation, use the <code>java -version</code> command</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint bash language-bash"><code>debian@beaglebone:~$ java -version
+java version "1.8.0"
+Java(TM) SE Runtime Environment (build 1.8.0-b132)
+Java HotSpot(TM) Client VM (build 25.0-b70, mixed mode)</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>GVM is a bash tool and depends only on curl and unzip.
 Unfortunately, unzip is not installed by default.
 You&#8217;ll have to install these dependencies with a command like</p>
 </div>
@@ -81,21 +102,59 @@ You&#8217;ll have to install these dependencies with a command like</p>
 </div>
 </div>
 <div class="paragraph">
-<p>You can now install GVM easily</p>
+<p>You can now install GVM easily with the following command line.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint bash language-bash"><code>curl -s get.gvmtool.net | bash</code></pre>
+<pre class="prettyprint bash language-bash"><code>curl -s get.gvmtool.net | bash
+source ~/.gvm/bin/gvm-init.sh</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Then latest version of Groovy, Gradle and vert.x can be installed</p>
+<p>To check then installation, you can use the <code>gvm version</code> command</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint bash language-bash"><code>debian@beaglebone:~$ gvm version
+Groovy enVironment Manager 1.3.13</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then latest version of Groovy, Gradle and vert.x can be installed with the following commands</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint bash language-bash"><code>gvm install groovy
 gvm install vertx
 gvm install gradle</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following commande tells you which vertx versions are installed / available</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint bash language-bash"><code>debian@beaglebone:~$ gvm list vertx
+
+================================================================================
+Available Vertx Versions
+================================================================================
+ &gt; * 2.1
+     2.0.2-final
+     2.0.1-final
+     2.0.0-final
+     1.3.1.final
+     1.3.0.final
+     1.2.2.final
+     1.2.1.final
+     1.2.0.final
+     1.1.0.final
+
+================================================================================
++ - local version
+* - installed
+&gt; - currently in use
+================================================================================</code></pre>
 </div>
 </div>
 </div>

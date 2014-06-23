@@ -6,8 +6,8 @@
     <atom:link href="http://lhuet.github.io/blog/feed.xml" rel="self" type="application/rss+xml" />
     <description>Java dans le hard(ware)</description>
     <language>en-gb</language>
-    <pubDate>lun., 23 juin 2014 22:53:17 +0200</pubDate>
-    <lastBuildDate>lun., 23 juin 2014 22:53:17 +0200</lastBuildDate>
+    <pubDate>lun., 23 juin 2014 23:25:26 +0200</pubDate>
+    <lastBuildDate>lun., 23 juin 2014 23:25:26 +0200</lastBuildDate>
 
     <item>
       <title>Groovy, Gradle and vert.x on Beaglebone with GVM</title>
@@ -23,7 +23,28 @@ If you want to use Groovy, vert.x and Gradle on Beaglebone like me, you have to 
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Generally, Debian distrib. is used with Beaglebone and Raspberry Pi.
-GVM is a bash tool and depends only on curl and unzip.
+You can use the latest JDK from &lt;a href=&quot;http://www.oracle.com/technetwork/java/javase/downloads/jdk8-arm-downloads-2187472.html&quot;&gt;Oracle&lt;/a&gt;.
+While the JDK tar.gz file is uncompressed, you can add the following lines on my &lt;code&gt;~/.profile&lt;/code&gt; file&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint bash language-bash&quot;&gt;&lt;code&gt;PATH=&quot;$PATH:$HOME/jdk1.8.0/bin&quot;
+JAVA_HOME=&quot;$HOME/jdk1.8.0/bin&quot;&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;To check the JDK installation, use the &lt;code&gt;java -version&lt;/code&gt; command&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint bash language-bash&quot;&gt;&lt;code&gt;debian@beaglebone:~$ java -version
+java version &quot;1.8.0&quot;
+Java(TM) SE Runtime Environment (build 1.8.0-b132)
+Java HotSpot(TM) Client VM (build 25.0-b70, mixed mode)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;GVM is a bash tool and depends only on curl and unzip.
 Unfortunately, unzip is not installed by default.
 You&amp;#8217;ll have to install these dependencies with a command like&lt;/p&gt;
 &lt;/div&gt;
@@ -33,21 +54,59 @@ You&amp;#8217;ll have to install these dependencies with a command like&lt;/p&gt
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;You can now install GVM easily&lt;/p&gt;
+&lt;p&gt;You can now install GVM easily with the following command line.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;prettyprint bash language-bash&quot;&gt;&lt;code&gt;curl -s get.gvmtool.net | bash&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&quot;prettyprint bash language-bash&quot;&gt;&lt;code&gt;curl -s get.gvmtool.net | bash
+source ~/.gvm/bin/gvm-init.sh&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Then latest version of Groovy, Gradle and vert.x can be installed&lt;/p&gt;
+&lt;p&gt;To check then installation, you can use the &lt;code&gt;gvm version&lt;/code&gt; command&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint bash language-bash&quot;&gt;&lt;code&gt;debian@beaglebone:~$ gvm version
+Groovy enVironment Manager 1.3.13&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Then latest version of Groovy, Gradle and vert.x can be installed with the following commands&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
 &lt;pre class=&quot;prettyprint bash language-bash&quot;&gt;&lt;code&gt;gvm install groovy
 gvm install vertx
 gvm install gradle&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The following commande tells you which vertx versions are installed / available&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint bash language-bash&quot;&gt;&lt;code&gt;debian@beaglebone:~$ gvm list vertx
+
+================================================================================
+Available Vertx Versions
+================================================================================
+ &amp;gt; * 2.1
+     2.0.2-final
+     2.0.1-final
+     2.0.0-final
+     1.3.1.final
+     1.3.0.final
+     1.2.2.final
+     1.2.1.final
+     1.2.0.final
+     1.1.0.final
+
+================================================================================
++ - local version
+* - installed
+&amp;gt; - currently in use
+================================================================================&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
