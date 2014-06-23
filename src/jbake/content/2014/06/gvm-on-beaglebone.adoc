@@ -1,4 +1,4 @@
-= Groovy, Gradle and vert.x on Beaglebone with GVM
+= Groovy, Gradle and Vert.x on Beaglebone with GVM
 Laurent HUET
 2014-06-23
 :jbake-type: post
@@ -8,11 +8,29 @@ Laurent HUET
 :id: gvm_on_arm
 
 http://gvmtool.net/[GVM - the Groovy enVironment Manager] is a great tool for managing multiple versions of Groovy, Grails, Gradle, ...
-If you want to use Groovy, vert.x and Gradle on Beaglebone like me, you have to check/install GVM dependencies.
+If you want to use Groovy, Vert.x and Gradle on Beaglebone like me, you have to check/install GVM dependencies.
 
 Generally, Debian distrib. is used with Beaglebone and Raspberry Pi.
+You can use the latest JDK from http://www.oracle.com/technetwork/java/javase/downloads/jdk8-arm-downloads-2187472.html[Oracle].
+While the JDK tar.gz file is uncompressed, you can add the following lines on my +~/.profile+ file
+[source,bash]
+----
+PATH="$PATH:$HOME/jdk1.8.0/bin"
+JAVA_HOME="$HOME/jdk1.8.0/bin"
+----
+
+To check the JDK installation, use the +java -version+ command
+
+[source]
+----
+debian@beaglebone:~$ java -version
+java version "1.8.0"
+Java(TM) SE Runtime Environment (build 1.8.0-b132)
+Java HotSpot(TM) Client VM (build 25.0-b70, mixed mode)
+----
+
 GVM is a bash tool and depends only on curl and unzip.
-Unfortunately, unzip is not installed by default. You may have an error while running GVM.
+Unfortunately, unzip is not installed by default.
 You'll have to install these dependencies with a command like
 
 [source,bash]
@@ -20,14 +38,23 @@ You'll have to install these dependencies with a command like
 sudo apt-get install curl unzip
 ----
 
-You can now install GVM easily
+You can now install GVM easily with the following command lines.
 
 [source,bash]
 ----
 curl -s get.gvmtool.net | bash
+source ~/.gvm/bin/gvm-init.sh
 ----
 
-Then latest version of Groovy, Gradle and vert.x can be installed
+To check the installation, you can use the +gvm version+ command
+
+[source]
+----
+debian@beaglebone:~$ gvm version
+Groovy enVironment Manager 1.3.13
+----
+
+The latest version of Groovy, Gradle and vert.x can be installed with the following commands
 
 [source,bash]
 ----
@@ -36,3 +63,39 @@ gvm install vertx
 gvm install gradle
 ----
 
+The following command tells you which Vert.x versions are installed / available
+
+[source]
+----
+debian@beaglebone:~$ gvm list vertx
+
+================================================================================
+Available Vertx Versions
+================================================================================
+ > * 2.1
+     2.0.2-final
+     2.0.1-final
+     2.0.0-final
+     1.3.1.final
+     1.3.0.final
+     1.2.2.final
+     1.2.1.final
+     1.2.0.final
+     1.1.0.final
+
+================================================================================
++ - local version
+* - installed
+> - currently in use
+================================================================================
+----
+
+You can check Vert.x installation with the following command
+
+[source]
+----
+debian@beaglebone:~$ vertx version
+2.1 (built 2014-05-27 12:39:02)
+----
+
+And now, you are ready to use http://vertx.io/[Vert.x] on Beaglebone :-)
