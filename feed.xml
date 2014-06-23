@@ -6,11 +6,11 @@
     <atom:link href="http://lhuet.github.io/blog/feed.xml" rel="self" type="application/rss+xml" />
     <description>Java dans le hard(ware)</description>
     <language>en-gb</language>
-    <pubDate>lun., 23 juin 2014 23:25:26 +0200</pubDate>
-    <lastBuildDate>lun., 23 juin 2014 23:25:26 +0200</lastBuildDate>
+    <pubDate>lun., 23 juin 2014 23:36:25 +0200</pubDate>
+    <lastBuildDate>lun., 23 juin 2014 23:36:25 +0200</lastBuildDate>
 
     <item>
-      <title>Groovy, Gradle and vert.x on Beaglebone with GVM</title>
+      <title>Groovy, Gradle and Vert.x on Beaglebone with GVM</title>
       <link>http://lhuet.github.io/blog/2014/06/gvm-on-beaglebone.html</link>
       <pubDate>lun., 23 juin 2014 00:00:00 +0200</pubDate>
       <guid isPermaLink="false">http://lhuet.github.io/blog/2014/06/gvm-on-beaglebone.html</guid>
@@ -19,7 +19,7 @@
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;&lt;a href=&quot;http://gvmtool.net/&quot;&gt;GVM - the Groovy enVironment Manager&lt;/a&gt; is a great tool for managing multiple versions of Groovy, Grails, Gradle, &amp;#8230;
-If you want to use Groovy, vert.x and Gradle on Beaglebone like me, you have to check/install GVM dependencies.&lt;/p&gt;
+If you want to use Groovy, Vert.x and Gradle on Beaglebone like me, you have to check/install GVM dependencies.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Generally, Debian distrib. is used with Beaglebone and Raspberry Pi.
@@ -37,7 +37,7 @@ JAVA_HOME=&quot;$HOME/jdk1.8.0/bin&quot;&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;prettyprint bash language-bash&quot;&gt;&lt;code&gt;debian@beaglebone:~$ java -version
+&lt;pre class=&quot;prettyprint&quot;&gt;&lt;code&gt;debian@beaglebone:~$ java -version
 java version &quot;1.8.0&quot;
 Java(TM) SE Runtime Environment (build 1.8.0-b132)
 Java HotSpot(TM) Client VM (build 25.0-b70, mixed mode)&lt;/code&gt;&lt;/pre&gt;
@@ -54,7 +54,7 @@ You&amp;#8217;ll have to install these dependencies with a command like&lt;/p&gt
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;You can now install GVM easily with the following command line.&lt;/p&gt;
+&lt;p&gt;You can now install GVM easily with the following command lines.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
@@ -63,16 +63,16 @@ source ~/.gvm/bin/gvm-init.sh&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;To check then installation, you can use the &lt;code&gt;gvm version&lt;/code&gt; command&lt;/p&gt;
+&lt;p&gt;To check the installation, you can use the &lt;code&gt;gvm version&lt;/code&gt; command&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;prettyprint bash language-bash&quot;&gt;&lt;code&gt;debian@beaglebone:~$ gvm version
+&lt;pre class=&quot;prettyprint&quot;&gt;&lt;code&gt;debian@beaglebone:~$ gvm version
 Groovy enVironment Manager 1.3.13&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Then latest version of Groovy, Gradle and vert.x can be installed with the following commands&lt;/p&gt;
+&lt;p&gt;The latest version of Groovy, Gradle and vert.x can be installed with the following commands&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
@@ -82,11 +82,11 @@ gvm install gradle&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The following commande tells you which vertx versions are installed / available&lt;/p&gt;
+&lt;p&gt;The following command tells you which Vert.x versions are installed / available&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
-&lt;pre class=&quot;prettyprint bash language-bash&quot;&gt;&lt;code&gt;debian@beaglebone:~$ gvm list vertx
+&lt;pre class=&quot;prettyprint&quot;&gt;&lt;code&gt;debian@beaglebone:~$ gvm list vertx
 
 ================================================================================
 Available Vertx Versions
@@ -108,6 +108,18 @@ Available Vertx Versions
 &amp;gt; - currently in use
 ================================================================================&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;You can check Vert.x installation with the following command&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint&quot;&gt;&lt;code&gt;debian@beaglebone:~$ vertx version
+2.1 (built 2014-05-27 12:39:02)&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;And now, you are ready to use &lt;a href=&quot;http://vertx.io/&quot;&gt;Vert.x&lt;/a&gt; on Beaglebone :-)&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
