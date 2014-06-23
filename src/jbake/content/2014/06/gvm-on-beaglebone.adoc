@@ -1,0 +1,38 @@
+= Groovy, Gradle and vert.x on Beaglebone with GVM
+Laurent HUET
+2014-06-23
+:jbake-type: post
+:jbake-tags: beaglebone gvm
+:jbake-status: published
+:source-highlighter: prettify
+:id: gvm_on_arm
+
+http://gvmtool.net/[GVM - the Groovy enVironment Manager] is a great tool for managing multiple versions of Groovy, Grails, Gradle, ...
+If you want to use Groovy, vert.x and Gradle on Beaglebone like me, you have to check/install GVM dependencies.
+
+Generally, Debian distrib. is used with Beaglebone and Raspberry Pi.
+GVM is a bash tool and depends only on curl and unzip.
+Unfortunately, unzip is not installed by default. You may have an error while running GVM.
+You'll have to install these dependencies with a command like
+
+[source,bash]
+----
+sudo apt-get install curl unzip
+----
+
+You can now install GVM easily
+
+[source,bash]
+----
+curl -s get.gvmtool.net | bash
+----
+
+Then latest version of Groovy, Gradle and vert.x can be installed
+
+[source,bash]
+----
+gvm install groovy
+gvm install vertx
+gvm install gradle
+----
+
