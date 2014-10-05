@@ -6,8 +6,8 @@
     <atom:link href="http://lhuet.github.io/blog/feed.xml" rel="self" type="application/rss+xml" />
     <description>Java dans le hard(ware)</description>
     <language>en-gb</language>
-    <pubDate>dim., 5 oct. 2014 16:02:24 +0200</pubDate>
-    <lastBuildDate>dim., 5 oct. 2014 16:02:24 +0200</lastBuildDate>
+    <pubDate>dim., 5 oct. 2014 16:13:47 +0200</pubDate>
+    <lastBuildDate>dim., 5 oct. 2014 16:13:47 +0200</lastBuildDate>
 
     <item>
       <title>Réseau &quot;low cost&quot; d&amp;#8217;objets connectés en DIY avec le RS485</title>
@@ -26,7 +26,7 @@
 &lt;h2 id=&quot;_r_seau_rs485&quot;&gt;Réseau RS485&lt;/h2&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Je n&amp;#8217;ai pas retenu les solutions à bases de bus &quot;industriels&quot; (KNX par exemple) ou de composants &quot;sans fils&quot; du marché (ZigBee, Wifi, &amp;#8230;). En effet, ce type de solution requiert un composant de communication assez couteux. Ce surcoût dépend beaucoup de la technologie. Cela peut aller de 10/15€ à plusieurs dizaines d&amp;#8217;euros.
+&lt;p&gt;Je n&amp;#8217;ai pas retenu les solutions à base de bus &quot;industriels&quot; (KNX par exemple) ou de composants &quot;sans fils&quot; du marché (ZigBee, Wifi, &amp;#8230;). En effet, ce type de solution requiert un composant de communication assez couteux. Ce surcoût dépend beaucoup de la technologie. Cela peut aller de 10/15€ à plusieurs dizaines d&amp;#8217;euros.
 Pour du Wifi par exemple, on peut trouver des éléments à base de CC3000 chez &lt;a href=&quot;https://www.sparkfun.com/products/12072&quot;&gt;SparkFun&lt;/a&gt; ou &lt;a href=&quot;http://www.adafruit.com/product/1469&quot;&gt;Adafruit&lt;/a&gt; pour une trentaine d&amp;#8217;euros. Si vous avez juste besoin d&amp;#8217;activer un relais ou de récupérer une température, le cout de l&apos;élément de communication devient prépondérant !&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
@@ -85,13 +85,13 @@ Pour du Wifi par exemple, on peut trouver des éléments à base de CC3000 chez 
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Pour connecter les capteurs, j&amp;#8217;ai choisi d&amp;#8217;utiliser des arduinos dans la version &quot;mini&quot; pour son coût modique et la très grosse communauté (et les librairies qui vont avec) !
+&lt;p&gt;Pour connecter les capteurs, j&amp;#8217;ai choisi d&amp;#8217;utiliser des arduinos dans la version &quot;mini&quot; pour son coût modique et sa très grosse communauté (et les librairies qui vont avec) !&lt;br&gt;
 Les arduinos permettent d&amp;#8217;utiliser à peu près n&amp;#8217;importe quel capteur en offrant :&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;ulist&quot;&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;une dizaine de GPIO&lt;/p&gt;
+&lt;p&gt;une dizaine de GPIO (entrée/sorties digitales)&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;des entrées (6) et sorties analogiques (6 PWM)&lt;/p&gt;
@@ -112,10 +112,10 @@ Le bus RS485 n&amp;#8217;apporte cependant que la partie physique du réseau san
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Comme pour beaucoup de projet en DIY, le coût est très faible.
-Pour la liaison RS485,  achetés &lt;a href=&quot;http://www.ebay.fr/itm/5PCS-MAXIM-MAX485CPA-MAX485-DIP-8-RS-485-RS-422-Transceiver-/130757415748?_trksid=p3984.m1497.l2649&amp;amp;ssPageName=STRK:MEWNX:IT&quot;&gt;à peine plus d&amp;#8217;1 € les 5 sur ebay&lt;/a&gt; :&lt;/p&gt;
+Pour la liaison RS485, on peut trouver des MAX485 pour &lt;a href=&quot;http://www.ebay.fr/itm/5PCS-MAXIM-MAX485CPA-MAX485-DIP-8-RS-485-RS-422-Transceiver-/130757415748?_trksid=p3984.m1497.l2649&amp;amp;ssPageName=STRK:MEWNX:IT&quot;&gt;à peine plus d&amp;#8217;1 € les 5 sur ebay&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Pour les arduinos, j&amp;#8217;utilise des arduinos mini pro (clone) qu&amp;#8217;on peut trouver &lt;a href=&quot;http://cgi.ebay.fr/New-Pro-Mini-atmega328-Board-5V-16M-Replace-ATmega128-Arduino-Compatible-Nano-/131278764259?pt=LH_DefaultDomain_0&amp;amp;hash=item1e90d2f8e3&quot;&gt;à moins de 2 €&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Pour les arduinos, on peut trouver des &quot;mini pro&quot; &lt;a href=&quot;http://cgi.ebay.fr/New-Pro-Mini-atmega328-Board-5V-16M-Replace-ATmega128-Arduino-Compatible-Nano-/131278764259?pt=LH_DefaultDomain_0&amp;amp;hash=item1e90d2f8e3&quot;&gt;à moins de 2 €&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Au final, la &quot;stack&quot; pour connecter un objet coute de l&amp;#8217;ordre de &lt;strong&gt;2 euros&lt;/strong&gt; !&lt;/p&gt;

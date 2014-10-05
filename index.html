@@ -78,7 +78,7 @@
 <h2 id="_r_seau_rs485">Réseau RS485</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Je n&#8217;ai pas retenu les solutions à bases de bus "industriels" (KNX par exemple) ou de composants "sans fils" du marché (ZigBee, Wifi, &#8230;). En effet, ce type de solution requiert un composant de communication assez couteux. Ce surcoût dépend beaucoup de la technologie. Cela peut aller de 10/15€ à plusieurs dizaines d&#8217;euros.
+<p>Je n&#8217;ai pas retenu les solutions à base de bus "industriels" (KNX par exemple) ou de composants "sans fils" du marché (ZigBee, Wifi, &#8230;). En effet, ce type de solution requiert un composant de communication assez couteux. Ce surcoût dépend beaucoup de la technologie. Cela peut aller de 10/15€ à plusieurs dizaines d&#8217;euros.
 Pour du Wifi par exemple, on peut trouver des éléments à base de CC3000 chez <a href="https://www.sparkfun.com/products/12072">SparkFun</a> ou <a href="http://www.adafruit.com/product/1469">Adafruit</a> pour une trentaine d&#8217;euros. Si vous avez juste besoin d&#8217;activer un relais ou de récupérer une température, le cout de l'élément de communication devient prépondérant !</p>
 </div>
 <div class="paragraph">
@@ -137,13 +137,13 @@ Pour du Wifi par exemple, on peut trouver des éléments à base de CC3000 chez 
 </div>
 </div>
 <div class="paragraph">
-<p>Pour connecter les capteurs, j&#8217;ai choisi d&#8217;utiliser des arduinos dans la version "mini" pour son coût modique et la très grosse communauté (et les librairies qui vont avec) !
+<p>Pour connecter les capteurs, j&#8217;ai choisi d&#8217;utiliser des arduinos dans la version "mini" pour son coût modique et sa très grosse communauté (et les librairies qui vont avec) !<br>
 Les arduinos permettent d&#8217;utiliser à peu près n&#8217;importe quel capteur en offrant :</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>une dizaine de GPIO</p>
+<p>une dizaine de GPIO (entrée/sorties digitales)</p>
 </li>
 <li>
 <p>des entrées (6) et sorties analogiques (6 PWM)</p>
@@ -164,10 +164,10 @@ Le bus RS485 n&#8217;apporte cependant que la partie physique du réseau sans au
 <div class="sectionbody">
 <div class="paragraph">
 <p>Comme pour beaucoup de projet en DIY, le coût est très faible.
-Pour la liaison RS485,  achetés <a href="http://www.ebay.fr/itm/5PCS-MAXIM-MAX485CPA-MAX485-DIP-8-RS-485-RS-422-Transceiver-/130757415748?_trksid=p3984.m1497.l2649&amp;ssPageName=STRK:MEWNX:IT">à peine plus d&#8217;1 € les 5 sur ebay</a> :</p>
+Pour la liaison RS485, on peut trouver des MAX485 pour <a href="http://www.ebay.fr/itm/5PCS-MAXIM-MAX485CPA-MAX485-DIP-8-RS-485-RS-422-Transceiver-/130757415748?_trksid=p3984.m1497.l2649&amp;ssPageName=STRK:MEWNX:IT">à peine plus d&#8217;1 € les 5 sur ebay</a>.</p>
 </div>
 <div class="paragraph">
-<p>Pour les arduinos, j&#8217;utilise des arduinos mini pro (clone) qu&#8217;on peut trouver <a href="http://cgi.ebay.fr/New-Pro-Mini-atmega328-Board-5V-16M-Replace-ATmega128-Arduino-Compatible-Nano-/131278764259?pt=LH_DefaultDomain_0&amp;hash=item1e90d2f8e3">à moins de 2 €</a>.</p>
+<p>Pour les arduinos, on peut trouver des "mini pro" <a href="http://cgi.ebay.fr/New-Pro-Mini-atmega328-Board-5V-16M-Replace-ATmega128-Arduino-Compatible-Nano-/131278764259?pt=LH_DefaultDomain_0&amp;hash=item1e90d2f8e3">à moins de 2 €</a>.</p>
 </div>
 <div class="paragraph">
 <p>Au final, la "stack" pour connecter un objet coute de l&#8217;ordre de <strong>2 euros</strong> !</p>
