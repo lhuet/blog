@@ -60,6 +60,129 @@
                 <div class="col-xs-12 col-md-8"><h1>Java dans le hard(ware)</h1></div>
             </div>
 	</div>
+  			<a href="/blog/2014/10/iot-arduino-rs485.html"><h1>Réseau "low cost" d&#8217;objets connectés en DIY avec le RS485</h1></a>
+  			<p>05 octobre 2014</p>
+
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://lhuet.github.io/blog/2014/10/iot-arduino-rs485.html" data-text="Réseau "low cost" d&#8217;objets connectés en DIY avec le RS485" data-via="lhuet35" data-lang="fr">Tweeter</a>
+                        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+                        <div class="g-plusone" data-size="medium" data-href="http://lhuet.github.io/blog/2014/10/iot-arduino-rs485.html"></div>
+
+  			<p><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Une installation domotique est constituée de multiples capteurs et autres objets connectés (buzzword oblige). L&#8217;aspect communication est un élément clé de ce type d&#8217;installation. J&#8217;ai cherché à résoudre ce problème dans l&#8217;esprit du DIY et vous restitue dans ce billet la solution que j&#8217;ai commencée à mettre en oeuvre.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_r_seau_rs485">Réseau RS485</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Je n&#8217;ai pas retenu les solutions à bases de bus "industriels" (KNX par exemple) ou de composants "sans fils" du marché (ZigBee, Wifi, &#8230;). En effet, ce type de solution requiert un composant de communication assez couteux. Ce surcoût dépend beaucoup de la technologie. Cela peut aller de 10/15€ à plusieurs dizaines d&#8217;euros.
+Pour du Wifi par exemple, on peut trouver des éléments à base de CC3000 chez <a href="https://www.sparkfun.com/products/12072">SparkFun</a> ou <a href="http://www.adafruit.com/product/1469">Adafruit</a> pour une trentaine d&#8217;euros. Si vous avez juste besoin d&#8217;activer un relais ou de récupérer une température, le cout de l'élément de communication devient prépondérant !</p>
+</div>
+<div class="paragraph">
+<p>Mon choix s&#8217;est porté sur une solution à base de <a href="http://fr.wikipedia.org/wiki/EIA-485">RS485</a>. En effet, il s&#8217;agit d&#8217;un bus série avec les caractéristiques suivantes :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>32 "devices" possibles sur le même bus</p>
+</li>
+<li>
+<p>Jusqu'à 100kbits/s sur une longueur d&#8217;environ 1000 m</p>
+</li>
+<li>
+<p>Half-duplex (du full-duplex pourrait se faire en RS422)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Sa mise en oeuvre est plutôt aisée :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>utilisation de cables simples (paires torsadées de cable téléphonique par ex.)</p>
+</li>
+<li>
+<p>"transceiver" bon marché</p>
+</li>
+<li>
+<p>liaisons série UART répandues (Raspbery Pi, Arduino, &#8230;)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>J&#8217;ai choisi les <a href="http://datasheets.maximintegrated.com/en/ds/MAX1487-MAX491.pdf">composants MAX485</a> qui sont très courant :</p>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="/blog/img/max485.jpg" alt="IC MAX485">
+</div>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="/blog/img/max485_pinconfig.png" alt="Configuration des pins du MAX485">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_objets_connect_s_avec_arduino">Objets connectés avec Arduino</h2>
+<div class="sectionbody">
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="/blog/img/arduino-mini-pro.jpg" alt="Arduino Mini Pro">
+</div>
+</div>
+<div class="paragraph">
+<p>Pour connecter les capteurs, j&#8217;ai choisi d&#8217;utiliser des arduinos dans la version "mini" pour son coût modique et la très grosse communauté (et les librairies qui vont avec) !
+Les arduinos permettent d&#8217;utiliser à peu près n&#8217;importe quel capteur en offrant :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>une dizaine de GPIO</p>
+</li>
+<li>
+<p>des entrées (6) et sorties analogiques (6 PWM)</p>
+</li>
+<li>
+<p>de l&#8217;I2C / SPI / UART (utilisée pour la communication sur le bus RS485).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Le choix Arduino ouvre donc pas mal de possibilités.<br>
+Le bus RS485 n&#8217;apporte cependant que la partie physique du réseau sans aucun protocole de communication. Ce protocole doit donc être implémenté sur les cartes arduino.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_r_seau_low_cost">Réseau "low cost"</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Comme pour beaucoup de projet en DIY, le coût est très faible.
+Pour la liaison RS485,  achetés <a href="http://www.ebay.fr/itm/5PCS-MAXIM-MAX485CPA-MAX485-DIP-8-RS-485-RS-422-Transceiver-/130757415748?_trksid=p3984.m1497.l2649&amp;ssPageName=STRK:MEWNX:IT">à peine plus d&#8217;1 € les 5 sur ebay</a> :</p>
+</div>
+<div class="paragraph">
+<p>Pour les arduinos, j&#8217;utilise des arduinos mini pro (clone) qu&#8217;on peut trouver <a href="http://cgi.ebay.fr/New-Pro-Mini-atmega328-Board-5V-16M-Replace-ATmega128-Arduino-Compatible-Nano-/131278764259?pt=LH_DefaultDomain_0&amp;hash=item1e90d2f8e3">à moins de 2 €</a>.</p>
+</div>
+<div class="paragraph">
+<p>Au final, la "stack" pour connecter un objet coute de l&#8217;ordre de <strong>2 euros</strong> !</p>
+</div>
+<div class="paragraph">
+<p>La mise en oeuvre d&#8217;un POC sera abordée dans mon prochain billet. En voici un aperçu pour vous donner l&#8217;eau à la bouche ;-)</p>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="/blog/img/poc_rs485_oscillo.jpg" alt="IC MAX485">
+</div>
+</div>
+</div>
+</div></p>
+                        <p><a href="/blog/2014/10/iot-arduino-rs485.html#disqus_thread">Commentaires</a></p>
   			<a href="/blog/2014/06/gvm-on-beaglebone.html"><h1>Groovy, Gradle and Vert.x on Beaglebone with GVM</h1></a>
   			<p>23 juin 2014</p>
 

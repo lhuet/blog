@@ -6,9 +6,132 @@
     <atom:link href="http://lhuet.github.io/blog/feed.xml" rel="self" type="application/rss+xml" />
     <description>Java dans le hard(ware)</description>
     <language>en-gb</language>
-    <pubDate>lun., 23 juin 2014 23:36:25 +0200</pubDate>
-    <lastBuildDate>lun., 23 juin 2014 23:36:25 +0200</lastBuildDate>
+    <pubDate>dim., 5 oct. 2014 16:02:24 +0200</pubDate>
+    <lastBuildDate>dim., 5 oct. 2014 16:02:24 +0200</lastBuildDate>
 
+    <item>
+      <title>Réseau &quot;low cost&quot; d&amp;#8217;objets connectés en DIY avec le RS485</title>
+      <link>http://lhuet.github.io/blog/2014/10/iot-arduino-rs485.html</link>
+      <pubDate>dim., 5 oct. 2014 00:00:00 +0200</pubDate>
+      <guid isPermaLink="false">http://lhuet.github.io/blog/2014/10/iot-arduino-rs485.html</guid>
+      	<description>
+	&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Une installation domotique est constituée de multiples capteurs et autres objets connectés (buzzword oblige). L&amp;#8217;aspect communication est un élément clé de ce type d&amp;#8217;installation. J&amp;#8217;ai cherché à résoudre ce problème dans l&amp;#8217;esprit du DIY et vous restitue dans ce billet la solution que j&amp;#8217;ai commencée à mettre en oeuvre.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_r_seau_rs485&quot;&gt;Réseau RS485&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Je n&amp;#8217;ai pas retenu les solutions à bases de bus &quot;industriels&quot; (KNX par exemple) ou de composants &quot;sans fils&quot; du marché (ZigBee, Wifi, &amp;#8230;). En effet, ce type de solution requiert un composant de communication assez couteux. Ce surcoût dépend beaucoup de la technologie. Cela peut aller de 10/15€ à plusieurs dizaines d&amp;#8217;euros.
+Pour du Wifi par exemple, on peut trouver des éléments à base de CC3000 chez &lt;a href=&quot;https://www.sparkfun.com/products/12072&quot;&gt;SparkFun&lt;/a&gt; ou &lt;a href=&quot;http://www.adafruit.com/product/1469&quot;&gt;Adafruit&lt;/a&gt; pour une trentaine d&amp;#8217;euros. Si vous avez juste besoin d&amp;#8217;activer un relais ou de récupérer une température, le cout de l&apos;élément de communication devient prépondérant !&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Mon choix s&amp;#8217;est porté sur une solution à base de &lt;a href=&quot;http://fr.wikipedia.org/wiki/EIA-485&quot;&gt;RS485&lt;/a&gt;. En effet, il s&amp;#8217;agit d&amp;#8217;un bus série avec les caractéristiques suivantes :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;32 &quot;devices&quot; possibles sur le même bus&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Jusqu&apos;à 100kbits/s sur une longueur d&amp;#8217;environ 1000 m&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Half-duplex (du full-duplex pourrait se faire en RS422)&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Sa mise en oeuvre est plutôt aisée :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;utilisation de cables simples (paires torsadées de cable téléphonique par ex.)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&quot;transceiver&quot; bon marché&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;liaisons série UART répandues (Raspbery Pi, Arduino, &amp;#8230;)&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;J&amp;#8217;ai choisi les &lt;a href=&quot;http://datasheets.maximintegrated.com/en/ds/MAX1487-MAX491.pdf&quot;&gt;composants MAX485&lt;/a&gt; qui sont très courant :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot; style=&quot;text-align: center&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/blog/img/max485.jpg&quot; alt=&quot;IC MAX485&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot; style=&quot;text-align: center&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/blog/img/max485_pinconfig.png&quot; alt=&quot;Configuration des pins du MAX485&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_objets_connect_s_avec_arduino&quot;&gt;Objets connectés avec Arduino&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;imageblock&quot; style=&quot;text-align: center&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/blog/img/arduino-mini-pro.jpg&quot; alt=&quot;Arduino Mini Pro&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Pour connecter les capteurs, j&amp;#8217;ai choisi d&amp;#8217;utiliser des arduinos dans la version &quot;mini&quot; pour son coût modique et la très grosse communauté (et les librairies qui vont avec) !
+Les arduinos permettent d&amp;#8217;utiliser à peu près n&amp;#8217;importe quel capteur en offrant :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;une dizaine de GPIO&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;des entrées (6) et sorties analogiques (6 PWM)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;de l&amp;#8217;I2C / SPI / UART (utilisée pour la communication sur le bus RS485).&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Le choix Arduino ouvre donc pas mal de possibilités.&lt;br&gt;
+Le bus RS485 n&amp;#8217;apporte cependant que la partie physique du réseau sans aucun protocole de communication. Ce protocole doit donc être implémenté sur les cartes arduino.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_r_seau_low_cost&quot;&gt;Réseau &quot;low cost&quot;&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Comme pour beaucoup de projet en DIY, le coût est très faible.
+Pour la liaison RS485,  achetés &lt;a href=&quot;http://www.ebay.fr/itm/5PCS-MAXIM-MAX485CPA-MAX485-DIP-8-RS-485-RS-422-Transceiver-/130757415748?_trksid=p3984.m1497.l2649&amp;amp;ssPageName=STRK:MEWNX:IT&quot;&gt;à peine plus d&amp;#8217;1 € les 5 sur ebay&lt;/a&gt; :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Pour les arduinos, j&amp;#8217;utilise des arduinos mini pro (clone) qu&amp;#8217;on peut trouver &lt;a href=&quot;http://cgi.ebay.fr/New-Pro-Mini-atmega328-Board-5V-16M-Replace-ATmega128-Arduino-Compatible-Nano-/131278764259?pt=LH_DefaultDomain_0&amp;amp;hash=item1e90d2f8e3&quot;&gt;à moins de 2 €&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Au final, la &quot;stack&quot; pour connecter un objet coute de l&amp;#8217;ordre de &lt;strong&gt;2 euros&lt;/strong&gt; !&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;La mise en oeuvre d&amp;#8217;un POC sera abordée dans mon prochain billet. En voici un aperçu pour vous donner l&amp;#8217;eau à la bouche ;-)&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot; style=&quot;text-align: center&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/blog/img/poc_rs485_oscillo.jpg&quot; alt=&quot;IC MAX485&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+	</description>
+    </item>
     <item>
       <title>Groovy, Gradle and Vert.x on Beaglebone with GVM</title>
       <link>http://lhuet.github.io/blog/2014/06/gvm-on-beaglebone.html</link>

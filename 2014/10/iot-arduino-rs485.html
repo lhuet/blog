@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Java dans le hard(ware) - Réseau "low cost" d&#8217;objets connectés en DIY avec le RS485</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keywords" content="">    
+
+    <!-- Le styles -->
+    <link href="/blog/css/yeti/bootstrap.min.css" rel="stylesheet">
+    <link href="/blog/css/asciidoctor.css" rel="stylesheet">
+    <link href="/blog/css/base.css" rel="stylesheet">
+    <!-- link href="/blog/css/bootstrap-theme.min.css" rel="stylesheet" -->
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/3.1.0/css/font-awesome.min.css">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" href="favicon.ico">
+  </head>
+  <body>
+    <div id="wrap">
+	
+      <!-- Fixed navbar -->
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/blog">Java dans le hard(ware)</a>
+          </div>
+          <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="/blog/index.html">Home</a></li>
+              <li><a href="/blog/about.html">A propos</a></li>
+              <li><a href="/blog/feed.xml">Flux RSS</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </div>
+      <div class="container">
+	
+	<div class="page-header">
+		<h1>Réseau "low cost" d&#8217;objets connectés en DIY avec le RS485</h1>
+	</div>
+
+	<p><em>05 octobre 2014</em></p>
+        <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://lhuet.github.io/blog/2014/10/iot-arduino-rs485.html" data-via="lhuet35" data-text="Réseau "low cost" d&#8217;objets connectés en DIY avec le RS485" data-lang="fr">Tweeter</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+        <div class="g-plusone" data-size="medium" data-href="http://lhuet.github.io/blog/2014/10/iot-arduino-rs485.html"></div>
+
+	<p><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Une installation domotique est constituée de multiples capteurs et autres objets connectés (buzzword oblige). L&#8217;aspect communication est un élément clé de ce type d&#8217;installation. J&#8217;ai cherché à résoudre ce problème dans l&#8217;esprit du DIY et vous restitue dans ce billet la solution que j&#8217;ai commencée à mettre en oeuvre.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_r_seau_rs485">Réseau RS485</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Je n&#8217;ai pas retenu les solutions à bases de bus "industriels" (KNX par exemple) ou de composants "sans fils" du marché (ZigBee, Wifi, &#8230;). En effet, ce type de solution requiert un composant de communication assez couteux. Ce surcoût dépend beaucoup de la technologie. Cela peut aller de 10/15€ à plusieurs dizaines d&#8217;euros.
+Pour du Wifi par exemple, on peut trouver des éléments à base de CC3000 chez <a href="https://www.sparkfun.com/products/12072">SparkFun</a> ou <a href="http://www.adafruit.com/product/1469">Adafruit</a> pour une trentaine d&#8217;euros. Si vous avez juste besoin d&#8217;activer un relais ou de récupérer une température, le cout de l'élément de communication devient prépondérant !</p>
+</div>
+<div class="paragraph">
+<p>Mon choix s&#8217;est porté sur une solution à base de <a href="http://fr.wikipedia.org/wiki/EIA-485">RS485</a>. En effet, il s&#8217;agit d&#8217;un bus série avec les caractéristiques suivantes :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>32 "devices" possibles sur le même bus</p>
+</li>
+<li>
+<p>Jusqu'à 100kbits/s sur une longueur d&#8217;environ 1000 m</p>
+</li>
+<li>
+<p>Half-duplex (du full-duplex pourrait se faire en RS422)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Sa mise en oeuvre est plutôt aisée :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>utilisation de cables simples (paires torsadées de cable téléphonique par ex.)</p>
+</li>
+<li>
+<p>"transceiver" bon marché</p>
+</li>
+<li>
+<p>liaisons série UART répandues (Raspbery Pi, Arduino, &#8230;)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>J&#8217;ai choisi les <a href="http://datasheets.maximintegrated.com/en/ds/MAX1487-MAX491.pdf">composants MAX485</a> qui sont très courant :</p>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="/blog/img/max485.jpg" alt="IC MAX485">
+</div>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="/blog/img/max485_pinconfig.png" alt="Configuration des pins du MAX485">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_objets_connect_s_avec_arduino">Objets connectés avec Arduino</h2>
+<div class="sectionbody">
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="/blog/img/arduino-mini-pro.jpg" alt="Arduino Mini Pro">
+</div>
+</div>
+<div class="paragraph">
+<p>Pour connecter les capteurs, j&#8217;ai choisi d&#8217;utiliser des arduinos dans la version "mini" pour son coût modique et la très grosse communauté (et les librairies qui vont avec) !
+Les arduinos permettent d&#8217;utiliser à peu près n&#8217;importe quel capteur en offrant :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>une dizaine de GPIO</p>
+</li>
+<li>
+<p>des entrées (6) et sorties analogiques (6 PWM)</p>
+</li>
+<li>
+<p>de l&#8217;I2C / SPI / UART (utilisée pour la communication sur le bus RS485).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Le choix Arduino ouvre donc pas mal de possibilités.<br>
+Le bus RS485 n&#8217;apporte cependant que la partie physique du réseau sans aucun protocole de communication. Ce protocole doit donc être implémenté sur les cartes arduino.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_r_seau_low_cost">Réseau "low cost"</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Comme pour beaucoup de projet en DIY, le coût est très faible.
+Pour la liaison RS485,  achetés <a href="http://www.ebay.fr/itm/5PCS-MAXIM-MAX485CPA-MAX485-DIP-8-RS-485-RS-422-Transceiver-/130757415748?_trksid=p3984.m1497.l2649&amp;ssPageName=STRK:MEWNX:IT">à peine plus d&#8217;1 € les 5 sur ebay</a> :</p>
+</div>
+<div class="paragraph">
+<p>Pour les arduinos, j&#8217;utilise des arduinos mini pro (clone) qu&#8217;on peut trouver <a href="http://cgi.ebay.fr/New-Pro-Mini-atmega328-Board-5V-16M-Replace-ATmega128-Arduino-Compatible-Nano-/131278764259?pt=LH_DefaultDomain_0&amp;hash=item1e90d2f8e3">à moins de 2 €</a>.</p>
+</div>
+<div class="paragraph">
+<p>Au final, la "stack" pour connecter un objet coute de l&#8217;ordre de <strong>2 euros</strong> !</p>
+</div>
+<div class="paragraph">
+<p>La mise en oeuvre d&#8217;un POC sera abordée dans mon prochain billet. En voici un aperçu pour vous donner l&#8217;eau à la bouche ;-)</p>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="/blog/img/poc_rs485_oscillo.jpg" alt="IC MAX485">
+</div>
+</div>
+</div>
+</div></p>
+
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'javadanslehardware'; 
+            var disqus_identifier = 'iot-rs485-arduino';
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+
+	<hr>
+	
+		</div>
+		<div id="push"></div>
+    </div>
+    
+    <div id="footer">
+      <div class="container">
+        <p class="text-muted credit">L'ensemble des posts de ce blog sont publiés sous licence <em>Creative Commons by-nc-sa</em>. <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png"/></a></p>
+        <p class="text-muted credit">&copy; 2013 | Mixed with <a href="http://twitter.github.com/bootstrap/">Bootstrap v3.0.2</a> | Baked with <a href="http://jbake.org">JBake v2.3.0</a></p>
+      </div>
+    </div>
+    
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- script src="/blog/js/jquery-1.10.2.min.js"></script -->
+    <!-- script src="/blog/js/bootstrap.min.js"></script -->
+    <script src="/blog/js/run_prettify.js"></script>
+
+    <script type="text/javascript">
+        window.___gcfg = {lang: 'fr'};
+
+        (function() {
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+            po.src = 'https://apis.google.com/js/platform.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-46154958-1', 'lhuet.github.io');
+      ga('send', 'pageview');
+
+    </script>
+    
+  </body>
+</html>
