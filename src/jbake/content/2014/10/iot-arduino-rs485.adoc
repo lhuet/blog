@@ -11,7 +11,7 @@ Une installation domotique est constituée de multiples capteurs et autres objet
 
 == Réseau RS485
 
-Je n'ai pas retenu les solutions à bases de bus "industriels" (KNX par exemple) ou de composants "sans fils" du marché (ZigBee, Wifi, ...). En effet, ce type de solution requiert un composant de communication assez couteux. Ce surcoût dépend beaucoup de la technologie. Cela peut aller de 10/15€ à plusieurs dizaines d'euros.
+Je n'ai pas retenu les solutions à base de bus "industriels" (KNX par exemple) ou de composants "sans fils" du marché (ZigBee, Wifi, ...). En effet, ce type de solution requiert un composant de communication assez couteux. Ce surcoût dépend beaucoup de la technologie. Cela peut aller de 10/15€ à plusieurs dizaines d'euros.
 Pour du Wifi par exemple, on peut trouver des éléments à base de CC3000 chez https://www.sparkfun.com/products/12072[SparkFun] ou http://www.adafruit.com/product/1469[Adafruit] pour une trentaine d'euros. Si vous avez juste besoin d'activer un relais ou de récupérer une température, le cout de l'élément de communication devient prépondérant !
 
 Mon choix s'est porté sur une solution à base de http://fr.wikipedia.org/wiki/EIA-485[RS485]. En effet, il s'agit d'un bus série avec les caractéristiques suivantes :
@@ -34,10 +34,10 @@ image::/blog/img/max485_pinconfig.png[Configuration des pins du MAX485, align="c
 == Objets connectés avec Arduino
 
 image::/blog/img/arduino-mini-pro.jpg[Arduino Mini Pro, align="center"]
-Pour connecter les capteurs, j'ai choisi d'utiliser des arduinos dans la version "mini" pour son coût modique et la très grosse communauté (et les librairies qui vont avec) !
+Pour connecter les capteurs, j'ai choisi d'utiliser des arduinos dans la version "mini" pour son coût modique et sa très grosse communauté (et les librairies qui vont avec) ! +
 Les arduinos permettent d'utiliser à peu près n'importe quel capteur en offrant :
 
-* une dizaine de GPIO
+* une dizaine de GPIO (entrée/sorties digitales)
 * des entrées (6) et sorties analogiques (6 PWM)
 * de l'I2C / SPI / UART (utilisée pour la communication sur le bus RS485).
 
@@ -48,9 +48,9 @@ Le bus RS485 n'apporte cependant que la partie physique du réseau sans aucun pr
 == Réseau "low cost"
 
 Comme pour beaucoup de projet en DIY, le coût est très faible.
-Pour la liaison RS485,  achetés http://www.ebay.fr/itm/5PCS-MAXIM-MAX485CPA-MAX485-DIP-8-RS-485-RS-422-Transceiver-/130757415748?_trksid=p3984.m1497.l2649&ssPageName=STRK:MEWNX:IT[à peine plus d'1 € les 5 sur ebay] :
+Pour la liaison RS485, on peut trouver des MAX485 pour http://www.ebay.fr/itm/5PCS-MAXIM-MAX485CPA-MAX485-DIP-8-RS-485-RS-422-Transceiver-/130757415748?_trksid=p3984.m1497.l2649&ssPageName=STRK:MEWNX:IT[à peine plus d'1 € les 5 sur ebay].
 
-Pour les arduinos, j'utilise des arduinos mini pro (clone) qu'on peut trouver http://cgi.ebay.fr/New-Pro-Mini-atmega328-Board-5V-16M-Replace-ATmega128-Arduino-Compatible-Nano-/131278764259?pt=LH_DefaultDomain_0&hash=item1e90d2f8e3[à moins de 2 €].
+Pour les arduinos, on peut trouver des "mini pro" http://cgi.ebay.fr/New-Pro-Mini-atmega328-Board-5V-16M-Replace-ATmega128-Arduino-Compatible-Nano-/131278764259?pt=LH_DefaultDomain_0&hash=item1e90d2f8e3[à moins de 2 €].
 
 Au final, la "stack" pour connecter un objet coute de l'ordre de *2 euros* !
 
