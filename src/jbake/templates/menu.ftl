@@ -17,7 +17,12 @@
               <li><a href="/blog/${config.feed_file}">Flux RSS</a></li>
               <li><a href="/blog/archive.html">Archives</a></li>
             </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="https://github.com/lhuet"><i class="fa fa-github"></i></a></li>
+              <li><a href="https://twitter.com/lhuet35"><i class="fa fa-twitter"></i></a>
+            </ul>
           </div><!--/.nav-collapse -->
+
         </div>
       </div>
       <div class="container">
