@@ -1,0 +1,59 @@
+= Réseau "low cost" d'objets connectés en DIY avec le RS485
+Laurent HUET
+2014-10-05
+:jbake-type: post
+:jbake-tags: arduino rs485 diy
+:jbake-status: published
+:source-highlighter: prettify
+:id: iot-rs485-arduino
+
+Une installation domotique est constituée de multiples capteurs et autres objets connectés (buzzword oblige). L'aspect communication est un élément clé de ce type d'installation. J'ai cherché à résoudre ce problème dans l'esprit du DIY et vous restitue dans ce billet la solution que j'ai commencée à mettre en oeuvre.
+
+== Réseau RS485
+
+Je n'ai pas retenu les solutions à bases de bus "industriels" (KNX par exemple) ou de composants "sans fils" du marché (ZigBee, Wifi, ...). En effet, ce type de solution requiert un composant de communication assez couteux. Ce surcoût dépend beaucoup de la technologie. Cela peut aller de 10/15€ à plusieurs dizaines d'euros.
+Pour du Wifi par exemple, on peut trouver des éléments à base de CC3000 chez https://www.sparkfun.com/products/12072[SparkFun] ou http://www.adafruit.com/product/1469[Adafruit] pour une trentaine d'euros. Si vous avez juste besoin d'activer un relais ou de récupérer une température, le cout de l'élément de communication devient prépondérant !
+
+Mon choix s'est porté sur une solution à base de http://fr.wikipedia.org/wiki/EIA-485[RS485]. En effet, il s'agit d'un bus série avec les caractéristiques suivantes :
+
+* 32 "devices" possibles sur le même bus
+* Jusqu'à 100kbits/s sur une longueur d'environ 1000 m
+* Half-duplex (du full-duplex pourrait se faire en RS422)
+
+Sa mise en oeuvre est plutôt aisée :
+
+* utilisation de cables simples (paires torsadées de cable téléphonique par ex.)
+* "transceiver" bon marché
+* liaisons série UART répandues (Raspbery Pi, Arduino, ...)
+
+J'ai choisi les http://datasheets.maximintegrated.com/en/ds/MAX1487-MAX491.pdf[composants MAX485] qui sont très courant :
+
+image::/blog/img/max485.jpg[IC MAX485, align="center"]
+image::/blog/img/max485_pinconfig.png[Configuration des pins du MAX485, align="center"]
+
+== Objets connectés avec Arduino
+
+image::/blog/img/arduino-mini-pro.jpg[Arduino Mini Pro, align="center"]
+Pour connecter les capteurs, j'ai choisi d'utiliser des arduinos dans la version "mini" pour son coût modique et la très grosse communauté (et les librairies qui vont avec) !
+Les arduinos permettent d'utiliser à peu près n'importe quel capteur en offrant :
+
+* une dizaine de GPIO
+* des entrées (6) et sorties analogiques (6 PWM)
+* de l'I2C / SPI / UART (utilisée pour la communication sur le bus RS485).
+
+Le choix Arduino ouvre donc pas mal de possibilités. +
+Le bus RS485 n'apporte cependant que la partie physique du réseau sans aucun protocole de communication. Ce protocole doit donc être implémenté sur les cartes arduino.
+
+
+== Réseau "low cost"
+
+Comme pour beaucoup de projet en DIY, le coût est très faible.
+Pour la liaison RS485,  achetés http://www.ebay.fr/itm/5PCS-MAXIM-MAX485CPA-MAX485-DIP-8-RS-485-RS-422-Transceiver-/130757415748?_trksid=p3984.m1497.l2649&ssPageName=STRK:MEWNX:IT[à peine plus d'1 € les 5 sur ebay] :
+
+Pour les arduinos, j'utilise des arduinos mini pro (clone) qu'on peut trouver http://cgi.ebay.fr/New-Pro-Mini-atmega328-Board-5V-16M-Replace-ATmega128-Arduino-Compatible-Nano-/131278764259?pt=LH_DefaultDomain_0&hash=item1e90d2f8e3[à moins de 2 €].
+
+Au final, la "stack" pour connecter un objet coute de l'ordre de *2 euros* !
+
+La mise en oeuvre d'un POC sera abordée dans mon prochain billet. En voici un aperçu pour vous donner l'eau à la bouche ;-)
+
+image::/blog/img/poc_rs485_oscillo.jpg[IC MAX485, align="center"]
