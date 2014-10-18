@@ -30,7 +30,7 @@ On est clairement dans un autre monde.
 En terme de connectivité, la carte Tessel dispose :
 
 * de bus classiques : 2 I2C, 1 SPI et 3 UART
-* de GPIO (General Purpose Input/Output) pour les entrées/sorties digitales (j'en ai compté 18 répartis sur les 5 connecteurs) dont 3 sont utilisables en PWM (Pulse Width Modulation).
+* de GPIO (General Purpose Input/Output) pour les entrées/sorties numériques (j'en ai compté 18 répartis sur les 5 connecteurs) dont 3 sont utilisables en PWM (Pulse Width Modulation).
 * d'entrées analogiques (j'en ai vu 6) avec un ADC 10 bits.
 
 Un système de connecteur générique avec 3 GPIO, I2C, SPI, 3.3V et GND est utilisé pour mettre en place un écosystème de module.
