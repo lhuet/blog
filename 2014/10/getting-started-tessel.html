@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Java dans le hard(ware) - Tessel Getting Started</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keywords" content="">    
+
+    <!-- Le styles -->
+    <link href="/blog/css/yeti/bootstrap.min.css" rel="stylesheet">
+    <link href="/blog/css/asciidoctor.css" rel="stylesheet">
+    <link href="/blog/css/base.css" rel="stylesheet">
+    <!-- link href="/blog/css/bootstrap-theme.min.css" rel="stylesheet" -->
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" href="favicon.ico">
+  </head>
+  <body>
+    <div id="wrap">
+	
+      <!-- Fixed navbar -->
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/blog">Java dans le hard(ware)</a>
+          </div>
+          <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="/blog/index.html">Home</a></li>
+              <li><a href="/blog/about.html">A propos</a></li>
+              <li><a href="/blog/feed.xml">Flux RSS</a></li>
+              <li><a href="/blog/archive.html">Archives</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="https://github.com/lhuet"><i class="fa fa-github"></i></a></li>
+              <li><a href="https://twitter.com/lhuet35"><i class="fa fa-twitter"></i></a>
+            </ul>
+          </div><!--/.nav-collapse -->
+
+        </div>
+      </div>
+      <div class="container">
+	
+	<div class="page-header">
+		<h1>Tessel Getting Started</h1>
+	</div>
+
+	<p><em>18 octobre 2014</em></p>
+        <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://lhuet.github.io/blog/2014/10/getting-started-tessel.html" data-via="lhuet35" data-text="Tessel Getting Started" data-lang="fr">Tweeter</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+        <div class="g-plusone" data-size="medium" data-href="http://lhuet.github.io/blog/2014/10/getting-started-tessel.html"></div>
+
+	<p><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Tessel est une carte à base de microcontrôleur ARM ayant pour particularité de se programmer en JavaScript.
+A l&#8217;occasion de <a href="http://bdx.io">BDX.IO</a>, <a href="https://twitter.com/k33_org">k33g_org</a> m&#8217;a gentiment prêté sa carte Tessel.
+Voici donc un retour sur mes quelques expérimentations.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_qu_est_ce_qu_elle_a_dans_le_ventre">Qu&#8217;est-ce qu&#8217;elle a dans le ventre ?</h2>
+<div class="sectionbody">
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="/blog/img/tessel.png" alt="Tessel">
+</div>
+</div>
+<div class="paragraph">
+<p><a href="https://tessel.io/docs/hardware">Coté matériel</a>, elle dispose de quelques atouts intéressants :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Processeur Cortex M3 à 180 MHz</p>
+</li>
+<li>
+<p>Puce WIFI TI CC3000</p>
+</li>
+<li>
+<p>32 Mb RAM</p>
+</li>
+<li>
+<p>32 Mb Flash</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Si on compare à un Arduino, la carte Tessel est une bête de course et on n&#8217;est pas dans le même ordre de grandeur.
+Pour la mémoire, on parle en Mb coté Tessel et en Kb coté Arduino.
+Pour le microcontrôleur, l&#8217;Arduino UNO est à 16MHz et le Tessel à 180 MHz.
+On est clairement dans un autre monde.</p>
+</div>
+<div class="paragraph">
+<p>En terme de connectivité, la carte Tessel dispose :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>de bus classiques 2 I2C, 1 SPI et 3 UART</p>
+</li>
+<li>
+<p>de GPIO (General Purpose Input/Output) pour les entrées/sorties digitales (j&#8217;en ai compté 18 répartis sur les 5 connecteurs) dont 3 sont utilisables en PWM (Pulse Width Modulation).</p>
+</li>
+<li>
+<p>d&#8217;entrées analogiques (j&#8217;en ai vu 6) avec un ADC 10 bits.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Un système de connecteur générique avec 3 GPIO, I2C, SPI, 3.3V et GND est utilisé pour mettre en place un écosystème de module.
+La photo suivante montre un exemple d&#8217;utilisation de plusieurs modules.</p>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="/blog/img/TM-00-00-fullyloaded-top.jpg" alt="Modules Tessel">
+</div>
+</div>
+<div class="paragraph">
+<p>Voici quelques subtilités glanées dans la <a href="https://tessel.io/docs/hardware">documentation</a> :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Il y a 1 seul bus SPI partagées sur tous les connecteurs.</p>
+</li>
+<li>
+<p>Il y a 2 bus I2C (le 1er partagé sur les connecteurs A, B et GPIO et le second sur les connecteurs C et D)</p>
+</li>
+<li>
+<p>Seuls les connecteurs A, B et D disposent d&#8217;un UART hardware. Les UART des connecteurs C et GPIO sont software et seront intégrés dans un firmware futur.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_prise_en_main">Prise en main</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Démarrer avec la Tessel est super simple, en particulier pour quelqu&#8217;un qui est familier avec Node.js.
+Tout est basé sur Node.js: les outils et le code à produire.
+Toutes les APIs de core de Node.js ne sont pas implémentées sur le Tessel comme l&#8217;indique une page dédiée de la <a href="https://tessel.io/docs/compatibility">documentation</a>.</p>
+</div>
+<div class="paragraph">
+<p>La <a href="http://tesseil.io/start"><em>page de démarrage</em></a> vous prend la main pour commencer en douceur.
+Il faut commencer par installer l&#8217;outil CLI et les drivers USB. Sur linux, c&#8217;est assez simple :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint bash language-bash"><code>sudo npm install -g tessel</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>suivi de</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint bash language-bash"><code>sudo tessel install-drivers</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Cela se termine en suivant les instructions pour mettre à jour le firmware :</p>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="/blog/img/tessel_update.png" alt="Update de firmware">
+</div>
+</div>
+<div class="paragraph">
+<p>Pour vérifier que tout fonctionne, une commande permet d&#8217;exécuter un bout de code rudimentaire qui fait clignoter les leds sur la carte :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint bash language-bash"><code>tessel blink</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="__hello_world">"Hello World"</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>On fait son premier programme en suivant la doc. Un copier/coller du code suivant dans le fichier blinky.js et on est prêt !</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint javascript language-javascript"><code>// Import the interface to Tessel hardware
+var tessel = require('tessel');
+
+// Set the led pins as outputs with initial states
+// Truthy initial state sets the pin high
+// Falsy sets it low.
+var led1 = tessel.led[0].output(1);
+var led2 = tessel.led[1].output(0);
+
+setInterval(function () {
+    console.log("I'm blinking! (Press CTRL + C to stop)");
+    // Toggle the led states
+    led1.toggle();
+    led2.toggle();
+}, 100);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Il est possible de lancer le code depuis sa console :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint bash language-bash"><code>tessel run blinky.js</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Ou de "flasher" la carte avec la commande :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint bash language-bash"><code>tessel push blinky.js</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>That&#8217;all !</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_conclusion">Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>La carte est très simple d&#8217;accès. Reste à voir comment aller plus loin pour mieux exploiter ses capacités aussi bien au niveau réseau (via Wifi) qu&#8217;au niveau hardware.
+Mes premiers essais ont montrés qu&#8217;on peut facilement se connecter en Wifi. J&#8217;essaierais de publier un autre article avec plus de détails à ce niveau.</p>
+</div>
+<div class="paragraph">
+<p>Malgré tout ces points encourageant, je ne sais pas si j&#8217;acheterais cette carte.
+Elle est assez cher (<a href="https://www.trycelery.com/shop/TEC">75 $ sur le site web officiel</a>).
+Je n&#8217;ai pas une vision globale du marché pour comparer avec une carte équivalente.
+Dans mes cartons, j&#8217;ai une carte STM Nucleo qui se rapproche de la Tessel en terme de capacité hardware que j&#8217;ai achetée environ 11 € &#8230;
+Je ne suis peut-être pas non plus la cible des utilisateurs (JavaScript).</p>
+</div>
+</div>
+</div></p>
+
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'javadanslehardware'; 
+            var disqus_identifier = 'tessel-getting-started';
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+
+	<hr>
+	
+		</div>
+		<div id="push"></div>
+    </div>
+    
+    <div id="footer">
+      <div class="container">
+        <p class="text-muted credit">L'ensemble des posts de ce blog sont publiés sous licence <em>Creative Commons by-nc-sa</em>. <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png"/></a></p>
+        <p class="text-muted credit">&copy; 2013 | Mixed with <a href="http://twitter.github.com/bootstrap/">Bootstrap v3.0.2</a> | Baked with <a href="http://jbake.org">JBake v2.3.0</a></p>
+      </div>
+    </div>
+    
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- script src="/blog/js/jquery-1.10.2.min.js"></script -->
+    <!-- script src="/blog/js/bootstrap.min.js"></script -->
+    <script src="/blog/js/run_prettify.js"></script>
+
+    <script type="text/javascript">
+        window.___gcfg = {lang: 'fr'};
+
+        (function() {
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+            po.src = 'https://apis.google.com/js/platform.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-46154958-1', 'lhuet.github.io');
+      ga('send', 'pageview');
+
+    </script>
+    
+  </body>
+</html>

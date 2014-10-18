@@ -6,9 +6,207 @@
     <atom:link href="http://lhuet.github.io/blog/feed.xml" rel="self" type="application/rss+xml" />
     <description>Java dans le hard(ware)</description>
     <language>en-gb</language>
-    <pubDate>dim., 5 oct. 2014 17:23:30 +0200</pubDate>
-    <lastBuildDate>dim., 5 oct. 2014 17:23:30 +0200</lastBuildDate>
+    <pubDate>sam., 18 oct. 2014 11:44:04 +0200</pubDate>
+    <lastBuildDate>sam., 18 oct. 2014 11:44:04 +0200</lastBuildDate>
 
+    <item>
+      <title>Tessel Getting Started</title>
+      <link>http://lhuet.github.io/blog/2014/10/getting-started-tessel.html</link>
+      <pubDate>sam., 18 oct. 2014 00:00:00 +0200</pubDate>
+      <guid isPermaLink="false">http://lhuet.github.io/blog/2014/10/getting-started-tessel.html</guid>
+      	<description>
+	&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Tessel est une carte à base de microcontrôleur ARM ayant pour particularité de se programmer en JavaScript.
+A l&amp;#8217;occasion de &lt;a href=&quot;http://bdx.io&quot;&gt;BDX.IO&lt;/a&gt;, &lt;a href=&quot;https://twitter.com/k33_org&quot;&gt;k33g_org&lt;/a&gt; m&amp;#8217;a gentiment prêté sa carte Tessel.
+Voici donc un retour sur mes quelques expérimentations.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_qu_est_ce_qu_elle_a_dans_le_ventre&quot;&gt;Qu&amp;#8217;est-ce qu&amp;#8217;elle a dans le ventre ?&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;imageblock&quot; style=&quot;text-align: center&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/blog/img/tessel.png&quot; alt=&quot;Tessel&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;https://tessel.io/docs/hardware&quot;&gt;Coté matériel&lt;/a&gt;, elle dispose de quelques atouts intéressants :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Processeur Cortex M3 à 180 MHz&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Puce WIFI TI CC3000&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;32 Mb RAM&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;32 Mb Flash&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Si on compare à un Arduino, la carte Tessel est une bête de course et on n&amp;#8217;est pas dans le même ordre de grandeur.
+Pour la mémoire, on parle en Mb coté Tessel et en Kb coté Arduino.
+Pour le microcontrôleur, l&amp;#8217;Arduino UNO est à 16MHz et le Tessel à 180 MHz.
+On est clairement dans un autre monde.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;En terme de connectivité, la carte Tessel dispose :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;de bus classiques 2 I2C, 1 SPI et 3 UART&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;de GPIO (General Purpose Input/Output) pour les entrées/sorties digitales (j&amp;#8217;en ai compté 18 répartis sur les 5 connecteurs) dont 3 sont utilisables en PWM (Pulse Width Modulation).&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;d&amp;#8217;entrées analogiques (j&amp;#8217;en ai vu 6) avec un ADC 10 bits.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Un système de connecteur générique avec 3 GPIO, I2C, SPI, 3.3V et GND est utilisé pour mettre en place un écosystème de module.
+La photo suivante montre un exemple d&amp;#8217;utilisation de plusieurs modules.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot; style=&quot;text-align: center&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/blog/img/TM-00-00-fullyloaded-top.jpg&quot; alt=&quot;Modules Tessel&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Voici quelques subtilités glanées dans la &lt;a href=&quot;https://tessel.io/docs/hardware&quot;&gt;documentation&lt;/a&gt; :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Il y a 1 seul bus SPI partagées sur tous les connecteurs.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Il y a 2 bus I2C (le 1er partagé sur les connecteurs A, B et GPIO et le second sur les connecteurs C et D)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Seuls les connecteurs A, B et D disposent d&amp;#8217;un UART hardware. Les UART des connecteurs C et GPIO sont software et seront intégrés dans un firmware futur.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_prise_en_main&quot;&gt;Prise en main&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Démarrer avec la Tessel est super simple, en particulier pour quelqu&amp;#8217;un qui est familier avec Node.js.
+Tout est basé sur Node.js: les outils et le code à produire.
+Toutes les APIs de core de Node.js ne sont pas implémentées sur le Tessel comme l&amp;#8217;indique une page dédiée de la &lt;a href=&quot;https://tessel.io/docs/compatibility&quot;&gt;documentation&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;La &lt;a href=&quot;http://tesseil.io/start&quot;&gt;&lt;em&gt;page de démarrage&lt;/em&gt;&lt;/a&gt; vous prend la main pour commencer en douceur.
+Il faut commencer par installer l&amp;#8217;outil CLI et les drivers USB. Sur linux, c&amp;#8217;est assez simple :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint bash language-bash&quot;&gt;&lt;code&gt;sudo npm install -g tessel&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;suivi de&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint bash language-bash&quot;&gt;&lt;code&gt;sudo tessel install-drivers&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Cela se termine en suivant les instructions pour mettre à jour le firmware :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot; style=&quot;text-align: center&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/blog/img/tessel_update.png&quot; alt=&quot;Update de firmware&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Pour vérifier que tout fonctionne, une commande permet d&amp;#8217;exécuter un bout de code rudimentaire qui fait clignoter les leds sur la carte :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint bash language-bash&quot;&gt;&lt;code&gt;tessel blink&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;__hello_world&quot;&gt;&quot;Hello World&quot;&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;On fait son premier programme en suivant la doc. Un copier/coller du code suivant dans le fichier blinky.js et on est prêt !&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint javascript language-javascript&quot;&gt;&lt;code&gt;// Import the interface to Tessel hardware
+var tessel = require(&apos;tessel&apos;);
+
+// Set the led pins as outputs with initial states
+// Truthy initial state sets the pin high
+// Falsy sets it low.
+var led1 = tessel.led[0].output(1);
+var led2 = tessel.led[1].output(0);
+
+setInterval(function () {
+    console.log(&quot;I&apos;m blinking! (Press CTRL + C to stop)&quot;);
+    // Toggle the led states
+    led1.toggle();
+    led2.toggle();
+}, 100);&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Il est possible de lancer le code depuis sa console :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint bash language-bash&quot;&gt;&lt;code&gt;tessel run blinky.js&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Ou de &quot;flasher&quot; la carte avec la commande :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint bash language-bash&quot;&gt;&lt;code&gt;tessel push blinky.js&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;That&amp;#8217;all !&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;La carte est très simple d&amp;#8217;accès. Reste à voir comment aller plus loin pour mieux exploiter ses capacités aussi bien au niveau réseau (via Wifi) qu&amp;#8217;au niveau hardware.
+Mes premiers essais ont montrés qu&amp;#8217;on peut facilement se connecter en Wifi. J&amp;#8217;essaierais de publier un autre article avec plus de détails à ce niveau.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Malgré tout ces points encourageant, je ne sais pas si j&amp;#8217;acheterais cette carte.
+Elle est assez cher (&lt;a href=&quot;https://www.trycelery.com/shop/TEC&quot;&gt;75 $ sur le site web officiel&lt;/a&gt;).
+Je n&amp;#8217;ai pas une vision globale du marché pour comparer avec une carte équivalente.
+Dans mes cartons, j&amp;#8217;ai une carte STM Nucleo qui se rapproche de la Tessel en terme de capacité hardware que j&amp;#8217;ai achetée environ 11 € &amp;#8230;
+Je ne suis peut-être pas non plus la cible des utilisateurs (JavaScript).&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+	</description>
+    </item>
     <item>
       <title>Réseau &quot;low cost&quot; d&amp;#8217;objets connectés en DIY avec le RS485</title>
       <link>http://lhuet.github.io/blog/2014/10/iot-arduino-rs485.html</link>
