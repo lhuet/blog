@@ -1,0 +1,128 @@
+= Tessel Getting Started
+Laurent HUET
+2014-10-18
+:jbake-type: post
+:jbake-tags: tessel javascript
+:jbake-status: published
+:source-highlighter: prettify
+:id: tessel-getting-started
+
+Tessel est une carte à base de microcontrôleur ARM ayant pour particularité de se programmer en JavaScript.
+A l'occasion de http://bdx.io[BDX.IO], https://twitter.com/k33_org[k33g_org] m'a gentiment prêté sa carte Tessel.
+Voici donc un retour sur mes premières expérimentations.
+
+== Qu'est-ce qu'elle a dans le ventre ?
+
+image::/blog/img/tessel.png[Tessel, align="center"]
+
+https://tessel.io/docs/hardware[Coté matériel], elle dispose de quelques atouts intéressants :
+
+* Processeur Cortex M3 à 180 MHz
+* Puce WIFI TI CC3000
+* 32 Mb RAM
+* 32 Mb Flash
+
+Si on compare à un Arduino, la carte Tessel est une bête de course et les 2 cartes ne jouent pas tout à fait dans la même cours !
+Pour la mémoire, on parle en Mb coté Tessel et en Kb coté Arduino.
+Pour le microcontrôleur, l'Arduino UNO est à 16MHz et le Tessel à 180 MHz.
+On est clairement dans un autre monde.
+
+En terme de connectivité, la carte Tessel dispose :
+
+* de bus classiques : 2 I2C, 1 SPI et 3 UART
+* de GPIO (General Purpose Input/Output) pour les entrées/sorties digitales (j'en ai compté 18 répartis sur les 5 connecteurs) dont 3 sont utilisables en PWM (Pulse Width Modulation).
+* d'entrées analogiques (j'en ai vu 6) avec un ADC 10 bits.
+
+Un système de connecteur générique avec 3 GPIO, I2C, SPI, 3.3V et GND est utilisé pour mettre en place un écosystème de module.
+La photo suivante montre un exemple d'utilisation de plusieurs modules.
+
+image::/blog/img/TM-00-00-fullyloaded-top.jpg[Modules Tessel, align="center"]
+
+Voici quelques subtilités glanées dans la https://tessel.io/docs/hardware[documentation] :
+
+* Il y a 1 seul bus SPI partagées sur tous les connecteurs.
+* Il y a 2 bus I2C (le 1er partagé sur les connecteurs A, B et GPIO et le second sur les connecteurs C et D)
+* Seuls les connecteurs A, B et D disposent d'un UART hardware. Les UART des connecteurs C et GPIO sont software et seront intégrés dans un firmware futur.
+
+== Prise en main
+
+Démarrer avec la Tessel est super simple, en particulier pour quelqu'un qui est familier avec Node.js.
+Tout est basé sur Node.js: les outils et le code à produire.
+Toutes les APIs core de Node.js ne sont cependant pas implémentées sur le Tessel comme l'indique une page dédiée de la https://tessel.io/docs/compatibility[documentation].
+Je n'ai pas regardé si c'était gếnant ou pas.
+
+La http://tesseil.io/start['page de démarrage'] vous prend la main pour commencer en douceur.
+Il faut commencer par installer l'outil CLI et les drivers USB. Sur linux, c'est assez simple :
+
+[source,bash]
+----
+sudo npm install -g tessel
+----
+
+suivi de
+
+[source,bash]
+----
+sudo tessel install-drivers
+----
+
+Cela se termine en suivant les instructions pour mettre à jour le firmware :
+
+image::/blog/img/tessel_update.png[Update de firmware, align="center"]
+
+Pour vérifier que tout fonctionne, une commande permet d'exécuter un bout de code rudimentaire qui fait clignoter les leds sur la carte :
+
+[source,bash]
+----
+tessel blink
+----
+
+== "Hello World"
+
+On fait son premier programme en suivant la doc. Un copier/coller du code suivant dans le fichier blinky.js et on est prêt !
+
+[source,javascript]
+----
+// Import the interface to Tessel hardware
+var tessel = require('tessel');
+
+// Set the led pins as outputs with initial states
+// Truthy initial state sets the pin high
+// Falsy sets it low.
+var led1 = tessel.led[0].output(1);
+var led2 = tessel.led[1].output(0);
+
+setInterval(function () {
+    console.log("I'm blinking! (Press CTRL + C to stop)");
+    // Toggle the led states
+    led1.toggle();
+    led2.toggle();
+}, 100);
+----
+
+Il est possible de lancer le code depuis sa console :
+
+[source,bash]
+----
+tessel run blinky.js
+----
+
+Si on veut que son programme reste sur la carte, il faut "flasher" son code avec la commande :
+
+[source,bash]
+----
+tessel push blinky.js
+----
+
+That'all !
+
+== Premières conclusions
+
+La carte est très simple d'accès. Reste à voir comment aller plus loin pour mieux exploiter ses capacités aussi bien au niveau réseau (via Wifi) qu'au niveau hardware.
+Mes premiers essais ont montrés qu'on peut facilement se connecter en Wifi mais je n'ai pas encore fait de serveur Web dessus par exemple (mon prochain article ?).
+
+Malgré tout ces points encourageant, je ne sais pas si j'acheterais cette carte.
+Elle est assez cher (https://www.trycelery.com/shop/TEC[75 $ sur le site web officiel]).
+Je n'ai pas une vision globale du marché pour comparer avec une carte équivalente.
+Dans mes cartons, j'ai une carte STM Nucleo qui se rapproche de la Tessel en terme de capacité hardware que j'ai achetée environ 11 € ...
+Je ne suis peut-être pas non plus la cible des utilisateurs (JavaScript).
