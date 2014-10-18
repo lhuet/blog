@@ -78,7 +78,7 @@
 <div class="paragraph">
 <p>Tessel est une carte à base de microcontrôleur ARM ayant pour particularité de se programmer en JavaScript.
 A l&#8217;occasion de <a href="http://bdx.io">BDX.IO</a>, <a href="https://twitter.com/k33_org">k33g_org</a> m&#8217;a gentiment prêté sa carte Tessel.
-Voici donc un retour sur mes quelques expérimentations.</p>
+Voici donc un retour sur mes premières expérimentations.</p>
 </div>
 </div>
 </div>
@@ -110,7 +110,7 @@ Voici donc un retour sur mes quelques expérimentations.</p>
 </ul>
 </div>
 <div class="paragraph">
-<p>Si on compare à un Arduino, la carte Tessel est une bête de course et on n&#8217;est pas dans le même ordre de grandeur.
+<p>Si on compare à un Arduino, la carte Tessel est une bête de course et les 2 cartes ne jouent pas tout à fait dans la même cours !
 Pour la mémoire, on parle en Mb coté Tessel et en Kb coté Arduino.
 Pour le microcontrôleur, l&#8217;Arduino UNO est à 16MHz et le Tessel à 180 MHz.
 On est clairement dans un autre monde.</p>
@@ -121,10 +121,10 @@ On est clairement dans un autre monde.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>de bus classiques 2 I2C, 1 SPI et 3 UART</p>
+<p>de bus classiques : 2 I2C, 1 SPI et 3 UART</p>
 </li>
 <li>
-<p>de GPIO (General Purpose Input/Output) pour les entrées/sorties digitales (j&#8217;en ai compté 18 répartis sur les 5 connecteurs) dont 3 sont utilisables en PWM (Pulse Width Modulation).</p>
+<p>de GPIO (General Purpose Input/Output) pour les entrées/sorties numériques (j&#8217;en ai compté 18 répartis sur les 5 connecteurs) dont 3 sont utilisables en PWM (Pulse Width Modulation).</p>
 </li>
 <li>
 <p>d&#8217;entrées analogiques (j&#8217;en ai vu 6) avec un ADC 10 bits.</p>
@@ -164,7 +164,8 @@ La photo suivante montre un exemple d&#8217;utilisation de plusieurs modules.</p
 <div class="paragraph">
 <p>Démarrer avec la Tessel est super simple, en particulier pour quelqu&#8217;un qui est familier avec Node.js.
 Tout est basé sur Node.js: les outils et le code à produire.
-Toutes les APIs de core de Node.js ne sont pas implémentées sur le Tessel comme l&#8217;indique une page dédiée de la <a href="https://tessel.io/docs/compatibility">documentation</a>.</p>
+Toutes les APIs core de Node.js ne sont cependant pas implémentées sur le Tessel comme l&#8217;indique une page dédiée de la <a href="https://tessel.io/docs/compatibility">documentation</a>.
+Je n&#8217;ai pas regardé si c'était gếnant ou pas.</p>
 </div>
 <div class="paragraph">
 <p>La <a href="http://tesseil.io/start"><em>page de démarrage</em></a> vous prend la main pour commencer en douceur.
@@ -235,7 +236,7 @@ setInterval(function () {
 </div>
 </div>
 <div class="paragraph">
-<p>Ou de "flasher" la carte avec la commande :</p>
+<p>Si on veut que son programme reste sur la carte, il faut "flasher" son code avec la commande :</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -248,11 +249,11 @@ setInterval(function () {
 </div>
 </div>
 <div class="sect1">
-<h2 id="_conclusion">Conclusion</h2>
+<h2 id="_premi_res_conclusions">Premières conclusions</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>La carte est très simple d&#8217;accès. Reste à voir comment aller plus loin pour mieux exploiter ses capacités aussi bien au niveau réseau (via Wifi) qu&#8217;au niveau hardware.
-Mes premiers essais ont montrés qu&#8217;on peut facilement se connecter en Wifi. J&#8217;essaierais de publier un autre article avec plus de détails à ce niveau.</p>
+Mes premiers essais ont montrés qu&#8217;on peut facilement se connecter en Wifi mais je n&#8217;ai pas encore fait de serveur Web dessus par exemple (mon prochain article ?).</p>
 </div>
 <div class="paragraph">
 <p>Malgré tout ces points encourageant, je ne sais pas si j&#8217;acheterais cette carte.

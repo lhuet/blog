@@ -6,8 +6,8 @@
     <atom:link href="http://lhuet.github.io/blog/feed.xml" rel="self" type="application/rss+xml" />
     <description>Java dans le hard(ware)</description>
     <language>en-gb</language>
-    <pubDate>sam., 18 oct. 2014 11:44:04 +0200</pubDate>
-    <lastBuildDate>sam., 18 oct. 2014 11:44:04 +0200</lastBuildDate>
+    <pubDate>sam., 18 oct. 2014 15:16:02 +0200</pubDate>
+    <lastBuildDate>sam., 18 oct. 2014 15:16:02 +0200</lastBuildDate>
 
     <item>
       <title>Tessel Getting Started</title>
@@ -20,7 +20,7 @@
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Tessel est une carte à base de microcontrôleur ARM ayant pour particularité de se programmer en JavaScript.
 A l&amp;#8217;occasion de &lt;a href=&quot;http://bdx.io&quot;&gt;BDX.IO&lt;/a&gt;, &lt;a href=&quot;https://twitter.com/k33_org&quot;&gt;k33g_org&lt;/a&gt; m&amp;#8217;a gentiment prêté sa carte Tessel.
-Voici donc un retour sur mes quelques expérimentations.&lt;/p&gt;
+Voici donc un retour sur mes premières expérimentations.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -52,7 +52,7 @@ Voici donc un retour sur mes quelques expérimentations.&lt;/p&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Si on compare à un Arduino, la carte Tessel est une bête de course et on n&amp;#8217;est pas dans le même ordre de grandeur.
+&lt;p&gt;Si on compare à un Arduino, la carte Tessel est une bête de course et les 2 cartes ne jouent pas tout à fait dans la même cours !
 Pour la mémoire, on parle en Mb coté Tessel et en Kb coté Arduino.
 Pour le microcontrôleur, l&amp;#8217;Arduino UNO est à 16MHz et le Tessel à 180 MHz.
 On est clairement dans un autre monde.&lt;/p&gt;
@@ -63,10 +63,10 @@ On est clairement dans un autre monde.&lt;/p&gt;
 &lt;div class=&quot;ulist&quot;&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;de bus classiques 2 I2C, 1 SPI et 3 UART&lt;/p&gt;
+&lt;p&gt;de bus classiques : 2 I2C, 1 SPI et 3 UART&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;de GPIO (General Purpose Input/Output) pour les entrées/sorties digitales (j&amp;#8217;en ai compté 18 répartis sur les 5 connecteurs) dont 3 sont utilisables en PWM (Pulse Width Modulation).&lt;/p&gt;
+&lt;p&gt;de GPIO (General Purpose Input/Output) pour les entrées/sorties numériques (j&amp;#8217;en ai compté 18 répartis sur les 5 connecteurs) dont 3 sont utilisables en PWM (Pulse Width Modulation).&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;d&amp;#8217;entrées analogiques (j&amp;#8217;en ai vu 6) avec un ADC 10 bits.&lt;/p&gt;
@@ -106,7 +106,8 @@ La photo suivante montre un exemple d&amp;#8217;utilisation de plusieurs modules
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Démarrer avec la Tessel est super simple, en particulier pour quelqu&amp;#8217;un qui est familier avec Node.js.
 Tout est basé sur Node.js: les outils et le code à produire.
-Toutes les APIs de core de Node.js ne sont pas implémentées sur le Tessel comme l&amp;#8217;indique une page dédiée de la &lt;a href=&quot;https://tessel.io/docs/compatibility&quot;&gt;documentation&lt;/a&gt;.&lt;/p&gt;
+Toutes les APIs core de Node.js ne sont cependant pas implémentées sur le Tessel comme l&amp;#8217;indique une page dédiée de la &lt;a href=&quot;https://tessel.io/docs/compatibility&quot;&gt;documentation&lt;/a&gt;.
+Je n&amp;#8217;ai pas regardé si c&apos;était gếnant ou pas.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;La &lt;a href=&quot;http://tesseil.io/start&quot;&gt;&lt;em&gt;page de démarrage&lt;/em&gt;&lt;/a&gt; vous prend la main pour commencer en douceur.
@@ -177,7 +178,7 @@ setInterval(function () {
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Ou de &quot;flasher&quot; la carte avec la commande :&lt;/p&gt;
+&lt;p&gt;Si on veut que son programme reste sur la carte, il faut &quot;flasher&quot; son code avec la commande :&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
@@ -190,11 +191,11 @@ setInterval(function () {
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;_conclusion&quot;&gt;Conclusion&lt;/h2&gt;
+&lt;h2 id=&quot;_premi_res_conclusions&quot;&gt;Premières conclusions&lt;/h2&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;La carte est très simple d&amp;#8217;accès. Reste à voir comment aller plus loin pour mieux exploiter ses capacités aussi bien au niveau réseau (via Wifi) qu&amp;#8217;au niveau hardware.
-Mes premiers essais ont montrés qu&amp;#8217;on peut facilement se connecter en Wifi. J&amp;#8217;essaierais de publier un autre article avec plus de détails à ce niveau.&lt;/p&gt;
+Mes premiers essais ont montrés qu&amp;#8217;on peut facilement se connecter en Wifi mais je n&amp;#8217;ai pas encore fait de serveur Web dessus par exemple (mon prochain article ?).&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Malgré tout ces points encourageant, je ne sais pas si j&amp;#8217;acheterais cette carte.
