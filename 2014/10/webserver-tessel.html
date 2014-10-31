@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Java dans le hard(ware) - Serveur Web sur Tessel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keywords" content="">    
+
+    <!-- Le styles -->
+    <link href="/blog/css/yeti/bootstrap.min.css" rel="stylesheet">
+    <link href="/blog/css/asciidoctor.css" rel="stylesheet">
+    <link href="/blog/css/base.css" rel="stylesheet">
+    <!-- link href="/blog/css/bootstrap-theme.min.css" rel="stylesheet" -->
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" href="favicon.ico">
+  </head>
+  <body>
+    <div id="wrap">
+	
+      <!-- Fixed navbar -->
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/blog">Java dans le hard(ware)</a>
+          </div>
+          <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="/blog/index.html">Home</a></li>
+              <li><a href="/blog/about.html">A propos</a></li>
+              <li><a href="/blog/feed.xml">Flux RSS</a></li>
+              <li><a href="/blog/archive.html">Archives</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="https://github.com/lhuet"><i class="fa fa-github"></i></a></li>
+              <li><a href="https://twitter.com/lhuet35"><i class="fa fa-twitter"></i></a>
+            </ul>
+          </div><!--/.nav-collapse -->
+
+        </div>
+      </div>
+      <div class="container">
+	
+	<div class="page-header">
+		<h1>Serveur Web sur Tessel</h1>
+	</div>
+
+	<p><em>31 octobre 2014</em></p>
+        <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://lhuet.github.io/blog/2014/10/webserver-tessel.html" data-via="lhuet35" data-text="Serveur Web sur Tessel" data-lang="fr">Tweeter</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+        <div class="g-plusone" data-size="medium" data-href="http://lhuet.github.io/blog/2014/10/webserver-tessel.html"></div>
+
+	<p><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Dans un <a href="http://lhuet.github.io/blog/2014/10/getting-started-tessel.html">article précédent</a>, je présentais la carte Tessel permettant d'écrire des programmes en JavaScript.
+Cette carte disposant d&#8217;une puce Wifi, il est tentant de faire tourner un serveur Web !</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_configuration_r_seau">Configuration Réseau</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Avant de pouvoir mettre un serveur Web sur la carte Tessel, il faut disposer d&#8217;une connexion réseau &#8230; et donc configurer l&#8217;accès Wifi.
+L&#8217;outil CLI fournit tout ce qu&#8217;il faut pour cela.</p>
+</div>
+<div class="paragraph">
+<p>La première chose à faire est de vérifier que la carte voit bien votre SSID :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint bash language-bash"><code>$ tessel wifi -l
+TESSEL! Connected to TM-00-04-f0009a30-00584f4b-704e6249.
+INFO Requesting wifi status...
+Currently visible networks (1):
+	home (61/127)
+INFO Connected: 0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Pour se connecter, vous pouvez utiliser <a href="https://tessel.io/docs/wifi#connecting-to-wifi-from-js">l&#8217;API JavaScript</a> (pour inclure la connexion dans votre code) ou l&#8217;outil en ligne de commande.
+C&#8217;est cette dernière option que j&#8217;ai choisi :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint bash language-bash"><code>$ tessel wifi -n home -p &lt;password&gt; -s [wpa|wpa2|wep]
+TESSEL! Connected to TM-00-04-f0009a30-00584f4b-704e6249.
+INFO Connecting to "home" with [wpa|wpa2|wep] security...
+INFO Acquiring IP address.
+.
+INFO Connected!
+
+IP	 192.168.0.8
+DNS	 212.27.40.241
+DHCP	 192.168.0.254
+Gateway	 192.168.0.254</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Les informations de connexion sont persistantes et lorsque vous redémarrez la carte, la connexion Wifi s&#8217;active au démarrage.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_serveur_web_node_js_basique">Serveur Web Node.js basique</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Node.js offre l&#8217;API de base pour faire tourner un serveur HTTP. J&#8217;ai donc commencé par cela :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint javascript language-javascript"><code>var http = require('http');
+
+var server = http.createServer(function (request, response) {
+  response.writeHead(200, {"Content-Type": "text/plain"});
+  response.end("Hello World\n");
+});
+
+server.listen(80);
+
+console.log("Server running ...");</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Vous remarquerez qu&#8217;on peut utiliser le port 80 sans souci (pas de sécurité pour les ports inférieurs à 1024 !).
+Il n&#8217;y a plus qu'à lancer le programme :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint bash language-bash"><code>$ tessel run http-server.js
+TESSEL! Connected to TM-00-04-f0009a30-00584f4b-704e6249.
+INFO Bundling directory /home/lhuet/dev/hardware/tessel/webserver
+INFO Deploying bundle (1.25 MB)...
+INFO Running script...
+Server running ...</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Le programme fonctionne très bien mais semble un peu lent.
+Effectivement, la simple requête GET met plus d&#8217;une seconde :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint bash language-bash"><code>$ time curl http://192.168.0.8
+Hello World
+
+real	0m1.334s
+user	0m0.012s
+sys	0m0.004s</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A comparer avec le même programme sur mon PC (core i7 qui n&#8217;a rien de comparable &#8230;) :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint bash language-bash"><code>time curl http://127.0.0.1:8000
+Hello World
+
+real	0m0.007s
+user	0m0.006s
+sys	0m0.000s</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Vous l&#8217;avez compris, on ne va pas utiliser la carte Tessel pour faire un bench. Elle n&#8217;est pas faite pour cela non plus.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_framework_vs_vanilla_node_js">Framework vs Vanilla (node)JS</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Avec des ressources limitées et le résultat ci-dessus, la question d&#8217;utiliser ou non un framework est donc légitime.
+D&#8217;un côté, disposer d&#8217;un framework avec routeur et autres joyeusetés est appréciable pour code vite.
+D&#8217;un autre côté, comme dans tout framework, nous n&#8217;avons souvent besoin que d&#8217;un sous ensemble.
+Sur un serveur "classique", on ne se pose pas (assez ?) souvent la question mais sur microcontrolleur, c&#8217;est déjà beaucoup que de faire tourner du JavaScript &#8230; alors un framework !</p>
+</div>
+<div class="paragraph">
+<p>Un <a href="https://twitter.com/technicalhumans/status/433365690511155200">tweet</a> m&#8217;a donné l&#8217;espoir de faire tourner <a href="http://expressjs.com/">Express</a>.
+Je suis vite tombé sur un bug bloquant pour faire tourner les versions récentes d&#8217;Express et n&#8217;ait pas trouvé une version fonctionnelle sur la carte Tessel.
+J&#8217;ai donc cherché une autre piste et trouvé rapidement la librairie <a href="https://github.com/pirumpi/tiny-router">tiny-router</a> plus légère et ayant pour cible la carte Tessel.</p>
+</div>
+<div class="paragraph">
+<p>Vite, un "Hello World" pour voir ce que ça donne :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint javascript language-javascript"><code>var router = require('tiny-router');
+
+router.get('/', function(req, res) {
+  res.send('Hello World');
+});
+
+router.listen(80);
+console.log("Server running ...");</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Un petit test pour vérifier que ça marche :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint bash language-bash"><code>time curl http://192.168.0.8
+Hello World
+real	0m1.194s
+user	0m0.000s
+sys	0m0.010s</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>On voit qu&#8217;on n&#8217;est dans le même ordre de grandeur qu&#8217;avec l&#8217;API de base.
+Pour aller (un petit peu) plus loin, j&#8217;ai utilisé l&#8217;exemple qui permet de commencer à jouer avec les leds sur la carte et on retrouve une application qui ressemble à ce qu&#8217;on a avec Express:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint javascript language-javascript"><code>var router = require('tiny-router'),
+    tessel = require('tessel');
+
+var lights = {
+    green: tessel.led[0],
+    blue: tessel.led[1],
+    red: tessel.led[2],
+    amber: tessel.led[3]
+};
+
+router
+    .get('/', function(req, res) {
+        res.send('Simple light web API');
+    })
+    .get('/lights', function(req, res){
+        res.send(lights);
+    })
+    .get('/green', function(req, res){
+        var state = lights.green.read();
+        lights.green.write(state);
+        res.send({status: state});
+    })
+    .get('/green/{state}', function(req, res){
+        var state = parseInt(req.body.state);
+        lights.green.write(state);
+        res.send({status: state});
+    });
+
+router.listen(80);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Avec ce programme, on peut jouer avec la led verte de la carte en utilisant les URLs :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://192.168.0.8/green/0">http://192.168.0.8/green/0</a> pour allumer la led</p>
+</li>
+<li>
+<p><a href="http://192.168.0.8/green/1">http://192.168.0.8/green/1</a> pour éteindre la led</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>En conclusion, je dirais que cette librairie tiny-router est amplement suffisante pour utiliser la carte Tessel.
+Je n&#8217;ai pas fait de tests, mais je me demande si une simple carte arduino avec un shield Ethernet ne serait pas plus rapide car les temps de réponse, bien qu&#8217;acceptables, ne sont pas impressionnants.</p>
+</div>
+</div>
+</div></p>
+
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'javadanslehardware'; 
+            var disqus_identifier = 'webserver-on-tessel';
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+
+	<hr>
+	
+		</div>
+		<div id="push"></div>
+    </div>
+    
+    <div id="footer">
+      <div class="container">
+        <p class="text-muted credit">L'ensemble des posts de ce blog sont publiés sous licence <em>Creative Commons by-nc-sa</em>. <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png"/></a></p>
+        <p class="text-muted credit">&copy; 2013 | Mixed with <a href="http://twitter.github.com/bootstrap/">Bootstrap v3.0.2</a> | Baked with <a href="http://jbake.org">JBake v2.3.0</a></p>
+      </div>
+    </div>
+    
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- script src="/blog/js/jquery-1.10.2.min.js"></script -->
+    <!-- script src="/blog/js/bootstrap.min.js"></script -->
+    <script src="/blog/js/run_prettify.js"></script>
+
+    <script type="text/javascript">
+        window.___gcfg = {lang: 'fr'};
+
+        (function() {
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+            po.src = 'https://apis.google.com/js/platform.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-46154958-1', 'lhuet.github.io');
+      ga('send', 'pageview');
+
+    </script>
+    
+  </body>
+</html>

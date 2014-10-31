@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Java dans le hard(ware)</title>
+    <title>Java dans le hard(ware) - Paperduino où comment construire sa carte arduino-like</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -30,7 +30,7 @@
   </head>
   <body>
     <div id="wrap">
-
+	
       <!-- Fixed navbar -->
       <div class="navbar navbar-default navbar-fixed-top" role="navigation">
         <div class="container">
@@ -61,42 +61,130 @@
       <div class="container">
 	
 	<div class="page-header">
-		<h1>Blog Archive</h1>
+		<h1>Paperduino où comment construire sa carte arduino-like</h1>
 	</div>
-	
-	<!--<ul>-->
-			<h4>octobre 2014</h4>
-			<ul>
-		
-		<li>31 - <a href="/blog/2014/10/webserver-tessel.html">Serveur Web sur Tessel</a></li>
-		
-		<li>18 - <a href="/blog/2014/10/getting-started-tessel.html">Tessel Getting Started</a></li>
-		
-		<li>05 - <a href="/blog/2014/10/iot-arduino-rs485.html">Réseau "low cost" d&#8217;objets connectés en DIY avec le RS485</a></li>
-				</ul>
-				<h4>juin 2014</h4>
-				<ul>
-		
-		<li>23 - <a href="/blog/2014/06/gvm-on-beaglebone.html">Groovy, Gradle and Vert.x on Beaglebone with GVM</a></li>
-		
-		<li>09 - <a href="/blog/2014/06/likebox.html">"LikeBox" du BreizhCamp</a></li>
-				</ul>
-				<h4>janvier 2014</h4>
-				<ul>
-		
-		<li>26 - <a href="/blog/2014/01/teleinfo-raspberrypi.html">Teleinfo - Préparation d&#8217;une Raspberry Pi</a></li>
-		
-		<li>19 - <a href="/blog/2014/01/montage-teleinfo.html">Montage teleinfo pour Raspberry Pi / BeagleBone</a></li>
-				</ul>
-				<h4>décembre 2013</h4>
-				<ul>
-		
-		<li>14 - <a href="/blog/2013/12/jdk7-jdk8-sur-beaglebone.html">Java 7 et 8 sur BeagleBone Black (BBB)</a></li>
-		
-		<li>08 - <a href="/blog/2013/12/beaglebone-black-overview.html">Premiers pas avec la BeagleBone Black (BBB)</a></li>
-		
-		<li>01 - <a href="/blog/2013/12/yet-another-blog.html">Yet another blog !</a></li>
-	</ul>
+
+	<p><em>28 octobre 2014</em></p>
+        <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://lhuet.github.io/blog/2014/10/make-your-own-arduino-board.html" data-via="lhuet35" data-text="Paperduino où comment construire sa carte arduino-like" data-lang="fr">Tweeter</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+        <div class="g-plusone" data-size="medium" data-href="http://lhuet.github.io/blog/2014/10/make-your-own-arduino-board.html"></div>
+
+	<p><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p><a href="http://paperduino.eu/doku.php">Paperduino</a> est un projet permettant de se fabriquer une carte compatible Arduino pour un coût très modique (~4€).
+L&#8217;originalité du montage est d&#8217;utiliser du papier cartonné comme PCB !</p>
+</div>
+<div class="paragraph">
+<p>Ce montage utilise un microcontrolleur 8 bit Atmel ATtiny85 ayant les caractéristiques suivantes :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>8k de mémoire flash (6k dispo une fois le firmware en place)</p>
+</li>
+<li>
+<p>Bus I2C / SPI</p>
+</li>
+<li>
+<p>Max 6 GPIO</p>
+</li>
+<li>
+<p>4 entrées analogiques possibles</p>
+</li>
+<li>
+<p>3 sorties utilisables en PWM (~ sorties analogiques par modulation de fréquence)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Au final, ayant passé quelques heures pour faire fonctionner mon montage, je vous livre ici les étapes à suivre pour refaire cela chez vous.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_papier_cartonn_comme_pcb">Papier cartonné comme PCB</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Bien qu&#8217;il y ait des possibilités de commander des <em>Paperduino Cards</em>, j&#8217;ai utilisé le <a href="http://paperduino.eu/lib/exe/fetch.php?media=paperduino-tiny.pdf">template pdf</a>.
+N&#8217;ayant sous la main qu&#8217;une simple imprimante Jet d&#8217;encre non recto-verso, j&#8217;ai simplement réalisé les opérations suivantes :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>imprimer sur 2 feuilles chaque face du template</p>
+</li>
+<li>
+<p>découper la partie <em>PCB</em> (pointillés) sur les feuilles imprimées</p>
+</li>
+<li>
+<p>coller sur une feuille cartonnée (papier Canson) chaque face</p>
+</li>
+<li>
+<p>découper la feuille cartonée pour obtenir le PCB</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Les percements ne sont pas évident à faire au compas en raison du PCB qui est assez souple ;-)
+Ma petite astuce a été d&#8217;utiliser un bouchon de liège sous le PCB pour chaque percement.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_faites_chauffer_votre_fer_souder">Faites chauffer votre fer à souder</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Le wiki officiel décrit très bien la construction hardware</p>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="/blog/img/tessel.png" alt="Tessel">
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_flash_du_firmware_micronucleus">Flash du firmware micronucleus</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Arduino UNO</p>
+</div>
+<div class="paragraph">
+<p>Conf OS</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_ide_arduino_pour_la_programmation">IDE Arduino pour la programmation</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Arduino</p>
+</div>
+<div class="paragraph">
+<p>That&#8217;all !</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_premi_res_conclusions">Premières conclusions</h2>
+<div class="sectionbody">
+
+</div>
+</div></p>
+
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'javadanslehardware'; 
+            var disqus_identifier = 'make-your-own-arduino';
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+
+	<hr>
 	
 		</div>
 		<div id="push"></div>
