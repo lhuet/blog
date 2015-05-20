@@ -2,7 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Java dans le hard(ware) - Montage teleinfo pour Raspberry Pi / BeagleBone</title>
+    <title>Java dans le hard(ware) - ESP8266 - Overview</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -61,112 +61,129 @@
       <div class="container">
 	
 	<div class="page-header">
-		<h1>Montage teleinfo pour Raspberry Pi / BeagleBone</h1>
+		<h1>ESP8266 - Overview</h1>
 	</div>
 
-	<p><em>19 janvier 2014</em></p>
-        <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://lhuet.github.io/blog/2014/01/montage-teleinfo.html" data-via="lhuet35" data-text="Montage teleinfo pour Raspberry Pi / BeagleBone" data-lang="fr">Tweeter</a>
+	<p><em>18 mai 2015</em></p>
+        <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://lhuet.github.io/blog/2015/05/esp8266-overview.html" data-via="lhuet35" data-text="ESP8266 - Overview" data-lang="fr">Tweeter</a>
         <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-        <div class="g-plusone" data-size="medium" data-href="http://lhuet.github.io/blog/2014/01/montage-teleinfo.html"></div>
+        <div class="g-plusone" data-size="medium" data-href="http://lhuet.github.io/blog/2015/05/esp8266-overview.html"></div>
 
 	<p><div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Cela fait quelques mois que j&#8217;ai testé et mis en place un montage simple pour brancher mon compteur EDF sur Beaglebone et Raspberry Pi. Je vous restitue donc tout ce qu&#8217;il faut pour reproduire celui-ci chez vous. L&#8217;inspiration de ce montage provient du forum <a href="http://www.chaleurterre.com/forum/viewtopic.php?p=51607#p51607">chaleurterre.com</a>. J&#8217;ai finalisé ce montage avec l&#8217;aide de zzdomi du forum <a href="http://www.touteladomotique.com/forum/viewtopic.php?f=30&amp;t=1513&amp;start=576">touteladomotique.com</a>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_principe">Principe</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Le compteur EDF fourni un signal appelé téléinfo pouvant être transformé en signal série TTL compatible avec les cartes Raspberry Pi ou BeagleBone. Les spécifications du signal teleinfo et de son protocole sont disponibles sur le <a href="http://www.erdf.fr/sites/default/files/ERDF-NOI-CPT_02E.pdf">site d&#8217;ERDF en PDF</a>.</p>
+<p>Depuis la fin 2014, j&#8217;ai découvert un micro-contrôleur très abordable (&lt;5€) avec connectivité WiFi intégré.
+Ses capacités en font un candidat de choix pour tous vos projets d&#8217;objets connectés !</p>
 </div>
 <div class="paragraph">
-<p>L&#8217;objet du montage de ce post est de réaliser cette transformation pour obtenir un signal compatible avec les UART des cartes récentes de type Raspberry Pi / BeagleBone / &#8230; (niveaux en 3.3V).</p>
-</div>
-<div class="paragraph">
-<p>Le signal teleinfo des compteurs EDF doit être activé (configuration interne du compteur). Si ce signal n&#8217;est pas activé, il faut demander à EDF de venir chez vous le configurer. En effet, la configuration est réalisée sur la partie haute du compteur &#8230; qui vous est interdite d&#8217;accès (plombage). Ayant un compteur configuré dès son installation, je ne pourrais pas vous guider plus sur la démarche à suivre.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_bornier_client_compteur_edf">Bornier client compteur EDF</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Le bornier client du compteur EDF se situe sur sa partie basse comme le montre le schéma suivant :</p>
+<p>Voici donc le premier billet d&#8217;une série sur ce micro-controleur aux multiples facettes :</p>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
-<img src="/blog/img/teleinfo_compteur.jpg" alt="Bornier compteur EDF teleinfo">
+<img src="/blog/img/esp8266_esp01.jpg" alt="ESP8266 / ESP01">
 </div>
-</div>
-<div class="paragraph">
-<p>Les bornes I1 et I2 fournissent le signal convoité. Vous pouvez utiliser du simple cable téléphonique et, dans des conditions optimales, la longueur de ce cable peut aller jusqu'à 500m (donnée des spécifications).</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_montage_teleinfo_uart_ttl">Montage teleinfo &#8594; UART TTL</h2>
+<h2 id="_cot_hardware">Coté hardware</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Le montage utilise uniquement uniquement 3 composants :</p>
+<p>Les cartes à base d&#8217;ESP8266 sont plus à comparer aux cartes de type Arduino qu&#8217;aux cartes de type Raspberry Pi.
+Il s&#8217;agit en effet d&#8217;un micro-controleur ayant comme atout principal une connectivité WiFi intégré.
+Ce qui est d&#8217;autant plus appréciable, c&#8217;est que la puce ESP8266 supporte de
+manière native le WPA et que le SSL est de la partie (Les spécialistes de la sécurité y trouveront encore d&#8217;autres atouts).</p>
+</div>
+<div class="sect2">
+<h3 id="_soc_expressif">SoC Expressif</h3>
+<div class="paragraph">
+<p><a href="http://espressif.com/">Espressif</a> est le fabricant de la puce <a href="http://espressif.com/en/products/esp8266/">ESP8266</a>.
+Les principales caractéristiques de ce SoC ("System On Chip") sont :</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>1 optocoupleur <a href="http://www.vishay.com/docs/83675/sfh620a.pdf">SFH620A</a></p>
+<p>CPU Risc 32 bit @80MHz</p>
 </li>
 <li>
-<p>1 résistance 1.2k</p>
+<p>WiFi 2.4 GHz (802.11 b/g/n)</p>
 </li>
 <li>
-<p>1 résistance 3.3k</p>
+<p>64 Kb RAM (selon le wiki)</p>
+</li>
+<li>
+<p>&gt;512 Kb Flash SPI (dépend des versions de cartes)</p>
+</li>
+<li>
+<p>GPIO / PWM / ADC</p>
+</li>
+<li>
+<p>UART / I2C / SPI</p>
+</li>
+<li>
+<p>Alimentation en 3,3V</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>Attention à prendre la référence exacte de l&#8217;optocoupleur car les latences (de basculement) de celui-ci sont importantes. Inutile donc de chercher des équivalences avec le même montage.</p>
+<p>De quoi connecter quelques capteurs et alimenter vos plate-formes "BigData" !</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_diff_rentes_versions">Différentes versions</h3>
+<div class="paragraph">
+<p>Selon vos besoins, il existe différentes versions avec plus ou moins de fonctionnalités (ie. nombre de pins disponibles).
+Les versions sont notées ESP-XX avec XX allant de 01 à 13.</p>
 </div>
 <div class="paragraph">
-<p>Comme le montre le schéma suivant, le montage est assez basique :</p>
+<p>La page de wiki suivante vous donnera un bon aperçu de cette diversité :
+ <a href="http://www.esp8266.com/wiki/doku.php?id=esp8266-module-family">http://www.esp8266.com/wiki/doku.php?id=esp8266-module-family</a></p>
+</div>
+<div class="paragraph">
+<p>Pour vous donner une idée de la taille, voici quelques exemplaires à côté d&#8217;un cutter :</p>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
-<img src="/blog/img/teleinfo_schema.jpg" alt="Schéma montage Teleinfo">
+<img src="/blog/img/esp8266_xx.jpeg" alt="Variétés d" width="ESP8266'">
 </div>
-</div>
-<div class="paragraph">
-<p>Vous pouvez tester ce montage sur une carte d&#8217;essai (breadboard) avant de passer à la soudure. Pour cela, utilisez un logiciel capable de lire un port série (screen ou minicom par exemple). Les caractéristiques de la communication sont "1200 7E1", ie. 1200 bauds, 7 bits de données, parité paire, 1 bit stop.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_cablage_sur_raspberry_pi_beaglebone_black">Cablage sur Raspberry Pi / Beaglebone Black</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Le schéma Fritzing suivant montre le cablage pour la Raspberry Pi :</p>
-</div>
-<div class="imageblock" style="text-align: center">
-<div class="content">
-<img src="/blog/img/teleinfo_rpi.jpg" alt="Cablage RPi Teleinfo">
-</div>
-</div>
-<div class="paragraph">
-<p>La même chose avec la Beaglebone Black :</p>
-</div>
-<div class="imageblock" style="text-align: center">
-<div class="content">
-<img src="/blog/img/teleinfo_bbb.jpg" alt="Cablage Beaglebone Black Teleinfo">
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_pour_aller_plus_loin">Pour aller plus loin</h2>
+<h2 id="_cot_applicatif_quoi_faire_comment">Coté applicatif : Quoi faire ? Comment ?</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Après la partie hardware, il faut passer à la partie software. Vous pouvez utiliser les programmes <a href="https://github.com/lhuet/teleinfo/tree/master/python/home/pi/teleinfo/python">Python</a> ou <a href="https://github.com/lhuet/tarifbleu-node">JavaScript</a> (node.js) que j&#8217;ai écrit par exemple.</p>
+<p>Comme il s&#8217;agit d&#8217;un micro-contrôleur, le terme "firmware" est souvent utilisé.
+Vous l&#8217;aurez compris, il s&#8217;agit du programme qui tourne sur cette carte.
+Et pour changer de "firmware", on va utiliser un outil de type "flash" est utilisé.</p>
+</div>
+<div class="paragraph">
+<p>Pour faire court, côté applicatif, il y a plusieurs possibilités dont les utilisations les plus courantes sont :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Mode modem (Commandes AT) qui permet d&#8217;apporter une connectivité Wifi à une carte arduino par exemple</p>
+</li>
+<li>
+<p>Interpreteur Lua avec le firmware <a href="https://github.com/nodemcu/nodemcu-firmware">NodeMCU</a> (scripts LUA uploadés sur la flash SPI)</p>
+</li>
+<li>
+<p>Coder en C votre propre firmware avec le <a href="http://bbs.espressif.com/viewforum.php?f=5">SDK officiel</a> et la <a href="https://github.com/pfalcon/esp-open-sdk">toolchain GCC</a> qui va bien !</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>C&#8217;est la 3ème solution que j&#8217;ai utilisé pour la démo du talk DevoxxFr 2015 animé en avril dernier avec Philippe Charrière :</p>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="/blog/img/esp8266_nest_like.jpg" alt="NEST-like avec ESP8266">
+</div>
+</div>
+<div class="paragraph">
+<p>La suite dans les prochains billets ;-)</p>
 </div>
 </div>
 </div></p>
@@ -174,7 +191,7 @@
         <div id="disqus_thread"></div>
         <script type="text/javascript">
             var disqus_shortname = 'javadanslehardware'; 
-            var disqus_identifier = 'montage_teleinfo';
+            var disqus_identifier = 'esp8266_overview';
             (function() {
                 var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
                 dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';

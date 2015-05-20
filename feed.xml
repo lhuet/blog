@@ -6,9 +6,135 @@
     <atom:link href="http://lhuet.github.io/blog/feed.xml" rel="self" type="application/rss+xml" />
     <description>Java dans le hard(ware)</description>
     <language>en-gb</language>
-    <pubDate>ven., 31 oct. 2014 16:57:58 +0100</pubDate>
-    <lastBuildDate>ven., 31 oct. 2014 16:57:58 +0100</lastBuildDate>
+    <pubDate>jeu., 21 mai 2015 00:11:33 +0200</pubDate>
+    <lastBuildDate>jeu., 21 mai 2015 00:11:33 +0200</lastBuildDate>
 
+    <item>
+      <title>ESP8266 - Overview</title>
+      <link>http://lhuet.github.io/blog/2015/05/esp8266-overview.html</link>
+      <pubDate>lun., 18 mai 2015 00:00:00 +0200</pubDate>
+      <guid isPermaLink="false">http://lhuet.github.io/blog/2015/05/esp8266-overview.html</guid>
+      	<description>
+	&lt;div id=&quot;preamble&quot;&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Depuis la fin 2014, j&amp;#8217;ai découvert un micro-contrôleur très abordable (&amp;lt;5€) avec connectivité WiFi intégré.
+Ses capacités en font un candidat de choix pour tous vos projets d&amp;#8217;objets connectés !&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Voici donc le premier billet d&amp;#8217;une série sur ce micro-controleur aux multiples facettes :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot; style=&quot;text-align: center&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/blog/img/esp8266_esp01.jpg&quot; alt=&quot;ESP8266 / ESP01&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_cot_hardware&quot;&gt;Coté hardware&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Les cartes à base d&amp;#8217;ESP8266 sont plus à comparer aux cartes de type Arduino qu&amp;#8217;aux cartes de type Raspberry Pi.
+Il s&amp;#8217;agit en effet d&amp;#8217;un micro-controleur ayant comme atout principal une connectivité WiFi intégré.
+Ce qui est d&amp;#8217;autant plus appréciable, c&amp;#8217;est que la puce ESP8266 supporte de
+manière native le WPA et que le SSL est de la partie (Les spécialistes de la sécurité y trouveront encore d&amp;#8217;autres atouts).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_soc_expressif&quot;&gt;SoC Expressif&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;a href=&quot;http://espressif.com/&quot;&gt;Espressif&lt;/a&gt; est le fabricant de la puce &lt;a href=&quot;http://espressif.com/en/products/esp8266/&quot;&gt;ESP8266&lt;/a&gt;.
+Les principales caractéristiques de ce SoC (&quot;System On Chip&quot;) sont :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;CPU Risc 32 bit @80MHz&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;WiFi 2.4 GHz (802.11 b/g/n)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;64 Kb RAM (selon le wiki)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&amp;gt;512 Kb Flash SPI (dépend des versions de cartes)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;GPIO / PWM / ADC&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;UART / I2C / SPI&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Alimentation en 3,3V&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;De quoi connecter quelques capteurs et alimenter vos plate-formes &quot;BigData&quot; !&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_diff_rentes_versions&quot;&gt;Différentes versions&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Selon vos besoins, il existe différentes versions avec plus ou moins de fonctionnalités (ie. nombre de pins disponibles).
+Les versions sont notées ESP-XX avec XX allant de 01 à 13.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;La page de wiki suivante vous donnera un bon aperçu de cette diversité :
+ &lt;a href=&quot;http://www.esp8266.com/wiki/doku.php?id=esp8266-module-family&quot;&gt;http://www.esp8266.com/wiki/doku.php?id=esp8266-module-family&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Pour vous donner une idée de la taille, voici quelques exemplaires à côté d&amp;#8217;un cutter :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot; style=&quot;text-align: center&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/blog/img/esp8266_xx.jpeg&quot; alt=&quot;Variétés d&quot; width=&quot;ESP8266&apos;&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_cot_applicatif_quoi_faire_comment&quot;&gt;Coté applicatif : Quoi faire ? Comment ?&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Comme il s&amp;#8217;agit d&amp;#8217;un micro-contrôleur, le terme &quot;firmware&quot; est souvent utilisé.
+Vous l&amp;#8217;aurez compris, il s&amp;#8217;agit du programme qui tourne sur cette carte.
+Et pour changer de &quot;firmware&quot;, on va utiliser un outil de type &quot;flash&quot; est utilisé.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Pour faire court, côté applicatif, il y a plusieurs possibilités dont les utilisations les plus courantes sont :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Mode modem (Commandes AT) qui permet d&amp;#8217;apporter une connectivité Wifi à une carte arduino par exemple&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Interpreteur Lua avec le firmware &lt;a href=&quot;https://github.com/nodemcu/nodemcu-firmware&quot;&gt;NodeMCU&lt;/a&gt; (scripts LUA uploadés sur la flash SPI)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Coder en C votre propre firmware avec le &lt;a href=&quot;http://bbs.espressif.com/viewforum.php?f=5&quot;&gt;SDK officiel&lt;/a&gt; et la &lt;a href=&quot;https://github.com/pfalcon/esp-open-sdk&quot;&gt;toolchain GCC&lt;/a&gt; qui va bien !&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;C&amp;#8217;est la 3ème solution que j&amp;#8217;ai utilisé pour la démo du talk DevoxxFr 2015 animé en avril dernier avec Philippe Charrière :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot; style=&quot;text-align: center&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/blog/img/esp8266_nest_like.jpg&quot; alt=&quot;NEST-like avec ESP8266&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;La suite dans les prochains billets ;-)&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+	</description>
+    </item>
     <item>
       <title>Serveur Web sur Tessel</title>
       <link>http://lhuet.github.io/blog/2014/10/webserver-tessel.html</link>
@@ -1143,7 +1269,7 @@ exit 0&lt;/code&gt;&lt;/pre&gt;
 	&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Cela fait quelques mois que j&amp;#8217;ai testé et mis en place un montage simple pour brancher mon compteur EDF sur Beaglebone et Raspberry Pi. Je vous restitue donc tout ce qu&amp;#8217;il faut pour reproduire celui-ci chez vous. L&amp;#8217;inspiration de ce montage provient du forum &lt;a href=&quot;http://www.chaleurterre.com/forum/viewtopic.php?p=51607#51607&quot;&gt;chaleurterre.com&lt;/a&gt;. J&amp;#8217;ai finalisé ce montage avec l&amp;#8217;aide de zzdomi du forum &lt;a href=&quot;http://www.touteladomotique.com/forum/viewtopic.php?f=30&amp;amp;t=1513&amp;amp;start=576&quot;&gt;touteladomotique.com&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Cela fait quelques mois que j&amp;#8217;ai testé et mis en place un montage simple pour brancher mon compteur EDF sur Beaglebone et Raspberry Pi. Je vous restitue donc tout ce qu&amp;#8217;il faut pour reproduire celui-ci chez vous. L&amp;#8217;inspiration de ce montage provient du forum &lt;a href=&quot;http://www.chaleurterre.com/forum/viewtopic.php?p=51607#p51607&quot;&gt;chaleurterre.com&lt;/a&gt;. J&amp;#8217;ai finalisé ce montage avec l&amp;#8217;aide de zzdomi du forum &lt;a href=&quot;http://www.touteladomotique.com/forum/viewtopic.php?f=30&amp;amp;t=1513&amp;amp;start=576&quot;&gt;touteladomotique.com&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -1151,7 +1277,7 @@ exit 0&lt;/code&gt;&lt;/pre&gt;
 &lt;h2 id=&quot;_principe&quot;&gt;Principe&lt;/h2&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Le compteur EDF fourni un signal appelé téléinfo pouvant être transformé en signal série TTL compatible avec les cartes Raspberry Pi ou BeagleBone. Les spécifications du signal teleinfo et de son protocole sont disponibles sur le &lt;a href=&quot;http://www.erdfdistribution.fr/medias/DTR_Racc_Comptage/ERDF-NOI-CPT_02E.pdf&quot;&gt;site d&amp;#8217;ERDF en PDF&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;Le compteur EDF fourni un signal appelé téléinfo pouvant être transformé en signal série TTL compatible avec les cartes Raspberry Pi ou BeagleBone. Les spécifications du signal teleinfo et de son protocole sont disponibles sur le &lt;a href=&quot;http://www.erdf.fr/sites/default/files/ERDF-NOI-CPT_02E.pdf&quot;&gt;site d&amp;#8217;ERDF en PDF&lt;/a&gt;.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;L&amp;#8217;objet du montage de ce post est de réaliser cette transformation pour obtenir un signal compatible avec les UART des cartes récentes de type Raspberry Pi / BeagleBone / &amp;#8230; (niveaux en 3.3V).&lt;/p&gt;
