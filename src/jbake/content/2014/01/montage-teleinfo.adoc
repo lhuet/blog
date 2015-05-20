@@ -7,11 +7,11 @@ Laurent HUET
 :source-highlighter: prettify
 :id: montage_teleinfo
 
-Cela fait quelques mois que j'ai testé et mis en place un montage simple pour brancher mon compteur EDF sur Beaglebone et Raspberry Pi. Je vous restitue donc tout ce qu'il faut pour reproduire celui-ci chez vous. L'inspiration de ce montage provient du forum http://www.chaleurterre.com/forum/viewtopic.php?p=51607#51607[chaleurterre.com]. J'ai finalisé ce montage avec l'aide de zzdomi du forum http://www.touteladomotique.com/forum/viewtopic.php?f=30&t=1513&start=576[touteladomotique.com].
+Cela fait quelques mois que j'ai testé et mis en place un montage simple pour brancher mon compteur EDF sur Beaglebone et Raspberry Pi. Je vous restitue donc tout ce qu'il faut pour reproduire celui-ci chez vous. L'inspiration de ce montage provient du forum http://www.chaleurterre.com/forum/viewtopic.php?p=51607#p51607[chaleurterre.com]. J'ai finalisé ce montage avec l'aide de zzdomi du forum http://www.touteladomotique.com/forum/viewtopic.php?f=30&t=1513&start=576[touteladomotique.com].
 
 == Principe
 
-Le compteur EDF fourni un signal appelé téléinfo pouvant être transformé en signal série TTL compatible avec les cartes Raspberry Pi ou BeagleBone. Les spécifications du signal teleinfo et de son protocole sont disponibles sur le http://www.erdfdistribution.fr/medias/DTR_Racc_Comptage/ERDF-NOI-CPT_02E.pdf[site d'ERDF en PDF].
+Le compteur EDF fourni un signal appelé téléinfo pouvant être transformé en signal série TTL compatible avec les cartes Raspberry Pi ou BeagleBone. Les spécifications du signal teleinfo et de son protocole sont disponibles sur le http://www.erdf.fr/sites/default/files/ERDF-NOI-CPT_02E.pdf[site d'ERDF en PDF].
 
 L'objet du montage de ce post est de réaliser cette transformation pour obtenir un signal compatible avec les UART des cartes récentes de type Raspberry Pi / BeagleBone / ... (niveaux en 3.3V).
 

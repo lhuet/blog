@@ -1,0 +1,69 @@
+= ESP8266 - Overview
+Laurent HUET
+2015-05-18
+:jbake-type: post
+:jbake-tags: esp8266 iot arduino
+:jbake-status: published
+:source-highlighter: prettify
+:id: esp8266_overview
+
+Depuis la fin 2014, j'ai découvert un micro-contrôleur très abordable (<5€) avec connectivité WiFi intégré.
+Ses capacités en font un candidat de choix pour tous vos projets d'objets connectés !
+
+Voici donc le premier billet d'une série sur ce micro-controleur aux multiples facettes :
+
+image::/blog/img/esp8266_esp01.jpg['ESP8266 / ESP01', align="center"]
+
+== Coté hardware
+
+Les cartes à base d'ESP8266 sont plus à comparer aux cartes de type Arduino qu'aux cartes de type Raspberry Pi.
+Il s'agit en effet d'un micro-controleur ayant comme atout principal une connectivité WiFi intégré.
+Ce qui est d'autant plus appréciable, c'est que la puce ESP8266 supporte de
+manière native le WPA et que le SSL est de la partie (Les spécialistes de la sécurité y trouveront encore d'autres atouts).
+
+=== SoC Expressif
+
+http://espressif.com/[Espressif] est le fabricant de la puce http://espressif.com/en/products/esp8266/[ESP8266].
+Les principales caractéristiques de ce SoC ("System On Chip") sont :
+
+* CPU Risc 32 bit @80MHz
+* WiFi 2.4 GHz (802.11 b/g/n)
+* 64 Kb RAM (selon le wiki)
+* >512 Kb Flash SPI (dépend des versions de cartes)
+* GPIO / PWM / ADC
+* UART / I2C / SPI
+* Alimentation en 3,3V
+
+De quoi connecter quelques capteurs et alimenter vos plate-formes "BigData" !
+
+
+=== Différentes versions
+
+Selon vos besoins, il existe différentes versions avec plus ou moins de fonctionnalités (ie. nombre de pins disponibles).
+Les versions sont notées ESP-XX avec XX allant de 01 à 13.
+
+La page de wiki suivante vous donnera un bon aperçu de cette diversité :
+ http://www.esp8266.com/wiki/doku.php?id=esp8266-module-family
+
+Pour vous donner une idée de la taille, voici quelques exemplaires à côté d'un cutter :
+
+image::/blog/img/esp8266_xx.jpeg['Variétés d'ESP8266', align="center"]
+
+
+== Coté applicatif : Quoi faire ? Comment ?
+
+Comme il s'agit d'un micro-contrôleur, le terme "firmware" est souvent utilisé.
+Vous l'aurez compris, il s'agit du programme qui tourne sur cette carte.
+Et pour changer de "firmware", on va utiliser un outil de type "flash" est utilisé.
+
+Pour faire court, côté applicatif, il y a plusieurs possibilités dont les utilisations les plus courantes sont :
+
+* Mode modem (Commandes AT) qui permet d'apporter une connectivité Wifi à une carte arduino par exemple
+* Interpreteur Lua avec le firmware https://github.com/nodemcu/nodemcu-firmware[NodeMCU] (scripts LUA uploadés sur la flash SPI)
+* Coder en C votre propre firmware avec le http://bbs.espressif.com/viewforum.php?f=5[SDK officiel] et la https://github.com/pfalcon/esp-open-sdk[toolchain GCC] qui va bien !
+
+C'est la 3ème solution que j'ai utilisé pour la démo du talk DevoxxFr 2015 animé en avril dernier avec Philippe Charrière :
+
+image::/blog/img/esp8266_nest_like.jpg['NEST-like avec ESP8266', align="center"]
+
+La suite dans les prochains billets ;-)
