@@ -1,0 +1,188 @@
+= Serveur Web sur Tessel
+Laurent HUET
+2014-10-31
+:jbake-type: post
+:jbake-tags: tessel javascript web
+:jbake-status: published
+:source-highlighter: prettify
+:id: webserver-on-tessel
+
+Dans un http://lhuet.github.io/blog/2014/10/getting-started-tessel.html[article précédent], je présentais la carte Tessel permettant d'écrire des programmes en JavaScript.
+Cette carte disposant d'une puce Wifi, il est tentant de faire tourner un serveur Web !
+
+
+== Configuration Réseau
+
+Avant de pouvoir mettre un serveur Web sur la carte Tessel, il faut disposer d'une connexion réseau ... et donc configurer l'accès Wifi.
+L'outil CLI fournit tout ce qu'il faut pour cela.
+
+La première chose à faire est de vérifier que la carte voit bien votre SSID :
+
+[source,bash]
+----
+$ tessel wifi -l
+TESSEL! Connected to TM-00-04-f0009a30-00584f4b-704e6249.
+INFO Requesting wifi status...
+Currently visible networks (1):
+	home (61/127)
+INFO Connected: 0
+----
+
+Pour se connecter, vous pouvez utiliser https://tessel.io/docs/wifi#connecting-to-wifi-from-js[l'API JavaScript] (pour inclure la connexion dans votre code) ou l'outil en ligne de commande.
+C'est cette dernière option que j'ai choisi :
+
+[source,bash]
+----
+$ tessel wifi -n home -p <password> -s [wpa|wpa2|wep]
+TESSEL! Connected to TM-00-04-f0009a30-00584f4b-704e6249.
+INFO Connecting to "home" with [wpa|wpa2|wep] security...
+INFO Acquiring IP address.
+.
+INFO Connected!
+
+IP	 192.168.0.8
+DNS	 212.27.40.241
+DHCP	 192.168.0.254
+Gateway	 192.168.0.254
+----
+
+Les informations de connexion sont persistantes et lorsque vous redémarrez la carte, la connexion Wifi s'active au démarrage.
+
+== Serveur Web Node.js basique
+
+Node.js offre l'API de base pour faire tourner un serveur HTTP. J'ai donc commencé par cela :
+
+[source,javascript]
+----
+var http = require('http');
+
+var server = http.createServer(function (request, response) {
+  response.writeHead(200, {"Content-Type": "text/plain"});
+  response.end("Hello World\n");
+});
+
+server.listen(80);
+
+console.log("Server running ...");
+----
+
+Vous remarquerez qu'on peut utiliser le port 80 sans souci (pas de sécurité pour les ports inférieurs à 1024 !).
+Il n'y a plus qu'à lancer le programme :
+
+[source,bash]
+----
+$ tessel run http-server.js
+TESSEL! Connected to TM-00-04-f0009a30-00584f4b-704e6249.
+INFO Bundling directory /home/lhuet/dev/hardware/tessel/webserver
+INFO Deploying bundle (1.25 MB)...
+INFO Running script...
+Server running ...
+----
+
+Le programme fonctionne très bien mais semble un peu lent.
+Effectivement, la simple requête GET met plus d'une seconde :
+
+[source,bash]
+----
+$ time curl http://192.168.0.8
+Hello World
+
+real	0m1.334s
+user	0m0.012s
+sys	0m0.004s
+----
+
+A comparer avec le même programme sur mon PC (core i7 qui n'a rien de comparable ...) :
+
+[source,bash]
+----
+time curl http://127.0.0.1:8000
+Hello World
+
+real	0m0.007s
+user	0m0.006s
+sys	0m0.000s
+----
+
+Vous l'avez compris, on ne va pas utiliser la carte Tessel pour faire un bench. Elle n'est pas faite pour cela non plus.
+
+
+== Framework vs Vanilla (node)JS
+
+Avec des ressources limitées et le résultat ci-dessus, la question d'utiliser ou non un framework est donc légitime.
+D'un côté, disposer d'un framework avec routeur et autres joyeusetés est appréciable pour code vite.
+D'un autre côté, comme dans tout framework, nous n'avons souvent besoin que d'un sous ensemble.
+Sur un serveur "classique", on ne se pose pas (assez ?) souvent la question mais sur microcontrolleur, c'est déjà beaucoup que de faire tourner du JavaScript ... alors un framework !
+
+Un https://twitter.com/technicalhumans/status/433365690511155200[tweet] m'a donné l'espoir de faire tourner http://expressjs.com/[Express].
+Je suis vite tombé sur un bug bloquant pour faire tourner les versions récentes d'Express et n'ait pas trouvé une version fonctionnelle sur la carte Tessel.
+J'ai donc cherché une autre piste et trouvé rapidement la librairie https://github.com/pirumpi/tiny-router[tiny-router] plus légère et ayant pour cible la carte Tessel.
+
+Vite, un "Hello World" pour voir ce que ça donne :
+
+[source,javascript]
+----
+var router = require('tiny-router');
+
+router.get('/', function(req, res) {
+  res.send('Hello World');
+});
+
+router.listen(80);
+console.log("Server running ...");
+----
+
+Un petit test pour vérifier que ça marche :
+
+[source,bash]
+----
+time curl http://192.168.0.8
+Hello World
+real	0m1.194s
+user	0m0.000s
+sys	0m0.010s
+----
+
+On voit qu'on n'est dans le même ordre de grandeur qu'avec l'API de base.
+Pour aller (un petit peu) plus loin, j'ai utilisé l'exemple qui permet de commencer à jouer avec les leds sur la carte et on retrouve une application qui ressemble à ce qu'on a avec Express:
+
+[source,javascript]
+----
+var router = require('tiny-router'),
+    tessel = require('tessel');
+
+var lights = {
+    green: tessel.led[0],
+    blue: tessel.led[1],
+    red: tessel.led[2],
+    amber: tessel.led[3]
+};
+
+router
+    .get('/', function(req, res) {
+        res.send('Simple light web API');
+    })
+    .get('/lights', function(req, res){
+        res.send(lights);
+    })
+    .get('/green', function(req, res){
+        var state = lights.green.read();
+        lights.green.write(state);
+        res.send({status: state});
+    })
+    .get('/green/{state}', function(req, res){
+        var state = parseInt(req.body.state);
+        lights.green.write(state);
+        res.send({status: state});
+    });
+
+router.listen(80);
+----
+
+Avec ce programme, on peut jouer avec la led verte de la carte en utilisant les URLs :
+
+* http://192.168.0.8/green/0 pour allumer la led
+* http://192.168.0.8/green/1 pour éteindre la led
+
+En conclusion, je dirais que cette librairie tiny-router est amplement suffisante pour utiliser la carte Tessel.
+Je n'ai pas fait de tests, mais je me demande si une simple carte arduino avec un shield Ethernet ne serait pas plus rapide car les temps de réponse, bien qu'acceptables, ne sont pas impressionnants.
