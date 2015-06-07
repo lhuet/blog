@@ -1,0 +1,146 @@
+= ESP8266 - Overview
+Laurent HUET
+2015-05-28
+:jbake-type: post
+:jbake-tags: esp8266 iot arduino
+:jbake-status: published
+:source-highlighter: prettify
+:id: esp8266_wiring_flashing
+
+Après une http://lhuet.github.io/blog/2015/05/esp8266-overview.html[présentation générale de l'ESP8266],
+voici le second billet pour vous expliquer comment cabler et flasher un ESP8266.
+La programmation arrivera dans le billet suivant. Soyez patient !
+
+== Cablage
+
+Le cablage peut varier selon les modèles que vous utilisez.
+Dans mon exemple, je vais montrer le cablage d'un https://www.olimex.com/Products/IoT/MOD-WIFI-ESP8266-DEV/open-source-hardware[modèle de chez Olimex] :
+
+image::/blog/img/MOD-WIFI-ESP8266-DEV-1.jpg['Modèle Olimex MOD-WIFI-ESP8266-DEV', align="center"]
+
+Olimex fait du hardware en Open Source. On peut donc retrouver les schémas sans soucis, dont  https://www.olimex.com/Products/IoT/MOD-WIFI-ESP8266-DEV/resources/MOD-WIFI-ESP8266-DEV_schematic.pdf[celui qui montre le design].
+Quelque soit votre modèle, vous devez avoir un document qui devrait vous indiquer à quoi correspond chaque Pin.
+
+Pour le module Olimex, voici le "pinout" :
+
+image::/blog/img/pinout_esp8266_olimex.png['Pinout Olimex MOD-WIFI-ESP8266-DEV', align="center"]
+
+Pour le moment, 6 pins vont nous intéresser par la suite :
+
+* pin 1: 3.3V
+* pin 2: GND
+* pin 3: TX / GPIO1
+* pin 4: RX / GPIO3
+* pin 13: RESET
+* pin 21: GPIO0 (permet de mettre l'ESP8266 en mode "flash")
+
+=== Alimentation
+
+L'ESP8266 utilise des niveaux de tension de 3.3v (comme sur les GPIO des Raspberry Pi).
+L'alimentation de la plupart des "modules" ESP8266 se fait également en 3.3v.
+C'est peut-être cet aspect qui va vous gêner le plus.
+En effet, les alimentations 5V sont courantes ... celles en 3.3V le sont beaucoup moins !
+Vous aurez donc sûrement besoin d'un régulateur 3.3V ou d'un converstisseur DC/DC du genre :
+
+* http://fr.farnell.com/stmicroelectronics/ld1117av33/regulateur-ldo-3-3v-1117-to-220/dp/1087165[Exemple de régulateur chez Farnell]
+* http://www.ebay.fr/itm/LM2596-DC-Module-Alimentation-Reglable-Convertisseur-Voltmetre-LED-pratique-/121369365296[Exemple de convertisseur DC/DC LM2596]
+
+TIP: Si vous avez une carte Arduino dans un coin, vous pouvez vous servir des pins GND et 3.3V pour alimenter momentanément votre module ESP8266.
+
+TIP: Il existe des http://www.electrodragon.com/product/esp8266-smd-adapter-board/[adaptateurs d'ESP8266] intégrant un régulateur 3.3V vous permettant d'alimenter votre montage en 5V.
+Cela permet également d'avoir un module avec des pins qui ont le même pas que les plaques d'essai.
+
+Une fois que vous avez votre alimentation en 3.3V, il n'y a plus qu'à brancher sur les Pins 1 et 2 :
+
+image::/blog/img/olimex_8266_alim.jpg['Pinout Olimex MOD-WIFI-ESP8266-DEV', align="center"]
+
+=== Liaison UART
+
+Pour pouvoir communiquer en filaire avec l'ESP8266, rien de telle qu'une liaison série !
+Les Pins 3 et 4 vous offre la connectivité pour cela.
+
+Munissez-vous d'un convertisseur USB/UART au préalable.
+Vous en trouverez à pas cher sur http://www.ebay.com/itm/NEW-CP2102-USB-2-0-to-UART-TTL-6PIN-Module-Serial-Converter-/170813830162[ebay] si vous n'avez pas cela sous le coude.
+
+La seule chose à faire attention est croiser les RX et TX entre votre convertisseur et l'ESP8266.
+Donc le RX de mon convertiseur USB/UART, je le branche sur le pin 3 (TX) et le TX de mon convertisseur sur le pin 4 (RX).
+
+image::/blog/img/olimex_8266_alim_uart.jpg['Pinout Olimex MOD-WIFI-ESP8266-DEV', align="center"]
+
+Dans la plupart des cas, les modules sont livrés avec un firmware qui permet de discuter sur l'UART en 115200 bps.
+Vous pouvez donc utiliser votre "moniteur série" préféré selon votre OS (minicom, screen, putty, ...). Dans mon cas, j'utilise screen :
+
+[source,bash]
+----
+screen /dev/ttyUSB0 115200
+----
+
+Si vous faites un reset (en mettant le pin 13 à la masse et en le relachant), vous devriez voir des choses apparaître sur votre écran.
+Il y a même de forte chance que vous puissiez intéragir sur la console car la plupart du temps,
+le firmware installé par défaut est celui qui permet de se servir de votre ESP8266 en modem.
+Ci-dessous, vous voyez quelques commandes :
+
+* AT: Commande pour vérifier la connexion
+* AT+GMR: Donne la version du firmware
+* AT+CWMODE?: Donne le mode de fonctionnement : 1=STA(station), 2=AP(Access Point), 3=BOTH
+* AT+CWLAP: Donne la liste des SSID
+
+[source]
+----
+ready
+AT
+
+OK
+AT+GMR
+00160901
+
+OK
+AT+CWMODE?
++CWMODE:1
+
+OK
+AT+CWLAP
++CWLAP:(0,"",0)
++CWLAP:(2,"home",-64)
++CWLAP:(0,"AI-THINKER_A11343",-8)
+
+OK
+----
+
+
+
+== Flasher votre ESP8266
+
+=== Outil pour flasher
+
+Il existe plusieurs outils selon l'OS que vous utiliser. Les plus répandus sont :
+
+* esptool : Disponible sur un https://github.com/themadinventor/esptool[repo GitHub] - Outil Python multi-OS
+* flash_download_tool : Outil windows officiel disponible sur le http://bbs.espressif.com/viewtopic.php?f=5&t=433[forum Espressif]
+* nodemcu-flasher : Outil spécifique Windows disponible sur un https://github.com/nodemcu/nodemcu-flasher[repo GitHub]
+
+Je vous fais confiance pour suivre la documentation qui va bien pour installer l'outil de votre choix.
+De mon coté, j'utiliser l'outil python esptool (utilisé dans certains makefile).
+
+=== Flash d'un firmware
+
+Avant de flasher un firmware, il faut mettre votre ESP8266 en "mode flash".
+Pour cela, il faut mettre le GPIO0 (Pin 21 sur l'Olimex) à la masse puis faire un reset (Pin 13 à mettre à la masse et relacher).
+Quand vous avez flasher plusieurs fois votre ESP8266, vous comprenez l'intéret de certains modules qui comportent 2 boutons (Reset et Flash) !
+
+Dans le cas le plus simple, vous aurez un fichier unique et une simple commande vous permettra de flasher votre ESP8266.
+Voici un exemple pour flasher https://github.com/nodemcu/nodemcu-firmware/releases/latest[la dernière version du firmware nodemcu] :
+
+[source,bash]
+----
+esptool.py --port /dev/ttyUSB0  write_flash 0x000000 ./nodemcu_float_0.9.6-dev_20150406.bin
+----
+
+Selon les firmwares, il est possible que vous ayez plusieurs fichiers. Dans ce cas, il faudra préciser l'offset où flasher chaque fichier.
+
+
+=== Firmwares disponibles
+
+
+Voilà ! Vous avez maintenant tout ce qu'il faut pour commencer à coder ... au moins en Lua avec nodemnu.
+Les plus courageux pourront tenter un HelloWorld (pilotage d'une led) en C comme https://github.com/esp8266/source-code-examples/tree/master/blinky[ici].
