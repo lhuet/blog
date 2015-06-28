@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Java dans le hard(ware) - ESP8266 - Overview</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keywords" content="">    
+
+    <!-- Le styles -->
+    <link href="/blog/css/yeti/bootstrap.min.css" rel="stylesheet">
+    <link href="/blog/css/asciidoctor.css" rel="stylesheet">
+    <link href="/blog/css/base.css" rel="stylesheet">
+    <!-- link href="/blog/css/bootstrap-theme.min.css" rel="stylesheet" -->
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" href="favicon.ico">
+  </head>
+  <body>
+    <div id="wrap">
+	
+      <!-- Fixed navbar -->
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/blog">Java dans le hard(ware)</a>
+          </div>
+          <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="/blog/index.html">Home</a></li>
+              <li><a href="/blog/about.html">A propos</a></li>
+              <li><a href="/blog/feed.xml">Flux RSS</a></li>
+              <li><a href="/blog/archive.html">Archives</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="https://github.com/lhuet"><i class="fa fa-github"></i></a></li>
+              <li><a href="https://twitter.com/lhuet35"><i class="fa fa-twitter"></i></a>
+            </ul>
+          </div><!--/.nav-collapse -->
+
+        </div>
+      </div>
+      <div class="container">
+	
+	<div class="page-header">
+		<h1>ESP8266 - Overview</h1>
+	</div>
+
+	<p><em>28 mai 2015</em></p>
+        <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://lhuet.github.io/blog/2015/05/esp8266-wiring-and-flashing.html" data-via="lhuet35" data-text="ESP8266 - Overview" data-lang="fr">Tweeter</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+        <div class="g-plusone" data-size="medium" data-href="http://lhuet.github.io/blog/2015/05/esp8266-wiring-and-flashing.html"></div>
+
+	<p><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Après une <a href="http://lhuet.github.io/blog/2015/05/esp8266-overview.html">présentation générale de l&#8217;ESP8266</a>,
+voici le second billet pour vous expliquer comment cabler et flasher un ESP8266.
+La programmation arrivera dans le billet suivant. Soyez patient !</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_cablage">Cablage</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Le cablage peut varier selon les modèles que vous utilisez.
+Dans mon exemple, je vais montrer le cablage d&#8217;un <a href="https://www.olimex.com/Products/IoT/MOD-WIFI-ESP8266-DEV/open-source-hardware">modèle de chez Olimex</a> :</p>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="/blog/img/MOD-WIFI-ESP8266-DEV-1.jpg" alt="Modèle Olimex MOD-WIFI-ESP8266-DEV">
+</div>
+</div>
+<div class="paragraph">
+<p>Olimex fait du hardware en Open Source. On peut donc retrouver les schémas sans soucis, dont  <a href="https://www.olimex.com/Products/IoT/MOD-WIFI-ESP8266-DEV/resources/MOD-WIFI-ESP8266-DEV_schematic.pdf">celui qui montre le design</a>.
+Quelque soit votre modèle, vous devez avoir un document qui devrait vous indiquer à quoi correspond chaque Pin.</p>
+</div>
+<div class="paragraph">
+<p>Pour le module Olimex, voici le "pinout" :</p>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="/blog/img/pinout_esp8266_olimex.png" alt="Pinout Olimex MOD-WIFI-ESP8266-DEV">
+</div>
+</div>
+<div class="paragraph">
+<p>Pour le moment, 6 pins vont nous intéresser par la suite :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>pin 1: 3.3V</p>
+</li>
+<li>
+<p>pin 2: GND</p>
+</li>
+<li>
+<p>pin 3: TX / GPIO1</p>
+</li>
+<li>
+<p>pin 4: RX / GPIO3</p>
+</li>
+<li>
+<p>pin 13: RESET</p>
+</li>
+<li>
+<p>pin 21: GPIO0 (permet de mettre l&#8217;ESP8266 en mode "flash")</p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_alimentation">Alimentation</h3>
+<div class="paragraph">
+<p>L&#8217;ESP8266 utilise des niveaux de tension de 3.3v (comme sur les GPIO des Raspberry Pi).
+L&#8217;alimentation de la plupart des "modules" ESP8266 se fait également en 3.3v.
+C&#8217;est peut-être cet aspect qui va vous gêner le plus.
+En effet, les alimentations 5V sont courantes &#8230; celles en 3.3V le sont beaucoup moins !
+Vous aurez donc sûrement besoin d&#8217;un régulateur 3.3V ou d&#8217;un converstisseur DC/DC du genre :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://fr.farnell.com/stmicroelectronics/ld1117av33/regulateur-ldo-3-3v-1117-to-220/dp/1087165">Exemple de régulateur chez Farnell</a></p>
+</li>
+<li>
+<p><a href="http://www.ebay.fr/itm/LM2596-DC-Module-Alimentation-Reglable-Convertisseur-Voltmetre-LED-pratique-/121369365296">Exemple de convertisseur DC/DC LM2596</a></p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+Si vous avez une carte Arduino dans un coin, vous pouvez vous servir des pins GND et 3.3V pour alimenter momentanément votre module ESP8266.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+Il existe des <a href="http://www.electrodragon.com/product/esp8266-smd-adapter-board/">adaptateurs d&#8217;ESP8266</a> intégrant un régulateur 3.3V vous permettant d&#8217;alimenter votre montage en 5V.
+Cela permet également d&#8217;avoir un module avec des pins qui ont le même pas que les plaques d&#8217;essai.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Une fois que vous avez votre alimentation en 3.3V, il n&#8217;y a plus qu'à brancher sur les Pins 1 et 2 :</p>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="/blog/img/olimex_8266_alim.jpg" alt="Pinout Olimex MOD-WIFI-ESP8266-DEV">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_liaison_uart">Liaison UART</h3>
+<div class="paragraph">
+<p>Pour pouvoir communiquer en filaire avec l&#8217;ESP8266, rien de telle qu&#8217;une liaison série !
+Les Pins 3 et 4 vous offre la connectivité pour cela.</p>
+</div>
+<div class="paragraph">
+<p>Munissez-vous d&#8217;un convertisseur USB/UART au préalable.
+Vous en trouverez à pas cher sur <a href="http://www.ebay.com/itm/NEW-CP2102-USB-2-0-to-UART-TTL-6PIN-Module-Serial-Converter-/170813830162">ebay</a> si vous n&#8217;avez pas cela sous le coude.</p>
+</div>
+<div class="paragraph">
+<p>La seule chose à faire attention est croiser les RX et TX entre votre convertisseur et l&#8217;ESP8266.
+Donc le RX de mon convertiseur USB/UART, je le branche sur le pin 3 (TX) et le TX de mon convertisseur sur le pin 4 (RX).</p>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="/blog/img/olimex_8266_alim_uart.jpg" alt="Pinout Olimex MOD-WIFI-ESP8266-DEV">
+</div>
+</div>
+<div class="paragraph">
+<p>Dans la plupart des cas, les modules sont livrés avec un firmware qui permet de discuter sur l&#8217;UART en 115200 bps.
+Vous pouvez donc utiliser votre "moniteur série" préféré selon votre OS (minicom, screen, putty, &#8230;). Dans mon cas, j&#8217;utilise screen :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint bash language-bash"><code>screen /dev/ttyUSB0 115200</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Si vous faites un reset (en mettant le pin 13 à la masse et en le relachant), vous devriez voir des choses apparaître sur votre écran.
+Il y a même de forte chance que vous puissiez intéragir sur la console car la plupart du temps,
+le firmware installé par défaut est celui qui permet de se servir de votre ESP8266 en modem.
+Ci-dessous, vous voyez quelques commandes :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>AT: Commande pour vérifier la connexion</p>
+</li>
+<li>
+<p>AT+GMR: Donne la version du firmware</p>
+</li>
+<li>
+<p>AT+CWMODE?: Donne le mode de fonctionnement : 1=STA(station), 2=AP(Access Point), 3=BOTH</p>
+</li>
+<li>
+<p>AT+CWLAP: Donne la liste des SSID</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint"><code>ready
+AT
+
+OK
+AT+GMR
+00160901
+
+OK
+AT+CWMODE?
++CWMODE:1
+
+OK
+AT+CWLAP
++CWLAP:(0,"",0)
++CWLAP:(2,"home",-64)
++CWLAP:(0,"AI-THINKER_A11343",-8)
+
+OK</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_flasher_votre_esp8266">Flasher votre ESP8266</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_outil_pour_flasher">Outil pour flasher</h3>
+<div class="paragraph">
+<p>Il existe plusieurs outils selon l&#8217;OS que vous utiliser. Les plus répandus sont :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>esptool : Disponible sur un <a href="https://github.com/themadinventor/esptool">repo GitHub</a> - Outil Python multi-OS</p>
+</li>
+<li>
+<p>flash_download_tool : Outil windows officiel disponible sur le <a href="http://bbs.espressif.com/viewtopic.php?f=5&amp;t=433">forum Espressif</a></p>
+</li>
+<li>
+<p>nodemcu-flasher : Outil spécifique Windows disponible sur un <a href="https://github.com/nodemcu/nodemcu-flasher">repo GitHub</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Je vous fais confiance pour suivre la documentation qui va bien pour installer l&#8217;outil de votre choix.
+De mon coté, j&#8217;utiliser l&#8217;outil python esptool (utilisé dans certains makefile).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_flash_d_un_firmware">Flash d&#8217;un firmware</h3>
+<div class="paragraph">
+<p>Avant de flasher un firmware, il faut mettre votre ESP8266 en "mode flash".
+Pour cela, il faut mettre le GPIO0 (Pin 21 sur l&#8217;Olimex) à la masse puis faire un reset (Pin 13 à mettre à la masse et relacher).
+Quand vous avez flasher plusieurs fois votre ESP8266, vous comprenez l&#8217;intéret de certains modules qui comportent 2 boutons (Reset et Flash) !</p>
+</div>
+<div class="paragraph">
+<p>Voilà ! Vous avez maintenant tout ce qu&#8217;il faut pour commencer à coder &#8230; au moins en Lua avec nodemnu.
+Les plus courageux pourront tenter un HelloWorld (pilotage d&#8217;une led) en C comme <a href="https://github.com/esp8266/source-code-examples/tree/master/blinky">ici</a>.</p>
+</div>
+</div>
+</div>
+</div></p>
+
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'javadanslehardware'; 
+            var disqus_identifier = 'esp8266_wiring_flashing';
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+
+	<hr>
+	
+		</div>
+		<div id="push"></div>
+    </div>
+    
+    <div id="footer">
+      <div class="container">
+        <p class="text-muted credit">L'ensemble des posts de ce blog sont publiés sous licence <em>Creative Commons by-nc-sa</em>. <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png"/></a></p>
+        <p class="text-muted credit">&copy; 2013 | Mixed with <a href="http://twitter.github.com/bootstrap/">Bootstrap v3.0.2</a> | Baked with <a href="http://jbake.org">JBake v2.3.0</a></p>
+      </div>
+    </div>
+    
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- script src="/blog/js/jquery-1.10.2.min.js"></script -->
+    <!-- script src="/blog/js/bootstrap.min.js"></script -->
+    <script src="/blog/js/run_prettify.js"></script>
+
+    <script type="text/javascript">
+        window.___gcfg = {lang: 'fr'};
+
+        (function() {
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+            po.src = 'https://apis.google.com/js/platform.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-46154958-1', 'lhuet.github.io');
+      ga('send', 'pageview');
+
+    </script>
+    
+  </body>
+</html>
