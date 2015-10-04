@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Java dans le hard(ware) - Programmez votre ESP8266 comme un arduino !</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="keywords" content="">    
+
+    <!-- Le styles -->
+    <link href="/blog/css/yeti/bootstrap.min.css" rel="stylesheet">
+    <link href="/blog/css/asciidoctor.css" rel="stylesheet">
+    <link href="/blog/css/base.css" rel="stylesheet">
+    <!-- link href="/blog/css/bootstrap-theme.min.css" rel="stylesheet" -->
+    <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <!--<link rel="apple-touch-icon-precomposed" sizes="144x144" href="../assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="../assets/ico/apple-touch-icon-114-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="72x72" href="../assets/ico/apple-touch-icon-72-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">-->
+    <link rel="shortcut icon" href="favicon.ico">
+  </head>
+  <body>
+    <div id="wrap">
+	
+      <!-- Fixed navbar -->
+      <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/blog">Java dans le hard(ware)</a>
+          </div>
+          <div class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="/blog/index.html">Home</a></li>
+              <li><a href="/blog/about.html">A propos</a></li>
+              <li><a href="/blog/feed.xml">Flux RSS</a></li>
+              <li><a href="/blog/archive.html">Archives</a></li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="https://github.com/lhuet"><i class="fa fa-github"></i></a></li>
+              <li><a href="https://twitter.com/lhuet35"><i class="fa fa-twitter"></i></a>
+            </ul>
+          </div><!--/.nav-collapse -->
+
+        </div>
+      </div>
+      <div class="container">
+	
+	<div class="page-header">
+		<h1>Programmez votre ESP8266 comme un arduino !</h1>
+	</div>
+
+	<p><em>29 septembre 2015</em></p>
+        <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://lhuet.github.io/blog/2015/09/esp8266-wiring-and-flashing.html" data-via="lhuet35" data-text="Programmez votre ESP8266 comme un arduino !" data-lang="fr">Tweeter</a>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+        <div class="g-plusone" data-size="medium" data-href="http://lhuet.github.io/blog/2015/09/esp8266-wiring-and-flashing.html"></div>
+
+	<p><div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>Voici venu le troisième volet de la série de billets sur l&#8217;ESP8266, celui sur la programmation !
+Pour les plus avertis, le SDK est directement disponible avec makefile et touti quanti !
+Dans notre cas, nous allons passer par un IDE assez populaire, celui d&#8217;Arduino.
+En effet, à partir de la version 1.6.4 (assez récemment donc), l&#8217;IDE Arduino permet d&#8217;ajouter facilement
+le support de cartes tièrces.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_installation_de_l_ide">Installation de l&#8217;IDE</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Pour commencer, téléchargez l' <a href="https://www.arduino.cc/en/Main/Software">IDE Arduino sur le site officiel</a> et installez le dans le répertoire de votre choix.</p>
+</div>
+<div class="paragraph">
+<p>Vous trouverez tout ce qu&#8217;il faut sur le <a href="https://github.com/esp8266/Arduino">repo github</a> du projet de support de l&#8217;ESP8266 dans l&#8217;IDE Arduino.
+En fonction de votre humeur joueuse ou non, je vous laisse choisir l&#8217;URL de la dernière version stable ou celle de la version <em>staging</em> :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Version stable : <a href="http://arduino.esp8266.com/stable/package_esp8266com_index.json">http://arduino.esp8266.com/stable/package_esp8266com_index.json</a></p>
+</li>
+<li>
+<p>Version <em>staging</em> : <a href="http://arduino.esp8266.com/staging/package_esp8266com_index.json">http://arduino.esp8266.com/staging/package_esp8266com_index.json</a></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Suivez les étapes suivantes pour configurer votre IDE :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Ajouter l&#8217;URL ci-dessus dans les préférences de l&#8217;IDE (menu Fichier/Préférences &#8594; champ "Additional Boards Manager URLs").</p>
+</li>
+<li>
+<p>Via le menu Outils/Type de carte/Boards manager, accéder à l&#8217;outil qui permet d&#8217;ajouter le support de l&#8217;ESP8266</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Sélectionnez l&#8217;item ESP8266 et cliquez sur le bouton <em>Install</em>.</p>
+</li>
+<li>
+<p>Cette phase d&#8217;installation va télécharger tout ce qu&#8217;il faut pour compiler et flasher votre microcontroleur préféré !</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Sélectionner le type de carte adéquat avec le menu Outils/Type de carte (Olimex MOD-WIFI-ESP8266 dans mon cas)</p>
+</li>
+<li>
+<p>Sélectionner le port série qui relie votre PC à votre ESP8266 (/dev/ttyUSB0 dans mon cas).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Vous devriez être maintenant prêt à coder et flasher votre micro-controlleur.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_exemple_em_hello_world_em_em_blink_em_d_une_led">Exemple <em>Hello World</em> (<em>blink</em> d&#8217;une led)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Pour faire simple, on va partir du classique <em>Hello World</em> du hardware : Faire clignoter une led !</p>
+</div>
+<div class="sect2">
+<h3 id="_cablage">Cablage</h3>
+<div class="paragraph">
+<p>Comme une image vaut largement mieux qu&#8217;un beau discours, voici le schéma Fritzing qui illustre le montage à cabler :</p>
+</div>
+<div class="imageblock" style="text-align: center">
+<div class="content">
+<img src="/blog/img/esp8266_led.png" alt="Led pilotée par ESP8266">
+</div>
+</div>
+<div class="paragraph">
+<p>Les boutons Reset et Flash (sur le GPIO0) facilitent l&#8217;upload du programme sur le micro-contrôleur.
+Sans ces boutons, vous devriez faire des "shunts" à la main.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_programme">Programme</h3>
+<div class="paragraph">
+<p>Voici le programme qui suit la structure standard des programmes Arduino (fontions setup et loop) :</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint c language-c"><code>  int ledPin = 5;
+
+  void setup() {
+    // Initialisation du GPIO5 en sortie
+    pinMode(ledPin, OUTPUT);
+    // Initialisation de la sortie série (pratique pour débugguer)
+    Serial.begin(115200);
+    Serial.println();
+    Serial.println("Starting ...");
+  }
+
+  void loop() {
+    // On allume la led
+    digitalWrite(ledPin, HIGH);
+    Serial.println("Led on ...");
+    // Attente de 500 ms
+    delay(500);
+    // On éteind la led
+    digitalWrite(ledPin, LOW);
+    Serial.println("Led off ...");
+    // Attente de 500 ms à nouveau
+    delay(500);
+  }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>En appuyant sur les 2 boutons Reset et Flash et en ne relachant que le bouton Reset, votre ESP8266 est prêt à être flashé.
+Cliquez sur l&#8217;icône <em>Téléverser</em> de l&#8217;IDE Arduino et le programme est compilé puis uploadé sur votre ESP8266.
+Le programme démarre tout seul lorsque l&#8217;upload est terminé.</p>
+</div>
+<div class="paragraph">
+<p>Vous pouvez utiliser le terminal série de l&#8217;IDE Arduino (en 115200) pour vérifier les sorties <em>Led on &#8230;</em> et <em>Led off &#8230;</em></p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_exemple_de_pilotage_des_gpio_via_le_wifi">Exemple de pilotage des GPIO via le Wifi</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Vous me direz, c&#8217;est bien beau de faire clignoter une Led mais pour le moment, on n&#8217;a pas encore utiliser la connectivité Wifi de notre ESP8266.
+Au delà du faible coût, c&#8217;est quand même cette fonctionnalité qui est super intéressante sur l&#8217;ESP8266.</p>
+</div>
+<div class="paragraph">
+<p>Notre second programme va donc être de piloter la led à travers un serveur Web embarqué dans l&#8217;ESP8266.
+Une simple requête HTTP nous permettra donc d&#8217;allumer ou d'éteindre notre Led.</p>
+</div>
+<div class="paragraph">
+<p>Pour cela, direction <a href="http://arduino.esp8266.com/stable/doc/reference.html">la doc officielle de l&#8217;API</a> !
+Vous pouvez aussi vous appuyer sur ce document plutôt complet : <a href="http://neilkolban.com/tech/wp-content/uploads/2015/09/Kolbans-Book-on-the-ESP8266-September-2015.pdf">http://neilkolban.com/tech/wp-content/uploads/2015/09/Kolbans-Book-on-the-ESP8266-September-2015.pdf</a></p>
+</div>
+<div class="paragraph">
+<p>Voici donc le code du second programme. Il est suffisamment simple pour se lire tout seul.
+La console série vous permettra d&#8217;obtenir l&#8217;adresse IP de votre ESP8266 au démarrage.</p>
+</div>
+<div class="paragraph">
+<p>Pour le tester, vous pouvez utiliser les commandes Curl suivantes :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>curl <a href="http://&lt;ip&gt;">http://&lt;ip&gt;</a></code></p>
+</li>
+<li>
+<p><code>curl -X POST <a href="http://&lt;ip&gt;/on">http://&lt;ip&gt;/on</a></code></p>
+</li>
+<li>
+<p><code>curl -X POST <a href="http://&lt;ip&gt;/off">http://&lt;ip&gt;/off</a></code></p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint c language-c"><code>  #include &lt;ESP8266WiFi.h&gt;
+  #include &lt;WiFiClient.h&gt;
+  #include &lt;ESP8266WebServer.h&gt;
+
+  // Constantes Wifi
+  const char* ssid = "ssid";
+  const char* password = "password";
+
+  // Variables globales
+  int ledPin = 5;               // Pin de pilotage de la lod
+  ESP8266WebServer server(80);  // Instance du serveur Web
+
+  void handleRoot() {
+    Serial.println("HTTP GET /");
+    server.send(200, "text/html", "&lt;html&gt;&lt;body&gt;&lt;h1&gt;Bienvenue sur votre ESP8266 !&lt;/h1&gt;&lt;/html&gt;");
+  }
+
+  void handleLedOn() {
+    Serial.println("HTTP POST /on -&gt; Led on");
+    digitalWrite(ledPin, HIGH);
+    server.send(200, "text/html", "&lt;html&gt;&lt;body&gt;&lt;h1&gt;Led On !&lt;/h1&gt;&lt;/html&gt;");
+  }
+
+  void handleLedOff() {
+    Serial.println("HTTP POST /off -&gt; Led off");
+    digitalWrite(ledPin, LOW);
+    server.send(200, "text/html", "&lt;html&gt;&lt;body&gt;&lt;h1&gt;Led Off !&lt;/h1&gt;&lt;/html&gt;");
+  }
+
+  void handleNotFound(){
+    String message = "&lt;html&gt;&lt;body&gt;&lt;h1&gt;Not Found !!&lt;/h1&gt;";
+    message += "&lt;ul&gt;&lt;li&gt;URI: ";
+    message += server.uri();
+    message += "&lt;/li&gt;&lt;li&gt;Method: ";
+    message += (server.method() == HTTP_GET)?"GET":"POST";
+    message += "&lt;/li&gt;&lt;li&gt;Arguments: ";
+    message += server.args();
+    message += "&lt;ul&gt;";
+    for (uint8_t i=0; i&lt;server.args(); i++){
+      message += "&lt;li&gt;" + server.argName(i) + ": " + server.arg(i) + "&lt;/li&gt;";
+    }
+    message += "&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;";
+    server.send(404, "text/html", message);
+  }
+
+  void setup() {
+    // Initialisation du port série (pour débugguer)
+    Serial.begin(115200);
+    Serial.println();
+    Serial.println("Starting ...");com
+
+    // Initialisation du GPIO5 en sortie
+    pinMode(ledPin, OUTPUT);
+
+    // Initialisation de la connexion Wifi
+    WiFi.begin(ssid, password);
+    Serial.println("");
+
+    // Attente de la connexion
+    while (WiFi.status() != WL_CONNECTED) {
+      delay(500);
+      Serial.print(".");
+    }
+    Serial.println("");
+    Serial.print("Connecté au SSID : ");
+    Serial.println(ssid);
+    Serial.print("Adresse IP : ");
+    Serial.println(WiFi.localIP());
+
+    // Routage des requêtes HTTP
+    server.on("/", handleRoot);
+    server.on("/on", HTTP_POST, handleLedOn);
+    server.on("/off", HTTP_POST, handleLedOff);
+    server.onNotFound(handleNotFound);
+    server.begin();
+    Serial.println("Serveur HTTP démarré");
+  }
+
+  void loop() {
+    server.handleClient();
+  }</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_conclusion">Conclusion</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Voilà ! Vous avez maintenant prêt à créer votre super montage que vous avez imaginer sur Arduino &#8230; en le connectant au Web très facilement.
+Vous pouvez continuer en regardant tous les exemples fournis. Vous verrez que vous pouvre même faire un portail captif très facilement.</p>
+</div>
+<div class="paragraph">
+<p>A vous de jouer maintenant !</p>
+</div>
+</div>
+</div></p>
+
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            var disqus_shortname = 'javadanslehardware'; 
+            var disqus_identifier = 'esp8266_arduino';
+            (function() {
+                var dsq = document.createElement('script'); dsq.type = 'text/javascript'; dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+
+	<hr>
+	
+		</div>
+		<div id="push"></div>
+    </div>
+    
+    <div id="footer">
+      <div class="container">
+        <p class="text-muted credit">L'ensemble des posts de ce blog sont publiés sous licence <em>Creative Commons by-nc-sa</em>. <a rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img alt="Creative Commons License" style="border-width:0" src="http://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png"/></a></p>
+        <p class="text-muted credit">&copy; 2013 | Mixed with <a href="http://twitter.github.com/bootstrap/">Bootstrap v3.0.2</a> | Baked with <a href="http://jbake.org">JBake v2.3.0</a></p>
+      </div>
+    </div>
+    
+    <!-- Le javascript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <!-- script src="/blog/js/jquery-1.10.2.min.js"></script -->
+    <!-- script src="/blog/js/bootstrap.min.js"></script -->
+    <script src="/blog/js/run_prettify.js"></script>
+
+    <script type="text/javascript">
+        window.___gcfg = {lang: 'fr'};
+
+        (function() {
+            var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+            po.src = 'https://apis.google.com/js/platform.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+        })();
+    </script>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-46154958-1', 'lhuet.github.io');
+      ga('send', 'pageview');
+
+    </script>
+    
+  </body>
+</html>
