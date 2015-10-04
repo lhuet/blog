@@ -1,0 +1,187 @@
+= Programmez votre ESP8266 comme un arduino !
+Laurent HUET
+2015-09-29
+:jbake-type: post
+:jbake-tags: esp8266 iot arduino
+:jbake-status: published
+:source-highlighter: prettify
+:id: esp8266_arduino
+
+Voici venu le troisième volet de la série de billets sur l'ESP8266, celui sur la programmation !
+Pour les plus avertis, le SDK est directement disponible avec makefile et touti quanti !
+Dans notre cas, nous allons passer par un IDE assez populaire, celui d'Arduino.
+En effet, à partir de la version 1.6.4 (assez récemment donc), l'IDE Arduino permet d'ajouter facilement
+le support de cartes tièrces.
+
+== Installation de l'IDE
+
+Pour commencer, téléchargez l' https://www.arduino.cc/en/Main/Software[IDE Arduino sur le site officiel] et installez le dans le répertoire de votre choix.
+
+Vous trouverez tout ce qu'il faut sur le https://github.com/esp8266/Arduino[repo github] du projet de support de l'ESP8266 dans l'IDE Arduino.
+En fonction de votre humeur joueuse ou non, je vous laisse choisir l'URL de la dernière version stable ou celle de la version 'staging' :
+
+* Version stable : http://arduino.esp8266.com/stable/package_esp8266com_index.json
+* Version 'staging' : http://arduino.esp8266.com/staging/package_esp8266com_index.json
+
+Suivez les étapes suivantes pour configurer votre IDE :
+
+* Ajouter l'URL ci-dessus dans les préférences de l'IDE (menu Fichier/Préférences -> champ "Additional Boards Manager URLs").
+* Via le menu Outils/Type de carte/Boards manager, accéder à l'outil qui permet d'ajouter le support de l'ESP8266
+** Sélectionnez l'item ESP8266 et cliquez sur le bouton 'Install'.
+** Cette phase d'installation va télécharger tout ce qu'il faut pour compiler et flasher votre microcontroleur préféré !
+* Sélectionner le type de carte adéquat avec le menu Outils/Type de carte (Olimex MOD-WIFI-ESP8266 dans mon cas)
+* Sélectionner le port série qui relie votre PC à votre ESP8266 (/dev/ttyUSB0 dans mon cas).
+
+Vous devriez être maintenant prêt à coder et flasher votre micro-controlleur.
+
+== Exemple 'Hello World' ('blink' d'une led)
+
+Pour faire simple, on va partir du classique 'Hello World' du hardware : Faire clignoter une led !
+
+=== Cablage
+
+Comme une image vaut largement mieux qu'un beau discours, voici le schéma Fritzing qui illustre le montage à cabler :
+
+image::/blog/img/esp8266_led.png['Led pilotée par ESP8266', align="center"]
+
+Les boutons Reset et Flash (sur le GPIO0) facilitent l'upload du programme sur le micro-contrôleur.
+Sans ces boutons, vous devriez faire des "shunts" à la main.
+
+=== Programme
+Voici le programme qui suit la structure standard des programmes Arduino (fontions setup et loop) :
+[source,c]
+----
+  int ledPin = 5;
+
+  void setup() {
+    // Initialisation du GPIO5 en sortie
+    pinMode(ledPin, OUTPUT);
+    // Initialisation de la sortie série (pratique pour débugguer)
+    Serial.begin(115200);
+    Serial.println();
+    Serial.println("Starting ...");
+  }
+
+  void loop() {
+    // On allume la led
+    digitalWrite(ledPin, HIGH);
+    Serial.println("Led on ...");
+    // Attente de 500 ms
+    delay(500);
+    // On éteind la led
+    digitalWrite(ledPin, LOW);
+    Serial.println("Led off ...");
+    // Attente de 500 ms à nouveau
+    delay(500);
+  }
+----
+
+En appuyant sur les 2 boutons Reset et Flash et en ne relachant que le bouton Reset, votre ESP8266 est prêt à être flashé.
+Cliquez sur l'icône 'Téléverser' de l'IDE Arduino et le programme est compilé puis uploadé sur votre ESP8266.
+Le programme démarre tout seul lorsque l'upload est terminé.
+
+Vous pouvez utiliser le terminal série de l'IDE Arduino (en 115200) pour vérifier les sorties 'Led on ...' et 'Led off ...'
+
+== Exemple de pilotage des GPIO via le Wifi
+Vous me direz, c'est bien beau de faire clignoter une Led mais pour le moment, on n'a pas encore utiliser la connectivité Wifi de notre ESP8266.
+Au delà du faible coût, c'est quand même cette fonctionnalité qui est super intéressante sur l'ESP8266.
+
+Notre second programme va donc être de piloter la led à travers un serveur Web embarqué dans l'ESP8266.
+Une simple requête HTTP nous permettra donc d'allumer ou d'éteindre notre Led.
+
+Pour cela, direction http://arduino.esp8266.com/stable/doc/reference.html[la doc officielle de l'API] !
+Vous pouvez aussi vous appuyer sur ce document plutôt complet : http://neilkolban.com/tech/wp-content/uploads/2015/09/Kolbans-Book-on-the-ESP8266-September-2015.pdf
+
+Le code du second programme est ci-dessous. Il est assez simple pour être suffisament explicite.
+La console série vous permettra d'obtenir l'adresse IP de votre ESP8266 au démarrage.
+
+[source,c]
+----
+  #include <ESP8266WiFi.h>
+  #include <WiFiClient.h>
+  #include <ESP8266WebServer.h>
+
+  // Constantes Wifi
+  const char* ssid = "ssid";
+  const char* password = "password";
+
+  // Variables globales
+  int ledPin = 5;               // Pin de pilotage de la lod
+  ESP8266WebServer server(80);  // Instance du serveur Web
+
+  void handleRoot() {
+    Serial.println("HTTP GET /");
+    String message = "<html><body><h1>Bienvenue sur votre ESP8266 !</h1>";
+    message += "<ul><li><a href='/on'>Led on</a></li>";
+    message += "<li><a href='/off'>Led off</a></li></ul></body></html>";
+    server.send(200, "text/html", message);
+  }
+
+  void handleLedOn() {
+    Serial.println("HTTP /on -> Led on");
+    digitalWrite(ledPin, HIGH);
+    server.send(200, "text/html", "<html><body><h1>Led On !</h1></html>");
+  }
+
+  void handleLedOff() {
+    Serial.println("HTTP /off -> Led off");
+    digitalWrite(ledPin, LOW);
+    server.send(200, "text/html", "<html><body><h1>Led Off !</h1></html>");
+  }
+
+  void handleNotFound(){
+    String message = "<html><body><h1>Not Found !!</h1></body></html>";
+    server.send(404, "text/html", message);
+  }
+
+  void setup() {
+    // Initialisation du port série (pour débugguer)
+    Serial.begin(115200);
+    Serial.println();
+    Serial.println("Starting ...");com
+
+    // Initialisation du GPIO5 en sortie
+    pinMode(ledPin, OUTPUT);
+
+    // Initialisation de la connexion Wifi
+    WiFi.begin(ssid, password);
+    Serial.println("");
+
+    // Attente de la connexion
+    while (WiFi.status() != WL_CONNECTED) {
+      delay(500);
+      Serial.print(".");
+    }
+    Serial.println("");
+    Serial.print("Connecté au SSID : ");
+    Serial.println(ssid);
+    Serial.print("Adresse IP : ");
+    Serial.println(WiFi.localIP());
+
+    // Routage des requêtes HTTP
+    server.on("/", handleRoot);
+    server.on("/on", handleLedOn);
+    server.on("/off", handleLedOff);
+    server.onNotFound(handleNotFound);
+    server.begin();
+    Serial.println("Serveur HTTP démarré");
+  }
+
+  void loop() {
+    server.handleClient();
+  }
+----
+
+Pour le tester, vous pouvez utiliser les commandes Curl suivantes :
+
+* +curl http://<ip>+
+* +curl -X POST http://<ip>/on+
+* +curl -X POST http://<ip>/off+
+
+
+== Conclusion
+
+Voilà ! Vous avez maintenant prêt à créer votre super montage que vous avez imaginer sur Arduino ... en le connectant au Web très facilement.
+Vous pouvez continuer en regardant tous les exemples fournis. Vous verrez que vous pouvre même faire un portail captif très facilement.
+
+A vous de jouer maintenant !
