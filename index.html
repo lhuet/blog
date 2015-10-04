@@ -66,12 +66,12 @@
                 <div class="col-xs-12 col-md-8"><h1>Java dans le hard(ware)</h1></div>
             </div>
 	</div>
-  			<a href="/blog/2015/09/esp8266-wiring-and-flashing.html"><h1>Programmez votre ESP8266 comme un arduino !</h1></a>
+  			<a href="/blog/2015/09/esp8266-with-arduino-ide.html"><h1>Programmez votre ESP8266 comme un arduino !</h1></a>
   			<p>29 septembre 2015</p>
 
-                        <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://lhuet.github.io/blog/2015/09/esp8266-wiring-and-flashing.html" data-text="Programmez votre ESP8266 comme un arduino !" data-via="lhuet35" data-lang="fr">Tweeter</a>
+                        <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://lhuet.github.io/blog/2015/09/esp8266-with-arduino-ide.html" data-text="Programmez votre ESP8266 comme un arduino !" data-via="lhuet35" data-lang="fr">Tweeter</a>
                         <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
-                        <div class="g-plusone" data-size="medium" data-href="http://lhuet.github.io/blog/2015/09/esp8266-wiring-and-flashing.html"></div>
+                        <div class="g-plusone" data-size="medium" data-href="http://lhuet.github.io/blog/2015/09/esp8266-with-arduino-ide.html"></div>
 
   			<p><div id="preamble">
 <div class="sectionbody">
@@ -218,24 +218,8 @@ Une simple requête HTTP nous permettra donc d&#8217;allumer ou d'éteindre notr
 Vous pouvez aussi vous appuyer sur ce document plutôt complet : <a href="http://neilkolban.com/tech/wp-content/uploads/2015/09/Kolbans-Book-on-the-ESP8266-September-2015.pdf">http://neilkolban.com/tech/wp-content/uploads/2015/09/Kolbans-Book-on-the-ESP8266-September-2015.pdf</a></p>
 </div>
 <div class="paragraph">
-<p>Voici donc le code du second programme. Il est suffisamment simple pour se lire tout seul.
+<p>Le code du second programme est ci-dessous. Il est assez simple pour être suffisament explicite.
 La console série vous permettra d&#8217;obtenir l&#8217;adresse IP de votre ESP8266 au démarrage.</p>
-</div>
-<div class="paragraph">
-<p>Pour le tester, vous pouvez utiliser les commandes Curl suivantes :</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>curl <a href="http://&lt;ip&gt;">http://&lt;ip&gt;</a></code></p>
-</li>
-<li>
-<p><code>curl -X POST <a href="http://&lt;ip&gt;/on">http://&lt;ip&gt;/on</a></code></p>
-</li>
-<li>
-<p><code>curl -X POST <a href="http://&lt;ip&gt;/off">http://&lt;ip&gt;/off</a></code></p>
-</li>
-</ul>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -253,34 +237,26 @@ La console série vous permettra d&#8217;obtenir l&#8217;adresse IP de votre ESP
 
   void handleRoot() {
     Serial.println("HTTP GET /");
-    server.send(200, "text/html", "&lt;html&gt;&lt;body&gt;&lt;h1&gt;Bienvenue sur votre ESP8266 !&lt;/h1&gt;&lt;/html&gt;");
+    String message = "&lt;html&gt;&lt;body&gt;&lt;h1&gt;Bienvenue sur votre ESP8266 !&lt;/h1&gt;";
+    message += "&lt;ul&gt;&lt;li&gt;&lt;a href='/on'&gt;Led on&lt;/a&gt;&lt;/li&gt;";
+    message += "&lt;li&gt;&lt;a href='/off'&gt;Led off&lt;/a&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;";
+    server.send(200, "text/html", message);
   }
 
   void handleLedOn() {
-    Serial.println("HTTP POST /on -&gt; Led on");
+    Serial.println("HTTP /on -&gt; Led on");
     digitalWrite(ledPin, HIGH);
     server.send(200, "text/html", "&lt;html&gt;&lt;body&gt;&lt;h1&gt;Led On !&lt;/h1&gt;&lt;/html&gt;");
   }
 
   void handleLedOff() {
-    Serial.println("HTTP POST /off -&gt; Led off");
+    Serial.println("HTTP /off -&gt; Led off");
     digitalWrite(ledPin, LOW);
     server.send(200, "text/html", "&lt;html&gt;&lt;body&gt;&lt;h1&gt;Led Off !&lt;/h1&gt;&lt;/html&gt;");
   }
 
   void handleNotFound(){
-    String message = "&lt;html&gt;&lt;body&gt;&lt;h1&gt;Not Found !!&lt;/h1&gt;";
-    message += "&lt;ul&gt;&lt;li&gt;URI: ";
-    message += server.uri();
-    message += "&lt;/li&gt;&lt;li&gt;Method: ";
-    message += (server.method() == HTTP_GET)?"GET":"POST";
-    message += "&lt;/li&gt;&lt;li&gt;Arguments: ";
-    message += server.args();
-    message += "&lt;ul&gt;";
-    for (uint8_t i=0; i&lt;server.args(); i++){
-      message += "&lt;li&gt;" + server.argName(i) + ": " + server.arg(i) + "&lt;/li&gt;";
-    }
-    message += "&lt;/ul&gt;&lt;/li&gt;&lt;/ul&gt;&lt;/body&gt;&lt;/html&gt;";
+    String message = "&lt;html&gt;&lt;body&gt;&lt;h1&gt;Not Found !!&lt;/h1&gt;&lt;/body&gt;&lt;/html&gt;";
     server.send(404, "text/html", message);
   }
 
@@ -310,8 +286,8 @@ La console série vous permettra d&#8217;obtenir l&#8217;adresse IP de votre ESP
 
     // Routage des requêtes HTTP
     server.on("/", handleRoot);
-    server.on("/on", HTTP_POST, handleLedOn);
-    server.on("/off", HTTP_POST, handleLedOff);
+    server.on("/on", handleLedOn);
+    server.on("/off", handleLedOff);
     server.onNotFound(handleNotFound);
     server.begin();
     Serial.println("Serveur HTTP démarré");
@@ -321,6 +297,22 @@ La console série vous permettra d&#8217;obtenir l&#8217;adresse IP de votre ESP
     server.handleClient();
   }</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>Pour le tester, vous pouvez utiliser les commandes Curl suivantes :</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>curl <a href="http://&lt;ip&gt;">http://&lt;ip&gt;</a></code></p>
+</li>
+<li>
+<p><code>curl -X POST <a href="http://&lt;ip&gt;/on">http://&lt;ip&gt;/on</a></code></p>
+</li>
+<li>
+<p><code>curl -X POST <a href="http://&lt;ip&gt;/off">http://&lt;ip&gt;/off</a></code></p>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -336,7 +328,7 @@ Vous pouvez continuer en regardant tous les exemples fournis. Vous verrez que vo
 </div>
 </div>
 </div></p>
-                        <p><a href="/blog/2015/09/esp8266-wiring-and-flashing.html#disqus_thread">Commentaires</a></p>
+                        <p><a href="/blog/2015/09/esp8266-with-arduino-ide.html#disqus_thread">Commentaires</a></p>
   			<a href="/blog/2015/06/esp8266-wiring-and-flashing.html"><h1>Cabler et Flasher son ESP8266</h1></a>
   			<p>28 juin 2015</p>
 

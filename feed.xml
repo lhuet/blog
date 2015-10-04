@@ -6,14 +6,14 @@
     <atom:link href="http://lhuet.github.io/blog/feed.xml" rel="self" type="application/rss+xml" />
     <description>Java dans le hard(ware)</description>
     <language>en-gb</language>
-    <pubDate>dim., 4 oct. 2015 23:29:39 +0200</pubDate>
-    <lastBuildDate>dim., 4 oct. 2015 23:29:39 +0200</lastBuildDate>
+    <pubDate>dim., 4 oct. 2015 23:55:15 +0200</pubDate>
+    <lastBuildDate>dim., 4 oct. 2015 23:55:15 +0200</lastBuildDate>
 
     <item>
       <title>Programmez votre ESP8266 comme un arduino !</title>
-      <link>http://lhuet.github.io/blog/2015/09/esp8266-wiring-and-flashing.html</link>
+      <link>http://lhuet.github.io/blog/2015/09/esp8266-with-arduino-ide.html</link>
       <pubDate>mar., 29 sept. 2015 00:00:00 +0200</pubDate>
-      <guid isPermaLink="false">http://lhuet.github.io/blog/2015/09/esp8266-wiring-and-flashing.html</guid>
+      <guid isPermaLink="false">http://lhuet.github.io/blog/2015/09/esp8266-with-arduino-ide.html</guid>
       	<description>
 	&lt;div id=&quot;preamble&quot;&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
@@ -160,24 +160,8 @@ Une simple requête HTTP nous permettra donc d&amp;#8217;allumer ou d&apos;étei
 Vous pouvez aussi vous appuyer sur ce document plutôt complet : &lt;a href=&quot;http://neilkolban.com/tech/wp-content/uploads/2015/09/Kolbans-Book-on-the-ESP8266-September-2015.pdf&quot;&gt;http://neilkolban.com/tech/wp-content/uploads/2015/09/Kolbans-Book-on-the-ESP8266-September-2015.pdf&lt;/a&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Voici donc le code du second programme. Il est suffisamment simple pour se lire tout seul.
+&lt;p&gt;Le code du second programme est ci-dessous. Il est assez simple pour être suffisament explicite.
 La console série vous permettra d&amp;#8217;obtenir l&amp;#8217;adresse IP de votre ESP8266 au démarrage.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Pour le tester, vous pouvez utiliser les commandes Curl suivantes :&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;ulist&quot;&gt;
-&lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;curl &lt;a href=&quot;http://&amp;lt;ip&amp;gt;&quot;&gt;http://&amp;lt;ip&amp;gt;&lt;/a&gt;&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;curl -X POST &lt;a href=&quot;http://&amp;lt;ip&amp;gt;/on&quot;&gt;http://&amp;lt;ip&amp;gt;/on&lt;/a&gt;&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;&lt;code&gt;curl -X POST &lt;a href=&quot;http://&amp;lt;ip&amp;gt;/off&quot;&gt;http://&amp;lt;ip&amp;gt;/off&lt;/a&gt;&lt;/code&gt;&lt;/p&gt;
-&lt;/li&gt;
-&lt;/ul&gt;
 &lt;/div&gt;
 &lt;div class=&quot;listingblock&quot;&gt;
 &lt;div class=&quot;content&quot;&gt;
@@ -195,34 +179,26 @@ La console série vous permettra d&amp;#8217;obtenir l&amp;#8217;adresse IP de v
 
   void handleRoot() {
     Serial.println(&quot;HTTP GET /&quot;);
-    server.send(200, &quot;text/html&quot;, &quot;&amp;lt;html&amp;gt;&amp;lt;body&amp;gt;&amp;lt;h1&amp;gt;Bienvenue sur votre ESP8266 !&amp;lt;/h1&amp;gt;&amp;lt;/html&amp;gt;&quot;);
+    String message = &quot;&amp;lt;html&amp;gt;&amp;lt;body&amp;gt;&amp;lt;h1&amp;gt;Bienvenue sur votre ESP8266 !&amp;lt;/h1&amp;gt;&quot;;
+    message += &quot;&amp;lt;ul&amp;gt;&amp;lt;li&amp;gt;&amp;lt;a href=&apos;/on&apos;&amp;gt;Led on&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;&quot;;
+    message += &quot;&amp;lt;li&amp;gt;&amp;lt;a href=&apos;/off&apos;&amp;gt;Led off&amp;lt;/a&amp;gt;&amp;lt;/li&amp;gt;&amp;lt;/ul&amp;gt;&amp;lt;/body&amp;gt;&amp;lt;/html&amp;gt;&quot;;
+    server.send(200, &quot;text/html&quot;, message);
   }
 
   void handleLedOn() {
-    Serial.println(&quot;HTTP POST /on -&amp;gt; Led on&quot;);
+    Serial.println(&quot;HTTP /on -&amp;gt; Led on&quot;);
     digitalWrite(ledPin, HIGH);
     server.send(200, &quot;text/html&quot;, &quot;&amp;lt;html&amp;gt;&amp;lt;body&amp;gt;&amp;lt;h1&amp;gt;Led On !&amp;lt;/h1&amp;gt;&amp;lt;/html&amp;gt;&quot;);
   }
 
   void handleLedOff() {
-    Serial.println(&quot;HTTP POST /off -&amp;gt; Led off&quot;);
+    Serial.println(&quot;HTTP /off -&amp;gt; Led off&quot;);
     digitalWrite(ledPin, LOW);
     server.send(200, &quot;text/html&quot;, &quot;&amp;lt;html&amp;gt;&amp;lt;body&amp;gt;&amp;lt;h1&amp;gt;Led Off !&amp;lt;/h1&amp;gt;&amp;lt;/html&amp;gt;&quot;);
   }
 
   void handleNotFound(){
-    String message = &quot;&amp;lt;html&amp;gt;&amp;lt;body&amp;gt;&amp;lt;h1&amp;gt;Not Found !!&amp;lt;/h1&amp;gt;&quot;;
-    message += &quot;&amp;lt;ul&amp;gt;&amp;lt;li&amp;gt;URI: &quot;;
-    message += server.uri();
-    message += &quot;&amp;lt;/li&amp;gt;&amp;lt;li&amp;gt;Method: &quot;;
-    message += (server.method() == HTTP_GET)?&quot;GET&quot;:&quot;POST&quot;;
-    message += &quot;&amp;lt;/li&amp;gt;&amp;lt;li&amp;gt;Arguments: &quot;;
-    message += server.args();
-    message += &quot;&amp;lt;ul&amp;gt;&quot;;
-    for (uint8_t i=0; i&amp;lt;server.args(); i++){
-      message += &quot;&amp;lt;li&amp;gt;&quot; + server.argName(i) + &quot;: &quot; + server.arg(i) + &quot;&amp;lt;/li&amp;gt;&quot;;
-    }
-    message += &quot;&amp;lt;/ul&amp;gt;&amp;lt;/li&amp;gt;&amp;lt;/ul&amp;gt;&amp;lt;/body&amp;gt;&amp;lt;/html&amp;gt;&quot;;
+    String message = &quot;&amp;lt;html&amp;gt;&amp;lt;body&amp;gt;&amp;lt;h1&amp;gt;Not Found !!&amp;lt;/h1&amp;gt;&amp;lt;/body&amp;gt;&amp;lt;/html&amp;gt;&quot;;
     server.send(404, &quot;text/html&quot;, message);
   }
 
@@ -252,8 +228,8 @@ La console série vous permettra d&amp;#8217;obtenir l&amp;#8217;adresse IP de v
 
     // Routage des requêtes HTTP
     server.on(&quot;/&quot;, handleRoot);
-    server.on(&quot;/on&quot;, HTTP_POST, handleLedOn);
-    server.on(&quot;/off&quot;, HTTP_POST, handleLedOff);
+    server.on(&quot;/on&quot;, handleLedOn);
+    server.on(&quot;/off&quot;, handleLedOff);
     server.onNotFound(handleNotFound);
     server.begin();
     Serial.println(&quot;Serveur HTTP démarré&quot;);
@@ -263,6 +239,22 @@ La console série vous permettra d&amp;#8217;obtenir l&amp;#8217;adresse IP de v
     server.handleClient();
   }&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Pour le tester, vous pouvez utiliser les commandes Curl suivantes :&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;curl &lt;a href=&quot;http://&amp;lt;ip&amp;gt;&quot;&gt;http://&amp;lt;ip&amp;gt;&lt;/a&gt;&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;curl -X POST &lt;a href=&quot;http://&amp;lt;ip&amp;gt;/on&quot;&gt;http://&amp;lt;ip&amp;gt;/on&lt;/a&gt;&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;curl -X POST &lt;a href=&quot;http://&amp;lt;ip&amp;gt;/off&quot;&gt;http://&amp;lt;ip&amp;gt;/off&lt;/a&gt;&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
