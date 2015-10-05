@@ -6,8 +6,8 @@
     <atom:link href="http://lhuet.github.io/blog/feed.xml" rel="self" type="application/rss+xml" />
     <description>Java dans le hard(ware)</description>
     <language>en-gb</language>
-    <pubDate>dim., 4 oct. 2015 23:55:15 +0200</pubDate>
-    <lastBuildDate>dim., 4 oct. 2015 23:55:15 +0200</lastBuildDate>
+    <pubDate>lun., 5 oct. 2015 21:11:57 +0200</pubDate>
+    <lastBuildDate>lun., 5 oct. 2015 21:11:57 +0200</lastBuildDate>
 
     <item>
       <title>Programmez votre ESP8266 comme un arduino !</title>
@@ -263,7 +263,7 @@ La console série vous permettra d&amp;#8217;obtenir l&amp;#8217;adresse IP de v
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Voilà ! Vous avez maintenant prêt à créer votre super montage que vous avez imaginer sur Arduino &amp;#8230; en le connectant au Web très facilement.
-Vous pouvez continuer en regardant tous les exemples fournis. Vous verrez que vous pouvre même faire un portail captif très facilement.&lt;/p&gt;
+Vous pouvez continuer en regardant tous les exemples fournis. Vous verrez que vous pourrez même faire un portail captif très facilement.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;A vous de jouer maintenant !&lt;/p&gt;
