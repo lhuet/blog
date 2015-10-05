@@ -182,6 +182,6 @@ Pour le tester, vous pouvez utiliser les commandes Curl suivantes :
 == Conclusion
 
 Voilà ! Vous avez maintenant prêt à créer votre super montage que vous avez imaginer sur Arduino ... en le connectant au Web très facilement.
-Vous pouvez continuer en regardant tous les exemples fournis. Vous verrez que vous pouvre même faire un portail captif très facilement.
+Vous pouvez continuer en regardant tous les exemples fournis. Vous verrez que vous pourrez même faire un portail captif très facilement.
 
 A vous de jouer maintenant !
